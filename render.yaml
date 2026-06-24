@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: assemblee-nationale
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn dash_app:server
+    plan: free
