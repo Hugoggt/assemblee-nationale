@@ -1,0 +1,36 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Environment
+.env
+.env.*
+
+# Claude Code
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# App logs
+app_out.txt
+app_err.txt
+
+# One-off fix scripts (not needed in production)
+fix_*.py
+inspect_data.py
+diag.py

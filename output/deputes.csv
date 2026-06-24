@@ -1,0 +1,578 @@
+id,prenom,nom,date_naissance,age,profession,groupe,groupe_abrev,departement,circonscription
+PA793214,Audrey,Abadie-Amiel,1974-11-16,51,Enseignante,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Ariège,2
+PA795228,Nadège,Abomangoli,1975-09-15,50,Contrôleure interne et risk manager,La France insoumise - Nouveau Front Populaire,LFI-NFP,Seine-Saint-Denis,10
+PA794278,Xavier,Albertini,1970-01-28,56,Profession libérale,Horizons & Indépendants,HOR,Marne,1
+PA793262,Laurent,Alexandre,1973-06-09,53,Ouvrier qualifié de type industriel,La France insoumise - Nouveau Front Populaire,LFI-NFP,Aveyron,2
+PA793992,Henri,Alfandari,1979-10-02,46,"Ancien artisan, commerçant, chef d'entreprise",Horizons & Indépendants,HOR,Indre-et-Loire,3
+PA841067,Alexandre,Allegret-Pilot,1989-01-11,37,(33) - Cadre de la fonction publique,Union des droites pour la République,UDDPLR,Gard,5
+PA840665,Marie-José,Allemand,1970-01-27,56,(12) - Agriculteur sur moyenne exploitation,Socialistes et apparentés,SOC,Hautes-Alpes,1
+PA793432,Franck,Allisio,1980-08-04,45,Profession libérale,Rassemblement National,RN,Bouches-du-Rhône,12
+PA841207,Charles,Alloncle,1993-10-21,32,(37) - Cadre administratif et commercial d'entreprise,Union des droites pour la République,UDDPLR,Hérault,9
+PA794906,Gabriel,Amard,1967-05-05,59,Cadre administratif et commercial d'entreprise,La France insoumise - Nouveau Front Populaire,LFI-NFP,Rhône,6
+PA841495,Maxime,Amblard,1996-09-06,29,(38) - Ingénieur et cadre technique d'entreprise,Rassemblement National,RN,Meuse,1
+PA794138,Ségolène,Amiot,1986-02-23,40,Employé administratif d'entreprise,La France insoumise - Nouveau Front Populaire,LFI-NFP,Loire-Atlantique,3
+PA610968,Pouria,Amirshahi,1972-03-27,54,Cadre territorial de catégorie A,Écologiste et Social,ECOS,Paris,5
+PA795588,Farida,Amrani,1976-09-03,49,Cadre de la fonction publique,La France insoumise - Nouveau Front Populaire,LFI-NFP,Essonne,1
+PA721158,Pieyre-Alexandre,Anglade,1986-11-02,39,Agent contractuel au Parlement européen,Ensemble pour la République,EPR,Français établis hors de France,4
+PA795084,Rodrigo,Arenas,1974-04-24,52,Cadre de la fonction publique,La France insoumise - Nouveau Front Populaire,LFI-NFP,Paris,10
+PA842105,Raphaël,Arnault,1995-01-08,31,(52) - Employé civil et agent de service de la fonction publique,La France insoumise - Nouveau Front Populaire,LFI-NFP,Vaucluse,1
+PA793780,Christine,Arrighi,1959-09-19,66,Ancien cadre,Écologiste et Social,ECOS,Haute-Garonne,9
+PA722190,Gabriel,Attal,1989-03-16,37,Consultant,Ensemble pour la République,EPR,Hauts-de-Seine,10
+PA588884,Clémentine,Autain,1973-05-26,53,Journaliste et autre média,Écologiste et Social,ECOS,Seine-Saint-Denis,11
+PA796118,Bénédicte,Auzanot,1972-08-05,53,(85) - Personne diverse sans activité professionnelle de moins de 60 ans (sauf r,Rassemblement National,RN,Vaucluse,2
+PA642764,Joël,Aviragnet,1956-06-16,70,Directeur d'un établissement pour l'enfance handicapée,Socialistes et apparentés,SOC,Haute-Garonne,8
+PA841701,Léa,Balage El Mariky,1990-04-09,36,(37) - Cadre administratif et commercial d'entreprise,Écologiste et Social,ECOS,Paris,3
+PA719558,Erwan,Balanant,1971-02-21,55,Photographe et réalisateur,Les Démocrates,DEM,Finistère,8
+PA794562,Philippe,Ballard,1960-11-24,65,Ancien journaliste,Rassemblement National,RN,Oise,2
+PA842279,Anchya,Bamana,1971-03-12,55,(33) - Cadre de la fonction publique,Rassemblement National,RN,Mayotte,2
+PA720256,Géraldine,Bannier,1979-11-22,46,Professeur du secondaire et technique,Les Démocrates,DEM,Mayenne,2
+PA643143,Christian,Baptiste,1962-06-18,64,Directeur d'association,Socialistes et apparentés,SOC,Guadeloupe,2
+PA368,Michel,Barnier,1951-01-09,75,Ancien Premier ministre,Droite Républicaine,DR,Paris,2
+PA840829,Fabrice,Barusseau,1970-06-01,56,"(34) - Professeur, profession scientifique",Socialistes et apparentés,SOC,Charente-Maritime,3
+PA267763,Jean-Pierre,Bataille,1963-10-24,62,Pharmacien,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Nord,15
+PA335999,Delphine,Batho,1973-03-23,53,Cadre territorial,Écologiste et Social,ECOS,Deux-Sèvres,2
+PA342415,Marie-Noëlle,Battistel,1956-08-20,69,Autre cadre (secteur privé),Socialistes et apparentés,SOC,Isère,4
+PA793374,Romain,Baubry,1989-01-28,37,Policier et militaire,Rassemblement National,RN,Bouches-du-Rhône,15
+PA606793,Laurent,Baumel,1965-08-13,60,Cadre supérieur du secteur public,Socialistes et apparentés,SOC,Indre-et-Loire,4
+PA642847,Thibault,Bazin,1984-10-27,41,Autre cadre (secteur privé),Droite Républicaine,DR,Meurthe-et-Moselle,4
+PA718884,Valérie,Bazin-Malgras,1969-10-31,56,Commerçante,Droite Républicaine,DR,Aube,2
+PA793158,José,Beaurain,1971-07-27,54,Artisan,Rassemblement National,RN,Aisne,4
+PA642935,Olivier,Becht,1976-04-28,50,Magistrat,Ensemble pour la République,EPR,Haut-Rhin,5
+PA720362,Belkhir,Belhaddad,1969-07-09,56,Industriel-Chef d'entreprise,Socialistes et apparentés,SOC,Moselle,1
+PA842211,Béatrice,Bellay,1975-07-25,50,(33) - Cadre de la fonction publique,Socialistes et apparentés,SOC,Martinique,3
+PA795362,Lisa,Belluco,1988-07-20,37,Cadre de la fonction publique,Écologiste et Social,ECOS,Vienne,1
+PA841657,Anaïs,Belouassa-Cherifi,1995-02-07,31,(37) - Cadre administratif et commercial d'entreprise,La France insoumise - Nouveau Front Populaire,LFI-NFP,Rhône,1
+PA795454,Karim,Ben Cheikh,1977-03-19,49,Cadre de la fonction publique,Écologiste et Social,ECOS,Français établis hors de France,9
+PA841315,Karim,Benbrahim,1980-04-13,46,(38) - Ingénieur et cadre technique d'entreprise,Socialistes et apparentés,SOC,Loire-Atlantique,1
+PA332228,Thierry,Benoit,1966-09-13,59,Représentant de commerce,Horizons & Indépendants,HOR,Ille-et-Vilaine,6
+PA841531,Shéhérazade,Bentorki,1986-11-06,39,Collaboratrice parlementaire,La France insoumise - Nouveau Front Populaire,LFI-NFP,Nord,8
+PA794434,Christophe,Bentz,1987-07-04,38,"Professeur, profession scientifique",Rassemblement National,RN,Haute-Marne,1
+PA805166,Anne,Bergantz,1968-09-17,57,responsable de service social,Les Démocrates,DEM,Yvelines,2
+PA720430,Ugo,Bernalicis,1989-09-25,36,Fonctionnaire de catégorie A,La France insoumise - Nouveau Front Populaire,LFI-NFP,Nord,2
+PA841645,Théo,Bernhardt,2000-06-29,25,Ingénieur de recherche,Rassemblement National,RN,Bas-Rhin,8
+PA687214,Sylvain,Berrios,1968-05-06,58,(33) - Cadre de la fonction publique,Horizons & Indépendants,HOR,Val-de-Marne,1
+PA719218,Hervé,Berville,1990-01-15,36,Economiste,Ensemble pour la République,EPR,Côtes-d'Armor,2
+PA309643,Véronique,Besse,1963-08-11,62,Journaliste,Non inscrit,NI,Vendée,4
+PA793772,Christophe,Bex,1961-11-14,64,Retraité,La France insoumise - Nouveau Front Populaire,LFI-NFP,Haute-Garonne,7
+PA842001,Guillaume,Bigot,1969-11-14,56,"(35) - Profession de l'information, des arts et des spectacles",Rassemblement National,RN,Territoire de Belfort,2
+PA720822,Bruno,Bilde,1976-09-22,49,Juriste,Rassemblement National,RN,Pas-de-Calais,12
+PA795616,Carlos Martens,Bilongo,1990-12-31,35,"Professeur, profession scientifique",La France insoumise - Nouveau Front Populaire,LFI-NFP,Val-d'Oise,8
+PA840997,Benoît,Biteau,1967-04-07,59,(12) - Agriculteur sur moyenne exploitation,Écologiste et Social,ECOS,Charente-Maritime,2
+PA720668,Emmanuel,Blairy,1986-03-14,40,Fonctionnaire territorial,Rassemblement National,RN,Pas-de-Calais,1
+PA794886,Sophie,Blanc,1968-02-20,58,Profession libérale,Rassemblement National,RN,Pyrénées-Orientales,1
+PA842183,Benoît,Blanchard,1961-05-01,65,Directeur d'un laboratoire de recherche,Horizons & Indépendants,HOR,Val-d'Oise,4
+PA719024,Christophe,Blanchet,1973-04-09,53,Commerçant,Les Démocrates,DEM,Calvados,4
+PA774954,Anne-Laure,Blin,1983-06-12,43,Juriste,Droite Républicaine,DR,Maine-et-Loire,3
+PA840889,Matthieu,Bloch,1983-04-26,43,(37) - Cadre administratif et commercial d'entreprise,Union des droites pour la République,UDDPLR,Doubs,3
+PA796042,Frédéric,Boccaletti,1973-11-23,52,(85) - Personne diverse sans activité professionnelle de moins de 60 ans,Rassemblement National,RN,Var,7
+PA841543,Jean,Bodart,1946-02-21,80,Retraité de la sidérurgie,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Nord,13
+PA793444,Manuel,Bompard,1986-03-30,40,Ingénieur,La France insoumise - Nouveau Front Populaire,LFI-NFP,Bouches-du-Rhône,4
+PA569,Philippe,Bonnecarrère,1955-07-12,70,Avocat,Non inscrit,NI,Tarn,1
+PA841885,Arnaud,Bonnet,1977-02-23,49,"(34) - Professeur, profession scientifique",Écologiste et Social,ECOS,Seine-et-Marne,8
+PA841507,Nicolas,Bonnet,1981-02-11,45,(38) - Ingénieur et cadre technique d'entreprise,Écologiste et Social,ECOS,Puy-de-Dôme,3
+PA719968,Sylvie,Bonnet,1969-12-21,56,Collaboratrice parlementaire,Droite Républicaine,DR,Loire,4
+PA721410,Émilie,Bonnivard,1980-08-02,45,Cadre à la Caisse des Dépôts et Consignations,Droite Républicaine,DR,Savoie,3
+PA266793,Jean-Yves,Bony,1955-03-11,71,Exploitant agricole,Droite Républicaine,DR,Cantal,2
+PA717161,Élisabeth,Borne,1961-04-18,65,Ingénieur et cadre technique d'entreprise,Ensemble pour la République,EPR,Calvados,6
+PA642695,Éric,Bothorel,1966-10-20,59,Cadre supérieur (secteur privé),Ensemble pour la République,EPR,Côtes-d'Armor,5
+PA721816,Ian,Boucard,1988-05-05,38,Autre cadre (secteur privé),Droite Républicaine,DR,Territoire de Belfort,1
+PA606507,Florent,Boudié,1973-09-22,52,Cadre supérieur du secteur public,Ensemble pour la République,EPR,Gironde,10
+PA841487,Anthony,Boulogne,1993-06-08,33,(37) - Cadre administratif et commercial d'entreprise,Rassemblement National,RN,Meurthe-et-Moselle,6
+PA794094,Mickaël,Bouloux,1972-08-16,53,Ingénieur et cadre technique d'entreprise,Socialistes et apparentés,SOC,Ille-et-Vilaine,8
+PA794938,Idir,Boumertit,1974-10-04,51,Employé administratif d'entreprise,La France insoumise - Nouveau Front Populaire,LFI-NFP,Rhône,14
+PA841131,Manon,Bouquin,1992-06-02,34,(33) - Cadre de la fonction publique,Rassemblement National,RN,Hérault,4
+PA342240,Jean-Luc,Bourgeaux,1963-04-10,63,Agriculteur,Droite Républicaine,DR,Ille-et-Vilaine,7
+PA720838,Soumya,Bourouaha,1964-03-16,62,Professeure,Gauche Démocrate et Républicaine,GDR,Seine-Saint-Denis,4
+PA719032,Bertrand,Bouyx,1970-05-26,56,Pharmacien,Horizons & Indépendants,HOR,Calvados,5
+PA793182,Jorys,Bovet,1993-03-30,33,Chauffeur-livreur,Rassemblement National,RN,Allier,2
+PA795318,Louis,Boyard,2000-08-26,25,"Elève, étudiant",La France insoumise - Nouveau Front Populaire,LFI-NFP,Val-de-Marne,3
+PA841339,Jean-Michel,Brard,1968-04-03,58,(22) - Commerçant et assimilé,Horizons & Indépendants,HOR,Loire-Atlantique,9
+PA721908,Yaël,Braun-Pivet,1970-12-07,55,Avocate,Ensemble pour la République,EPR,Yvelines,5
+PA840175,Dorine,Bregman,1962-03-04,64,Consultante en participation citoyenne,Socialistes et apparentés,SOC,Paris,7
+PA330008,Xavier,Breton,1962-11-25,63,Cadre territorial,Droite Républicaine,DR,Ain,1
+PA793508,Hubert,Brigand,1952-07-28,73,Ancienne profession intermédiaire,Droite Républicaine,DR,Côte-d'Or,4
+PA721336,Blandine,Brocard,1981-11-03,44,Employée (secteur privé),Les Démocrates,DEM,Rhône,5
+PA794330,Anthony,Brosse,1980-11-04,45,Profession intermédiaire de la santé et du travail social,Ensemble pour la République,EPR,Loiret,5
+PA794710,Julien,Brugerolles,1982-07-05,43,Collaborateur parlementaire,Gauche Démocrate et Républicaine,GDR,Puy-de-Dôme,5
+PA719890,Danielle,Brulebois,1947-07-04,78,Retraitée de l'enseignement,Ensemble pour la République,EPR,Jura,1
+PA718838,Fabrice,Brun,1968-04-02,58,Industriel-Chef d'entreprise,Droite Républicaine,DR,Ardèche,3
+PA793624,Philippe,Brun,1991-10-16,34,Magistrat administratif,Socialistes et apparentés,SOC,Eure,4
+PA840817,Joël,Bruneau,1963-09-07,62,(31) - Profession libérale,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Calvados,1
+PA722000,Stéphane,Buchou,1974-03-14,52,Cadre supérieur (secteur privé),Ensemble pour la République,EPR,Vendée,3
+PA794798,Françoise,Buffet,1953-12-11,72,"Ancien artisan, commerçant, chef d'entreprise",Ensemble pour la République,EPR,Bas-Rhin,4
+PA793134,Jérôme,Buisson,1973-01-15,53,Professeur d'italien,Rassemblement National,RN,Ain,4
+PA796106,Édouard,Bénard,1995-02-18,31,Collaborateur d'élu,Gauche Démocrate et Républicaine,GDR,Seine-Maritime,3
+PA841023,Pierre-Yves,Cadalen,1992-07-09,33,"(34) - Professeur, profession scientifique",La France insoumise - Nouveau Front Populaire,LFI-NFP,Finistère,2
+PA795762,Elie,Califer,1954-04-19,72,Ancien cadre,Socialistes et apparentés,SOC,Guadeloupe,4
+PA721750,Céline,Calvez,1979-07-24,46,Consultante communication,Ensemble pour la République,EPR,Hauts-de-Seine,5
+PA608264,Colette,Capdevielle,1958-10-14,67,Avocate,Socialistes et apparentés,SOC,Pyrénées-Atlantiques,5
+PA841973,Pierre-Henri,Carbonnel,1990-03-23,36,Agriculteur,Union des droites pour la République,UDDPLR,Tarn-et-Garonne,1
+PA796090,Aymeric,Caron,1971-12-04,54,"Profession de l'information, des arts et des spectacles",La France insoumise - Nouveau Front Populaire,LFI-NFP,Paris,18
+PA793912,Sylvain,Carrière,1991-05-21,35,Employé de commerce,La France insoumise - Nouveau Front Populaire,LFI-NFP,Hérault,8
+PA841801,Danièle,Carteron,1984-10-31,41,Cheffe d'entreprise,Ensemble pour la République,EPR,Haute-Savoie,2
+PA719138,Michel,Castellani,1945-09-28,80,Professeur des Universités,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Haute-Corse,1
+PA840075,Eddy,Casterman,1996-07-28,29,(37) - Cadre administratif et commercial d'entreprise,Rassemblement National,RN,Aisne,3
+PA795868,Jean-Victor,Castor,1962-04-21,64,Cadre technique d'entreprise,Gauche Démocrate et Républicaine,GDR,Guyane,1
+PA842187,Gabrielle,Cathala,1992-05-14,34,Secrétaire générale de groupe parlementaire,La France insoumise - Nouveau Front Populaire,LFI-NFP,Val-d'Oise,6
+PA842311,Vincent,Caure,1992-12-31,33,(33) - Cadre de la fonction publique,Ensemble pour la République,EPR,Français établis hors de France,3
+PA719922,Lionel,Causse,1971-05-06,55,Autre cadre (secteur privé),Ensemble pour la République,EPR,Landes,2
+PA719472,Jean-René,Cazeneuve,1958-06-09,68,Ingénieur,Ensemble pour la République,EPR,Gers,1
+PA795864,Pierre,Cazeneuve,1995-03-11,31,Cadre de la fonction publique,Ensemble pour la République,EPR,Hauts-de-Seine,7
+PA841047,François-Xavier,Ceccoli,1968-10-27,57,(23) - Chef d'entreprise de 10 salariés ou plus,Droite Républicaine,DR,Haute-Corse,2
+PA842037,Bérenger,Cernon,1988-05-02,38,"(65) - Ouvrier qualifié de la manutention, du magasinage et du transport",La France insoumise - Nouveau Front Populaire,LFI-NFP,Essonne,8
+PA718820,Pauline,Cestrières,1977-03-24,49,Agricultrice,Ensemble pour la République,EPR,Aveyron,1
+PA840701,Bernard,Chaix,1965-01-06,61,(22) - Commerçant et assimilé,Union des droites pour la République,UDDPLR,Alpes-Maritimes,3
+PA794008,Cyrielle,Chatelain,1987-07-15,38,Collaboratrice de cabinet,Écologiste et Social,ECOS,Isère,2
+PA840107,Bernard,Chaumeil,1958-09-30,67,Directeur des relations institutionnelles,Rassemblement National,RN,Hérault,7
+PA840721,Marc,Chavent,1968-06-28,57,(33) - Cadre de la fonction publique,Union des droites pour la République,UDDPLR,Ain,5
+PA841595,Cendrine,Chazé,1977-10-14,48,Secrétaire de mairie,Droite Républicaine,DR,Orne,3
+PA795908,Yannick,Chenevard,1959-11-27,66,Profession libérale,Ensemble pour la République,EPR,Var,1
+PA720468,Sébastien,Chenu,1973-04-13,53,Conseiller en communication,Rassemblement National,RN,Nord,19
+PA791812,Sophia,Chikirou,1979-06-03,47,Chef d'entreprise de 10 salariés ou plus,La France insoumise - Nouveau Front Populaire,LFI-NFP,Paris,6
+PA840903,Paul,Christophle,1987-02-03,39,(37) - Cadre administratif et commercial d'entreprise,Socialistes et apparentés,SOC,Drôme,1
+PA794198,Roger,Chudeau,1949-09-28,76,Inspecteur général de l'éducation nationale honoraire,Rassemblement National,RN,Loir-et-Cher,2
+PA330240,Éric,Ciotti,1965-09-28,60,(33) - Cadre de la fonction publique,Union des droites pour la République,UDDPLR,Alpes-Maritimes,1
+PA840159,Bruno,Clavet,1989-05-06,37,(45) - Profession intermédiaire administrative de la fonction publique,Rassemblement National,RN,Pas-de-Calais,3
+PA793736,Hadrien,Clouet,1991-07-13,34,Sociologue,La France insoumise - Nouveau Front Populaire,LFI-NFP,Haute-Garonne,1
+PA795402,Nathalie,Coggia,1977-07-16,48,Directrice financière et des opérations,Ensemble pour la République,EPR,Français établis hors de France,5
+PA841431,Nathalie,Colin-Oesterlé,1965-05-05,61,(31) - Profession libérale,Horizons & Indépendants,HOR,Moselle,3
+PA719286,Paul-André,Colombani,1967-08-17,58,Médecin,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Corse-du-Sud,2
+PA793548,Caroline,Colombier,1957-08-22,68,Ancienne avocate / Ancien cadre,Rassemblement National,RN,Charente,3
+PA721202,Éric,Coquerel,1958-12-30,67,Industriel-Chef d'entreprise,La France insoumise - Nouveau Front Populaire,LFI-NFP,Seine-Saint-Denis,1
+PA721210,Alexis,Corbière,1968-08-17,57,Professeur de lycée professionnel,Écologiste et Social,ECOS,Seine-Saint-Denis,7
+PA718850,Pierre,Cordier,1972-05-27,54,Fonctionnaire de catégorie A,Droite Républicaine,DR,Ardennes,2
+PA719118,François,Cormier-Bouligeon,1972-11-19,53,Juriste,Ensemble pour la République,EPR,Cher,1
+PA722390,Josiane,Corneloup,1959-09-30,66,Pharmacien,Droite Républicaine,DR,Saône-et-Loire,2
+PA793520,Mickaël,Cosson,1975-11-29,50,Chargé d'opérations urbanisme,Les Démocrates,DEM,Côtes-d'Armor,1
+PA795136,Jean-François,Coulomme,1966-04-01,60,Ingénieur commercial,La France insoumise - Nouveau Front Populaire,LFI-NFP,Savoie,4
+PA841295,Pierrick,Courbon,1985-07-08,40,(37) - Cadre administratif et commercial d'entreprise,Socialistes et apparentés,SOC,Loire,1
+PA794430,Michel,Criaud,1962-08-03,63,Maître menuisier à la retraite,Horizons & Indépendants,HOR,Morbihan,1
+PA793716,Laurent,Croizier,1975-01-29,51,"Professeur des écoles, instituteur et assimilé",Les Démocrates,DEM,Doubs,1
+PA793322,Christelle,D'Intorni,1985-05-02,41,Avocate,Union des droites pour la République,UDDPLR,Alpes-Maritimes,5
+PA795644,Nathalie,Da Conceicao Carvalho,1966-03-31,60,Profession libérale,Rassemblement National,RN,Essonne,2
+PA332523,Marie-Christine,Dalloz,1958-01-10,68,retraitée,Droite Républicaine,DR,Jura,2
+PA719914,Geneviève,Darrieussecq,1956-03-04,70,médecin,Les Démocrates,DEM,Landes,1
+PA793122,Romain,Daubié,1980-05-05,46,Avocat,Les Démocrates,DEM,Ain,2
+PA793452,Hendrik,Davi,1977-12-21,48,"Professeur, profession scientifique",Écologiste et Social,ECOS,Bouches-du-Rhône,5
+PA1008,Alain,David,1949-06-02,77,Ingénieur,Socialistes et apparentés,SOC,Gironde,4
+PA840119,Sandra,Delannoy,1974-05-01,52,(21) - Artisan,Non inscrit,NI,Nord,3
+PA793394,Arthur,Delaporte,1991-10-07,34,"Professeur, profession scientifique",Socialistes et apparentés,SOC,Calvados,2
+PA795430,Stéphane,Delautrette,1972-09-20,53,Ingénieur dans le domaine de l'environnement,Socialistes et apparentés,SOC,Haute-Vienne,2
+PA841059,Catherine,Dellong Meng,1960-05-04,66,Cadre territoriale de la fonction publique retraitée,Rassemblement National,RN,Gard,3
+PA793464,Sébastien,Delogu,1987-06-08,39,Sans profession,La France insoumise - Nouveau Front Populaire,LFI-NFP,Bouches-du-Rhône,7
+PA794982,Julie,Delpech,1989-09-25,36,Chargée de communication,Ensemble pour la République,EPR,Sarthe,1
+PA330909,Vincent,Descoeur,1962-12-13,63,Professeur agrégé de biologie,Droite Républicaine,DR,Cantal,1
+PA793166,Jocelyn,Dessigny,1981-06-29,44,Cadre administratif et commercial d'entreprise,Rassemblement National,RN,Aisne,5
+PA793928,Edwige,Diaz,1987-10-15,38,Cadre administratif et commercial d'entreprise,Rassemblement National,RN,Gironde,11
+PA841919,Dieynaba,Diop,1974-07-15,51,"(34) - Professeur, profession scientifique",Socialistes et apparentés,SOC,Yvelines,9
+PA842155,Aly,Diouara,1987-03-01,39,(33) - Cadre de la fonction publique,La France insoumise - Nouveau Front Populaire,LFI-NFP,Seine-Saint-Denis,5
+PA722382,Benjamin,Dirx,1979-01-25,47,Industriel-Chef d'entreprise,Ensemble pour la République,EPR,Saône-et-Loire,1
+PA712015,Julien,Dive,1985-05-21,41,Chef de projet dans l'industrie,Droite Républicaine,DR,Aisne,2
+PA794762,Sandrine,Dogor-Such,1970-11-08,55,Préparatrice en pharmacie,Rassemblement National,RN,Pyrénées-Orientales,3
+PA606573,Fanny,Dombre Coste,1956-12-26,69,Artisan Photographe,Socialistes et apparentés,SOC,Hérault,3
+PA793146,Nicolas,Dragon,1977-04-19,49,Profession libérale,Rassemblement National,RN,Aisne,1
+PA720154,Nicole,Dubré-Chirat,1951-12-18,74,Retraitée de la fonction publique hospitalière et chargée de formation,Ensemble pour la République,EPR,Maine-et-Loire,6
+PA608826,Virginie,Duby-Muller,1979-08-16,46,Cadre du secteur privé,Droite Républicaine,DR,Haute-Savoie,4
+PA841633,Peio,Dufau,1979-05-30,47,"(48) - Contremaître, agent de maîtrise",Socialistes et apparentés,SOC,Pyrénées-Atlantiques,6
+PA840135,Alexandre,Dufosset,1998-08-24,27,(54) - Employé administratif d'entreprise,Rassemblement National,RN,Nord,18
+PA795200,Alma,Dufour,1990-05-06,36,Responsable associative,La France insoumise - Nouveau Front Populaire,LFI-NFP,Seine-Maritime,4
+PA870009,Lionel,Duparay,1981-02-07,45,Ingénieur,Droite Républicaine,DR,Saône-et-Loire,5
+PA841351,Emmanuel,Duplessy,1990-01-02,36,(33) - Cadre de la fonction publique,Écologiste et Social,ECOS,Loiret,2
+PA643175,Stella,Dupont,1973-11-03,52,Comptable,Non inscrit,NI,Maine-et-Loire,2
+PA842073,Gaëtan,Dussausaye,1994-04-05,32,(55) - Employé de commerce,Rassemblement National,RN,Vosges,2
+PA841761,Aurélien,Dutremble,1978-12-23,47,(47) - Technicien hospitalier,Rassemblement National,RN,Saône-et-Loire,3
+PA794854,Iñaki,Echaniz,1993-09-02,32,Cadre de la fonction publique,Socialistes et apparentés,SOC,Pyrénées-Atlantiques,4
+PA720390,Jérôme,End,1979-04-09,47,Chargé de mission et d'études,Droite Républicaine,DR,Moselle,4
+PA794718,Christine,Engrand,1955-05-07,71,Cadre administratif et commercial d'entreprise,Non inscrit,NI,Pas-de-Calais,6
+PA795844,Karen,Erodi,1977-02-04,49,Profession libérale,La France insoumise - Nouveau Front Populaire,LFI-NFP,Tarn,2
+PA607193,Sophie,Errante,1971-07-22,54,Industriel-Chef d'entreprise,Non inscrit,NI,Loire-Atlantique,10
+PA842195,Romain,Eskenazi,1986-05-04,40,(33) - Cadre de la fonction publique,Socialistes et apparentés,SOC,Val-d'Oise,7
+PA841621,Auguste,Evrard,2000-05-04,26,Collaborateur de cabinet en mairie,Rassemblement National,RN,Pas-de-Calais,8
+PA794658,Philippe,Fait,1969-06-24,57,"Professeur des écoles, instituteur et assimilé",Horizons & Indépendants,HOR,Pas-de-Calais,4
+PA793246,Frédéric,Falcon,1985-11-23,40,Commerçant et assimilé,Rassemblement National,RN,Aude,2
+PA721896,Elsa,Faucillon,1981-08-06,44,Employée du secteur privé,Gauche Démocrate et Républicaine,GDR,Hauts-de-Seine,1
+PA609332,Olivier,Faure,1968-08-18,57,Cadre supérieur (secteur privé),Socialistes et apparentés,SOC,Seine-et-Marne,11
+PA267042,Yannick,Favennec-Bécot,1958-08-12,67,Directeur de cabinet,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Mayenne,3
+PA840773,Olivier,Fayssat,1968-03-24,58,Dirigeant d'entreprise,Union des droites pour la République,UDDPLR,Bouches-du-Rhône,6
+PA841251,Mathilde,Feld,1969-04-28,57,(33) - Cadre de la fonction publique,La France insoumise - Nouveau Front Populaire,LFI-NFP,Gironde,12
+PA794786,Emmanuel,Fernandes,1980-08-10,45,Profession intermédiaire administrative et commerciale des entreprises,La France insoumise - Nouveau Front Populaire,LFI-NFP,Bas-Rhin,2
+PA795884,Marc,Ferracci,1977-12-19,48,"Professeur, profession scientifique",Ensemble pour la République,EPR,Français établis hors de France,6
+PA794870,Sylvie,Ferrer,1967-11-06,58,(85) - Personne diverse sans activité professionnelle de moins de 60 ans (sauf r,La France insoumise - Nouveau Front Populaire,LFI-NFP,Hautes-Pyrénées,1
+PA719938,Marc,Fesneau,1971-01-11,55,Ministre,Les Démocrates,DEM,Loir-et-Cher,1
+PA267780,Agnès,Firmin Le Bodo,1968-11-20,57,Pharmacien,Horizons & Indépendants,HOR,Seine-Maritime,7
+PA722134,Jean-Marie,Fiévet,1964-06-19,62,Fonctionnaire de catégorie B,Ensemble pour la République,EPR,Deux-Sèvres,3
+PA840143,Guillaume,Florquin,1993-05-04,33,(33) - Cadre de la fonction publique,Rassemblement National,RN,Nord,20
+PA840801,Emmanuel,Fouquart,1966-07-30,59,Retraité militaire,Rassemblement National,RN,Bouches-du-Rhône,13
+PA793980,Charles,Fournier,1968-03-10,58,"Consultant, formateur",Écologiste et Social,ECOS,Indre-et-Loire,1
+PA794678,Thierry,Frappé,1952-05-23,74,Profession libérale,Rassemblement National,RN,Pas-de-Calais,10
+PA822617,Martine,Froger,1961-06-11,65,Chef d'entreprise,Socialistes et apparentés,SOC,Ariège,1
+PA841151,Alix,Fruchon,1994-10-14,31,Juriste,Droite Républicaine,DR,Indre,2
+PA840235,Moerani,Frébault,1988-08-22,37,(33) - Cadre de la fonction publique,Ensemble pour la République,EPR,Polynésie Française,1
+PA722284,Bruno,Fuchs,1959-04-07,67,Chef d'entreprise,Les Démocrates,DEM,Haut-Rhin,6
+PA722366,Jean-Luc,Fugit,1969-11-27,56,Professeur de faculté,Ensemble pour la République,EPR,Rhône,11
+PA841665,Denis,Fégné,1960-07-31,65,(74) - Ancien cadre,Socialistes et apparentés,SOC,Hautes-Pyrénées,2
+PA841139,Julien,Gabarron,1981-03-11,45,Cadre Commercial,Rassemblement National,RN,Hérault,6
+PA796070,Perceval,Gaillard,1983-04-24,43,Profession intermédiaire de la santé et du travail social,La France insoumise - Nouveau Front Populaire,LFI-NFP,Réunion,7
+PA793892,Stéphanie,Galzy,1981-10-20,44,Employé administratif d'entreprise,Rassemblement National,RN,Hérault,5
+PA795010,Marie-Charlotte,Garin,1995-09-02,30,Collaboratrice politique en collectivité locale,Écologiste et Social,ECOS,Rhône,3
+PA333285,Guillaume,Garot,1966-05-29,60,Cadre administratif,Socialistes et apparentés,SOC,Mayenne,1
+PA722358,Thomas,Gassilloud,1981-05-21,45,Industriel - Chef d'entreprise,Ensemble pour la République,EPR,Rhône,10
+PA721024,Anne,Genetet,1963-04-20,63,Médecin généraliste,Ensemble pour la République,EPR,Français établis hors de France,11
+PA794234,François,Gernigon,1961-04-02,65,Ancien cadre,Horizons & Indépendants,HOR,Maine-et-Loire,1
+PA793556,Sabine,Gervais,1970-05-20,56,Infirmière puéricultrice,Les Démocrates,DEM,Charente-Maritime,1
+PA841737,Jonathan,Gery,1986-10-12,39,(53) - Policier et militaire,Rassemblement National,RN,Rhône,8
+PA796034,Frank,Giletti,1973-03-01,53,Fonctionnaire,Rassemblement National,RN,Var,6
+PA793832,Yoann,Gillet,1986-08-29,39,Cadre de la fonction publique,Rassemblement National,RN,Gard,1
+PA793102,Christian,Girard,1952-05-07,74,Ancien cadre,Rassemblement National,RN,Alpes-de-Haute-Provence,1
+PA841419,Damien,Girard,1973-05-30,53,(38) - Ingénieur et cadre technique d'entreprise,Écologiste et Social,ECOS,Morbihan,5
+PA718674,Olga,Givernet,1981-10-17,44,Ingénieure,Ensemble pour la République,EPR,Ain,3
+PA840939,Océane,Godard,1982-11-22,43,Psychologue du travail,Socialistes et apparentés,SOC,Côte-d'Or,1
+PA841605,Antoine,Golliot,1985-08-13,40,(47) - Technicien,Rassemblement National,RN,Pas-de-Calais,5
+PA793362,José,Gonzalez,1943-04-28,83,Ancien employé,Rassemblement National,RN,Bouches-du-Rhône,10
+PA266797,Philippe,Gosselin,1966-10-23,59,Maître de conférences à Sciences Po,Droite Républicaine,DR,Manche,1
+PA331973,Pascale,Got,1961-04-01,65,Journaliste,Socialistes et apparentés,SOC,Gironde,5
+PA721296,Guillaume,Gouffier Valente,1986-02-01,40,Manager public,Ensemble pour la République,EPR,Val-de-Marne,6
+PA794418,Florence,Goulet,1961-06-30,64,Cadre de la fonction publique,Rassemblement National,RN,Meuse,2
+PA720560,Perrine,Goulet,1978-03-19,48,Autre cadre (secteur privé),Les Démocrates,DEM,Nièvre,1
+PA793592,Géraldine,Grangier,1975-02-13,51,Profession intermédiaire administrative de la fonction publique,Rassemblement National,RN,Doubs,4
+PA267318,Jean-Carles,Grelier,1966-03-15,60,Avocat,Les Démocrates,DEM,Sarthe,5
+PA795540,Daniel,Grenon,1948-07-31,77,"Ancien artisan, commerçant, chef d'entreprise",Non inscrit,NI,Yonne,1
+PA840757,Monique,Griseti,1960-07-23,65,(22) - Commerçant et assimilé,Rassemblement National,RN,Bouches-du-Rhône,1
+PA794058,Justine,Gruet,1989-10-23,36,Masseur Kinésithérapeute,Droite Républicaine,DR,Jura,3
+PA721764,Olivia,Grégoire,1978-09-30,47,Chef d'entreprise,Ensemble pour la République,EPR,Paris,12
+PA1567,Jérôme,Guedj,1972-01-23,54,Inspecteur général des affaires sociales,Socialistes et apparentés,SOC,Essonne,6
+PA795310,Clémence,Guetté,1991-03-15,35,Cadre du secteur privé,La France insoumise - Nouveau Front Populaire,LFI-NFP,Val-de-Marne,2
+PA841451,Julien,Guibert,1984-05-11,42,(46) - Profession intermédiaire administrative et commerciale des entreprises,Rassemblement National,RN,Nièvre,2
+PA721612,Carole,Guillerm,1987-01-08,39,Conseillère ministérielle,Les Démocrates,DEM,Hauts-de-Seine,12
+PA794734,Michel,Guiniot,1954-11-29,71,Ancien cadre,Rassemblement National,RN,Oise,6
+PA793218,Jordan,Guitton,1995-01-30,31,Assistant Parlementaire,Rassemblement National,RN,Aube,1
+PA795258,Frantz,Gumbs,1954-01-21,72,Personnel de direction de l'éducation nationale retraité,Les Démocrates,DEM,Saint-Barthélemy et Saint-Martin,1
+PA842013,Steevy,Gustave,1970-02-05,56,"(35) - Profession de l'information, des arts et des spectacles",Écologiste et Social,ECOS,Essonne,3
+PA794470,Félicie,Gérard,1974-01-28,52,Chef de projet,Horizons & Indépendants,HOR,Nord,7
+PA1592,David,Habib,1961-03-16,65,Cadre,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Pyrénées-Atlantiques,3
+PA841471,Stéphane,Hablot,1965-06-30,60,Education nationale,Socialistes et apparentés,SOC,Meurthe-et-Moselle,2
+PA842263,Ayda,Hadizadeh,1982-02-12,44,(37) - Cadre administratif et commercial d'entreprise,Socialistes et apparentés,SOC,Val-d'Oise,2
+PA841947,Zahia,Hamdane,1965-05-14,61,(43) - Profession intermédiaire de la santé et du travail social,La France insoumise - Nouveau Front Populaire,LFI-NFP,Somme,2
+PA795900,Marine,Hamelet,1967-07-13,58,Profession intermédiaire administrative et commerciale des entreprises,Rassemblement National,RN,Tarn-et-Garonne,2
+PA722070,Pierre,Henriet,1991-11-26,34,Professeur du secondaire et technique,Horizons & Indépendants,HOR,Vendée,5
+PA1630,Michel,Herbillon,1951-03-06,75,Cadre supérieur,Droite Républicaine,DR,Val-de-Marne,8
+PA841813,Florence,Herouin-Léautey,1972-12-28,53,(33) - Cadre de la fonction publique,Socialistes et apparentés,SOC,Seine-Maritime,1
+PA840947,Catherine,Hervieu,1958-05-09,68,Psychologue scolaire,Écologiste et Social,ECOS,Côte-d'Or,2
+PA841853,Céline,Hervieu,1993-08-19,32,(31) - Profession libérale,Socialistes et apparentés,SOC,Paris,11
+PA608416,Patrick,Hetzel,1964-07-02,61,Professeur des Universités,Droite Républicaine,DR,Bas-Rhin,7
+PA794082,Mathilde,Hignet,1993-06-10,33,Ouvrière agricole,La France insoumise - Nouveau Front Populaire,LFI-NFP,Ille-et-Vilaine,4
+PA1654,François,Hollande,1954-08-12,71,Conseiller référendaire à la Cour des comptes,Socialistes et apparentés,SOC,Corrèze,1
+PA722150,Sacha,Houlié,1988-10-08,37,Avocat,Socialistes et apparentés,SOC,Vienne,2
+PA793632,Timothée,Houssin,1988-07-29,37,Cadre,Rassemblement National,RN,Eure,5
+PA842085,Sébastien,Humbert,1990-07-10,35,(33) - Cadre de la fonction publique,Rassemblement National,RN,Vosges,4
+PA841017,Harold,Huwart,1982-01-03,44,Administrateur de l'État,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Eure-et-Loir,3
+PA267200,Sébastien,Huyghe,1969-10-25,56,Notaire,Ensemble pour la République,EPR,Nord,5
+PA795954,Catherine,Ibled,1975-05-25,51,Directrice adjointe de la communication,Ensemble pour la République,EPR,Paris,13
+PA794022,Jérémie,Iordanoff,1983-02-02,43,Artiste-peintre,Écologiste et Social,ECOS,Isère,5
+PA722374,Cyrille,Isaac-Sibille,1958-04-30,68,Médecin,Les Démocrates,DEM,Rhône,12
+PA794598,Laurent,Jacobelli,1969-10-13,56,"Profession de l'information, des arts et des spectacles",Rassemblement National,RN,Moselle,8
+PA720354,Jean-Michel,Jacques,1968-02-29,58,Infirmier des forces spéciales,Ensemble pour la République,EPR,Morbihan,6
+PA841439,Pascal,Jenft,1966-11-29,59,(21) - Artisan,Rassemblement National,RN,Moselle,5
+PA719778,François,Jolivet,1966-03-21,60,Cadre supérieur (secteur privé),Horizons & Indépendants,HOR,Indre,1
+PA794030,Alexis,Jolly,1990-12-22,35,Commerçant et assimilé,Rassemblement National,RN,Isère,6
+PA841749,Tiffany,Joncour,1989-09-02,36,(37) - Cadre administratif et commercial d'entreprise,Rassemblement National,RN,Rhône,13
+PA840745,Édouard,Jordan,1987-11-06,38,Inspecteur des finances publiques,Rassemblement National,RN,Aude,1
+PA841075,Sylvie,Josserand,1968-08-23,57,(31) - Profession libérale,Rassemblement National,RN,Gard,6
+PA720038,Sandrine,Josso,1975-09-19,50,Autre profession libérale,Les Démocrates,DEM,Loire-Atlantique,7
+PA840869,Florence,Joubert,1965-06-30,60,(33) - Cadre de la fonction publique,Rassemblement National,RN,Dordogne,3
+PA643192,Chantal,Jourdan,1958-09-02,67,Psychologue,Socialistes et apparentés,SOC,Orne,1
+PA346782,Philippe,Juvin,1964-02-01,62,Professeur de médecine,Droite Républicaine,DR,Hauts-de-Seine,3
+PA795998,Émeline,K/Bidi,1987-05-13,39,Avocate,Gauche Démocrate et Républicaine,GDR,Réunion,4
+PA335054,Marietta,Karamanli,1964-12-18,61,Professeur dans l'enseignement supérieur,Socialistes et apparentés,SOC,Sarthe,2
+PA719372,Guillaume,Kasbarian,1987-02-28,39,Consultant en stratégie d'entreprise,Ensemble pour la République,EPR,Eure-et-Loir,1
+PA795156,Fatiha,Keloua Hachi,1971-06-05,55,"Professeur, profession scientifique",Socialistes et apparentés,SOC,Seine-Saint-Denis,8
+PA794130,Andy,Kerbrat,1990-10-01,35,Chargé d'assistance automobile,La France insoumise - Nouveau Front Populaire,LFI-NFP,Loire-Atlantique,2
+PA719052,Loïc,Kervran,1984-02-11,42,Autre cadre (secteur privé),Horizons & Indépendants,HOR,Cher,3
+PA643184,Brigitte,Klinkert,1956-07-22,69,Ancien cadre,Ensemble pour la République,EPR,Haut-Rhin,1
+PA719798,Daniel,Labaronne,1955-07-16,70,Retraité de l'enseignement supérieur,Ensemble pour la République,EPR,Indre-et-Loire,2
+PA720846,Bastien,Lachaud,1980-08-05,45,Professeur du secondaire et technique,La France insoumise - Nouveau Front Populaire,LFI-NFP,Seine-Saint-Denis,6
+PA794146,Julie,Laernoes,1982-07-03,43,Ancien cadre,Écologiste et Social,ECOS,Loire-Atlantique,4
+PA841223,Tristan,Lahais,1983-05-11,43,(37) - Cadre administratif et commercial d'entreprise,Écologiste et Social,ECOS,Ille-et-Vilaine,2
+PA841729,Abdelkader,Lahmar,1971-05-12,55,"(34) - Professeur, profession scientifique",La France insoumise - Nouveau Front Populaire,LFI-NFP,Rhône,7
+PA795516,Maxime,Laisney,1981-01-19,45,"Professeur des écoles, instituteur et assimilé",La France insoumise - Nouveau Front Populaire,LFI-NFP,Seine-et-Marne,10
+PA721004,Amélia,Lakrafi,1978-03-20,48,Chef d'entreprise,Ensemble pour la République,EPR,Français établis hors de France,10
+PA795390,Sandrine,Lalanne,1973-02-16,53,Sans profession déclarée,Ensemble pour la République,EPR,Val-de-Marne,5
+PA842125,Thomas,Lam,1981-10-22,44,(23) - Chef d'entreprise de 10 salariés ou plus,Horizons & Indépendants,HOR,Hauts-de-Seine,2
+PA794354,Hélène,Laporte,1978-12-29,47,Analyste bancaire,Rassemblement National,RN,Lot-et-Garonne,2
+PA795334,Benoît,Larrouquis,1969-11-18,56,Chef d'entreprise,Ensemble pour la République,EPR,Français établis hors de France,2
+PA721984,Philippe,Latombe,1975-04-21,51,Cadre supérieur (secteur privé),Les Démocrates,DEM,Vendée,1
+PA857021,Alim,Latrèche,1979-12-05,46,Ingénieur-Cadre,Ensemble pour la République,EPR,Isère,1
+PA720022,Michel,Lauzzana,1957-03-20,69,Médecin,Ensemble pour la République,EPR,Lot-et-Garonne,1
+PA795912,Laure,Lavalette,1976-04-16,50,(85) - Personne diverse sans activité professionnelle de moins de 60 ans (sauf r,Rassemblement National,RN,Var,2
+PA841837,Robert,Le Bourgeois,1969-11-12,56,(37) - Cadre administratif et commercial d'entreprise,Rassemblement National,RN,Seine-Maritime,10
+PA841515,Aurélien,Le Coq,1996-09-28,29,(54) - Employé administratif d'entreprise,La France insoumise - Nouveau Front Populaire,LFI-NFP,Nord,1
+PA719412,Sandrine,Le Feur,1991-03-18,35,Agriculteur-propriétaire exploitant,Ensemble pour la République,EPR,Finistère,4
+PA840979,Corentin,Le Fur,1989-12-13,36,(37) - Cadre administratif et commercial d'entreprise,Droite Républicaine,DR,Côtes-d'Armor,3
+PA719404,Didier,Le Gac,1965-07-19,60,Profession rattachée à l'enseignement,Ensemble pour la République,EPR,Finistère,3
+PA795672,Arnaud,Le Gall,1980-11-29,45,Cadre de la fonction publique,La France insoumise - Nouveau Front Populaire,LFI-NFP,Val-d'Oise,9
+PA345722,Constance,Le Grip,1960-11-14,65,Conseillère parlementaire,Ensemble pour la République,EPR,Hauts-de-Seine,6
+PA719388,Annaïg,Le Meur,1973-04-29,53,Autre profession libérale,Ensemble pour la République,EPR,Finistère,1
+PA719756,Christine,Le Nabour,1964-10-28,61,Employée (secteur privé),Ensemble pour la République,EPR,Ille-et-Vilaine,5
+PA720342,Nicole,Le Peih,1959-09-28,66,Agricultrice,Ensemble pour la République,EPR,Morbihan,3
+PA720614,Marine,Le Pen,1968-08-05,57,Avocate,Rassemblement National,RN,Pas-de-Calais,11
+PA721852,Marie,Lebec,1990-12-17,35,Consultante en affaires publiques,Ensemble pour la République,EPR,Yvelines,4
+PA774962,Karine,Lebon,1985-06-09,41,Professeure des écoles,Gauche Démocrate et Républicaine,GDR,Réunion,2
+PA795108,Élise,Leboucher,1982-10-09,43,Educatrice spécialisée,La France insoumise - Nouveau Front Populaire,LFI-NFP,Sarthe,4
+PA795374,Pascal,Lecamp,1958-04-06,68,Cadre administratif et commercial d'entreprise,Les Démocrates,DEM,Vienne,3
+PA796026,Julie,Lechanteux,1977-12-22,48,(85) - Personne diverse sans activité professionnelle de moins de 60 ans (sauf r,Rassemblement National,RN,Var,5
+PA840857,Nadine,Lechon,1963-04-16,63,(12) - Agriculteur sur moyenne exploitation,Rassemblement National,RN,Dordogne,1
+PA335612,Jean-Paul,Lecoq,1958-10-13,67,Électricien,Gauche Démocrate et Républicaine,GDR,Seine-Maritime,8
+PA712014,Vincent,Ledoux,1966-06-21,60,Sans profession déclarée,Ensemble pour la République,EPR,Nord,10
+PA795298,Jérôme,Legavre,1972-08-20,53,Professeur de lettres,La France insoumise - Nouveau Front Populaire,LFI-NFP,Seine-Saint-Denis,12
+PA791824,Sarah,Legrain,1985-11-17,40,Professeure de français,La France insoumise - Nouveau Front Populaire,LFI-NFP,Paris,16
+PA842029,Claire,Lejeune,1994-09-07,31,"34 - Professeur, profession scientifique",La France insoumise - Nouveau Front Populaire,LFI-NFP,Essonne,7
+PA793290,Gisèle,Lelouis,1952-03-10,74,Ancien employé,Rassemblement National,RN,Bouches-du-Rhône,3
+PA794838,Didier,Lemaire,1975-07-23,50,Employé civil et agent de service de la fonction publique,Horizons & Indépendants,HOR,Haut-Rhin,3
+PA721632,Patricia,Lemoine,1961-12-30,64,retraitée,Ensemble pour la République,EPR,Seine-et-Marne,5
+PA840983,Bartolomé,Lenoir,1991-09-04,34,(37) - Cadre administratif et commercial d'entreprise,Union des droites pour la République,UDDPLR,Creuse,1
+PA795244,Stéphane,Lenormand,1964-08-13,61,Ancien cadre,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Saint-Pierre-et-Miquelon,1
+PA793532,Murielle,Lepvraud,1974-07-15,51,Employé administratif d'entreprise,La France insoumise - Nouveau Front Populaire,LFI-NFP,Côtes-d'Armor,4
+PA774958,Gérard,Leseul,1960-08-15,65,Cadre d'entreprise / enseignant universitaire,Socialistes et apparentés,SOC,Seine-Maritime,5
+PA793608,Katiana,Levavasseur,1970-12-09,55,Ouvrier de type industriel,Rassemblement National,RN,Eure,2
+PA840765,Laurent,Lhardit,1963-04-20,63,Chef d'entreprise,Socialistes et apparentés,SOC,Bouches-du-Rhône,2
+PA794750,Thierry,Liger,1970-05-27,56,Chef d'entreprise,Droite Républicaine,DR,Orne,2
+PA841873,Julien,Limongi,1996-02-12,30,(74) - Ancien cadre,Rassemblement National,RN,Seine-et-Marne,4
+PA794702,Delphine,Lingemann,1972-11-14,53,Chef d'entreprise - Enseignante associée université,Les Démocrates,DEM,Puy-de-Dôme,4
+PA840967,René,Lioret,1952-01-13,74,(74) - Ancien cadre,Rassemblement National,RN,Côte-d'Or,5
+PA720446,Brigitte,Liso,1959-07-29,66,Commerçant,Ensemble pour la République,EPR,Nord,4
+PA642725,Eric,Liégeon,1961-01-24,65,Exploitant agricole,Droite Républicaine,DR,Doubs,5
+PA793672,Christine,Loir,1977-02-22,49,Profession intermédiaire de la santé et du travail social,Rassemblement National,RN,Eure,1
+PA721932,Marie-France,Lorho,1964-12-15,61,Déléguée médicale,Rassemblement National,RN,Vaucluse,4
+PA795974,Philippe,Lottiaux,1966-08-14,59,Cadre de la fonction publique,Rassemblement National,RN,Var,4
+PA794590,Alexandre,Loubet,1994-07-07,31,Cadre d'entreprise,Rassemblement National,RN,Moselle,7
+PA879389,Marie-Philippe,Lubet,1957-09-06,68,Retraitée,Ensemble pour la République,EPR,Loiret,1
+PA795636,Benjamin,Lucas-Lundy,1990-10-08,35,(85) - Personne diverse sans activité professionnelle de moins de 60 ans (sauf r,Écologiste et Social,ECOS,Yvelines,8
+PA794578,Véronique,Ludmann,1963-03-17,63,Directrice d'école,Horizons & Indépendants,HOR,Oise,4
+PA795746,Antoine,Léaument,1989-09-04,36,Responsable de la communication numérique,La France insoumise - Nouveau Front Populaire,LFI-NFP,Essonne,10
+PA227089,Valérie,Létard,1962-10-13,63,Cadre de la fonction publique territoriale,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Nord,21
+PA841587,David,Magnier,1972-06-05,54,"(48) - Contremaître, agent de maîtrise",Rassemblement National,RN,Oise,7
+PA720230,Lise,Magnier,1984-12-31,41,Cadre territorial,Horizons & Indépendants,HOR,Marne,4
+PA717379,Sylvain,Maillard,1974-04-28,52,Industriel-Chef d'entreprise,Ensemble pour la République,EPR,Paris,1
+PA796010,Frédéric,Maillot,1986-11-15,39,Intervenant social,Gauche Démocrate et Républicaine,GDR,Réunion,6
+PA794114,Emmanuel,Mandon,1965-06-22,61,Conseiller d'insertion professionnelle,Les Démocrates,DEM,Loire,3
+PA841183,Hanane,Mansouri,2000-11-24,25,"(84) - Elève, étudiant",Union des droites pour la République,UDDPLR,Isère,8
+PA841563,Claire,Marais-Beuil,1958-11-04,67,Profession libérale,Rassemblement National,RN,Oise,1
+PA605782,Laurent,Marcangeli,1980-12-10,45,Avocat,Horizons & Indépendants,HOR,Corse-du-Sud,1
+PA794530,Matthieu,Marchio,1993-06-08,33,Cadre administratif et commercial d'entreprise,Rassemblement National,RN,Nord,16
+PA795730,Bastien,Marchive,1990-07-15,35,Juriste,Ensemble pour la République,EPR,Deux-Sèvres,1
+PA794206,Christophe,Marion,1973-04-25,53,Délégué général du Comité des travaux historiques et scientifiques,Ensemble pour la République,EPR,Loir-et-Cher,3
+PA840837,Pascal,Markowsky,1954-07-22,71,"(72) - Ancien artisan, commerçant, chef d'entreprise",Rassemblement National,RN,Charente-Maritime,4
+PA794518,Pierre,Marle,1954-02-19,72,Directeur d'école primaire (retraité),Horizons & Indépendants,HOR,Nord,14
+PA719080,Sandra,Marsaud,1974-01-02,52,Cadre (entreprises publiques),Ensemble pour la République,EPR,Charente,2
+PA841825,Patrice,Martin,1963-09-13,62,(11) - Agriculteur sur petite exploitation,Rassemblement National,RN,Seine-Maritime,6
+PA342384,Élisa,Martin,1972-05-15,54,"Professeur, profession scientifique",La France insoumise - Nouveau Front Populaire,LFI-NFP,Isère,3
+PA793342,Alexandra,Martin (Alpes-Maritimes),1968-10-25,57,Employé civil et agent de service de la fonction publique,Droite Républicaine,DR,Alpes-Maritimes,8
+PA793944,Alexandra,Martin (Gironde),1976-07-28,49,Sans profession déclarée,Ensemble pour la République,EPR,Gironde,1
+PA795100,Éric,Martineau,1968-05-08,58,Agriculteur sur moyenne exploitation,Les Démocrates,DEM,Sarthe,3
+PA794770,Michèle,Martinez,1968-06-06,58,Clerc d'huissier,Rassemblement National,RN,Pyrénées-Orientales,4
+PA720146,Denis,Masséglia,1981-04-11,45,Ingénieur Arts et métiers,Ensemble pour la République,EPR,Maine-et-Loire,5
+PA720976,Max,Mathiasin,1956-02-24,70,Fonction publique territoriale,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Guadeloupe,3
+PA720728,Jean-Paul,Mattei,1954-03-21,72,Notaire,Les Démocrates,DEM,Pyrénées-Atlantiques,2
+PA795422,Damien,Maudet,1996-11-14,29,Cadre administratif et commercial d'entreprise,La France insoumise - Nouveau Front Populaire,LFI-NFP,Haute-Vienne,1
+PA842271,Emmanuel,Maurel,1973-05-10,53,"(34) - Professeur, profession scientifique",Gauche Démocrate et Républicaine,GDR,Val-d'Oise,3
+PA794262,Patricia,Maussion,1968-09-23,57,Agricultrice,Les Démocrates,DEM,Maine-et-Loire,7
+PA793616,Kévin,Mauvieux,1991-09-09,34,Conseiller en assurance,Rassemblement National,RN,Eure,3
+PA794686,Marianne,Maximi,1985-11-13,40,Profession intermédiaire de la santé et du travail social,La France insoumise - Nouveau Front Populaire,LFI-NFP,Puy-de-Dôme,1
+PA841931,Laurent,Mazaury,1965-08-23,60,(37) - Cadre administratif et commercial d'entreprise,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Yvelines,11
+PA719436,Nicolas,Meizonnet,1983-12-22,42,Ingénieur en informatique,Rassemblement National,RN,Gard,2
+PA719338,Graziella,Melchior,1960-04-06,66,Professeure agrégée,Ensemble pour la République,EPR,Finistère,5
+PA720370,Ludovic,Mendes,1987-04-11,39,Cadre supérieur (secteur privé),Ensemble pour la République,EPR,Moselle,2
+PA841463,Estelle,Mercier,1973-01-15,53,"(34) - Professeur, profession scientifique",Socialistes et apparentés,SOC,Meurthe-et-Moselle,1
+PA841215,Marie,Mesmeur,1994-08-12,31,Educatrice spécialisée,La France insoumise - Nouveau Front Populaire,LFI-NFP,Ille-et-Vilaine,1
+PA719640,Sophie,Mette,1959-09-13,66,Sans profession déclarée,Les Démocrates,DEM,Gironde,9
+PA795176,Nicolas,Metzdorf,1988-05-20,38,Ingénieur et cadre technique d'entreprise,Ensemble pour la République,EPR,Nouvelle-Calédonie,1
+PA719272,Frédérique,Meunier,1960-12-08,65,Avocate,Droite Républicaine,DR,Corrèze,2
+PA795482,Manon,Meunier,1996-03-30,30,Cadre de la fonction publique,La France insoumise - Nouveau Front Populaire,LFI-NFP,Haute-Vienne,3
+PA793852,Pierre,Meurin,1989-11-30,36,Cadre administratif et commercial d'entreprise,Rassemblement National,RN,Gard,4
+PA841395,Maxime,Michelet,1992-04-19,34,Historien,Union des droites pour la République,UDDPLR,Marne,3
+PA841769,Éric,Michoux,1959-06-17,67,(23) - Chef d'entreprise de 10 salariés ou plus,Union des droites pour la République,UDDPLR,Saône-et-Loire,4
+PA795664,Paul,Midy,1983-01-25,43,Chef d'entreprise de 10 salariés ou plus,Ensemble pour la République,EPR,Essonne,5
+PA817203,Laure,Miller,1983-12-25,42,Avocate,Ensemble pour la République,EPR,Marne,2
+PA643104,Christelle,Minard,1970-10-04,55,Agricultrice,Droite Républicaine,DR,Eure-et-Loir,2
+PA795962,Joséphine,Missoffe,1973-09-24,52,Infirmière-Puéricultrice,Ensemble pour la République,EPR,Paris,14
+PA607619,Paul,Molac,1962-05-21,64,Professeur du secondaire,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Morbihan,4
+PA842147,Christophe,Mongardien,1963-01-09,63,Ingénieur - Responsable Support Technique Grands Comptes,Ensemble pour la République,EPR,Hauts-de-Seine,13
+PA793174,Yannick,Monnet,1975-10-07,50,Cadre de la fonction publique,Gauche Démocrate et Républicaine,GDR,Allier,1
+PA840915,Thibaut,Monnier,1987-02-24,39,(37) - Cadre administratif et commercial d'entreprise,Rassemblement National,RN,Drôme,4
+PA794810,Louise,Morel,1995-10-15,30,Cadre administratif et commercial d'entreprise,Les Démocrates,DEM,Bas-Rhin,6
+PA793696,Serge,Muller,1976-02-26,50,Profession intermédiaire de la santé et du travail social,Rassemblement National,RN,Dordogne,2
+PA793354,Joëlle,Mélin,1950-03-26,76,Médecin expert judiciaire,Rassemblement National,RN,Bouches-du-Rhône,9
+PA795786,Yaël,Ménaché,1985-05-12,41,Commerciale,Rassemblement National,RN,Somme,5
+PA794322,Thomas,Ménagé,1992-01-06,34,Cadre administratif et commercial d'entreprise,Rassemblement National,RN,Loiret,4
+PA795820,Marcellin,Nadeau,1962-11-02,63,Cadre de la fonction publique,Gauche Démocrate et Républicaine,GDR,Martinique,2
+PA721486,Christophe,Naegelen,1983-12-30,42,Industriel-Chef d'entreprise,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Vosges,3
+PA643157,Philippe,Naillet,1960-08-14,65,Inspecteur assurance-vie,Socialistes et apparentés,SOC,Réunion,1
+PA794038,Yannick,Neuder,1969-03-15,57,Cardiologue,Droite Républicaine,DR,Isère,7
+PA610654,Jean-Philippe,Nilor,1965-05-15,61,Collaborateur parlementaire,La France insoumise - Nouveau Front Populaire,LFI-NFP,Martinique,4
+PA841191,Sandrine,Nosbé,1972-10-29,53,(54) - Employé administratif d'entreprise,La France insoumise - Nouveau Front Populaire,LFI-NFP,Isère,9
+PA841107,Jacques,Oberti,1960-11-26,65,(38) - Ingénieur et cadre technique d'entreprise,Socialistes et apparentés,SOC,Haute-Garonne,10
+PA721960,Danièle,Obono,1980-07-12,45,Bibliothécaire,La France insoumise - Nouveau Front Populaire,LFI-NFP,Paris,17
+PA795552,Julien,Odoul,1985-05-08,41,Collaborateur parlementaire,Rassemblement National,RN,Yonne,3
+PA795722,Karl,Olive,1969-03-29,57,Chef d'entreprise,Ensemble pour la République,EPR,Yvelines,12
+PA794830,Hubert,Ott,1964-06-06,62,"Professeur, profession scientifique",Les Démocrates,DEM,Haut-Rhin,2
+PA842045,Julie,Ozenne,1978-08-02,47,(38) - Ingénieur et cadre technique d'entreprise,Écologiste et Social,ECOS,Essonne,9
+PA793872,Nathalie,Oziol,1990-02-18,36,"Professeur, profession scientifique",La France insoumise - Nouveau Front Populaire,LFI-NFP,Hérault,2
+PA795124,Didier,Padey,1965-11-09,60,cadre commercial,Les Démocrates,DEM,Savoie,1
+PA720334,Jimmy,Pahun,1962-05-15,64,Navigateur,Les Démocrates,DEM,Morbihan,2
+PA841993,Dominique,Paillat,1958-06-11,68,responsable d'usine,Horizons & Indépendants,HOR,Vendée,2
+PA759832,Agnès,Pannier-Runacher,1974-06-19,52,Dirigeante d'entreprise,Ensemble pour la République,EPR,Pas-de-Calais,2
+PA719632,Sophie,Panonacle,1968-12-16,57,Sans profession déclarée,Ensemble pour la République,EPR,Gironde,8
+PA795050,Astrid,Panosyan-Bouvet,1971-08-13,54,Cadre administratif et commercial d'entreprise,Ensemble pour la République,EPR,Paris,4
+PA720892,Mathilde,Panot,1989-01-15,37,Coordinatrice de projets associatifs,La France insoumise - Nouveau Front Populaire,LFI-NFP,Val-de-Marne,10
+PA841381,Sophie,Pantel,1971-07-27,54,Cadre de la fonction publique d'État,Socialistes et apparentés,SOC,Lozère,1
+PA794670,Caroline,Parmentier,1965-12-16,60,Attachée de Presse,Rassemblement National,RN,Pas-de-Calais,9
+PA720480,Charlotte,Parmentier-Lecocq,1977-07-17,48,Industriel-Chef d'entreprise,Horizons & Indépendants,HOR,Nord,6
+PA793398,Jérémie,Patrier-Leitus,1989-03-07,37,Cadre de la fonction publique,Horizons & Indépendants,HOR,Calvados,3
+PA718784,Éric,Pauget,1970-08-18,55,Autre cadre (secteur privé),Droite Républicaine,DR,Alpes-Maritimes,7
+PA840793,Marc,Pena,1960-05-07,66,"(34) - Professeur, profession scientifique",Socialistes et apparentés,SOC,Bouches-du-Rhône,11
+PA841199,Thierry,Perez,1966-11-19,59,(33) - Cadre de la fonction publique,Rassemblement National,RN,Isère,10
+PA721182,Frédéric,Petit,1961-02-10,65,Ingénieur,Les Démocrates,DEM,Français établis hors de France,7
+PA721234,Maud,Petit,1971-11-15,54,Chargée de ressources humaines,Les Démocrates,DEM,Val-de-Marne,4
+PA721270,Stéphane,Peu,1962-07-24,63,Employé,Gauche Démocrate et Républicaine,GDR,Seine-Saint-Denis,2
+PA793708,Sébastien,Peytavie,1982-04-17,44,Profession intermédiaire de la santé et du travail social,Écologiste et Social,ECOS,Dordogne,4
+PA794582,Kévin,Pfeffer,1990-07-09,35,Permanent politique,Rassemblement National,RN,Moselle,6
+PA794270,Anna,Pic,1978-06-04,48,"Professeur, profession scientifique",Socialistes et apparentés,SOC,Manche,4
+PA817211,René,Pilato,1962-08-31,63,Enseignant,La France insoumise - Nouveau Front Populaire,LFI-NFP,Charente,1
+PA793756,François,Piquemal,1984-12-28,41,Enseignant,La France insoumise - Nouveau Front Populaire,LFI-NFP,Haute-Garonne,4
+PA721844,Béatrice,Piron,1965-08-30,60,Chef d'entreprise,Horizons & Indépendants,HOR,Yvelines,3
+PA608172,Christine,Pirès Beaune,1964-10-06,61,Fonctionnaire de catégorie A,Socialistes et apparentés,SOC,Puy-de-Dôme,2
+PA793572,Christophe,Plassard,1967-11-19,58,Profession libérale,Horizons & Indépendants,HOR,Charente-Maritime,5
+PA793664,Marie,Pochon,1990-05-04,36,Responsable associative,Écologiste et Social,ECOS,Drôme,3
+PA793656,Lisette,Pollet,1968-01-04,58,Ouvrier qualifié de type industriel,Rassemblement National,RN,Drôme,2
+PA719528,Jean-François,Portarrieu,1965-10-14,60,Journaliste,Horizons & Indépendants,HOR,Haute-Garonne,5
+PA796062,Thomas,Portes,1985-11-18,40,Cheminot,La France insoumise - Nouveau Front Populaire,LFI-NFP,Seine-Saint-Denis,3
+PA794994,Alexandre,Portier,1990-04-21,36,Professeur de philosophie,Droite Républicaine,DR,Rhône,9
+PA607553,Dominique,Potier,1964-03-17,62,Agriculteur,Socialistes et apparentés,SOC,Meurthe-et-Moselle,5
+PA720720,Josy,Poueyto,1954-01-13,72,Retraitée de la fonction publique (hors enseignement),Les Démocrates,DEM,Pyrénées-Atlantiques,1
+PA795270,Marie-Agnès,Poussier-Winsback,1967-03-25,59,Enseignante,Horizons & Indépendants,HOR,Seine-Maritime,9
+PA721916,Natalia,Pouzyreff,1961-02-18,65,Ingénieure,Ensemble pour la République,EPR,Yvelines,6
+PA720100,Aurélien,Pradié,1986-03-14,40,Cadre supérieur (secteur privé),Non inscrit,NI,Lot,1
+PA840955,Pierre,Pribetich,1956-12-28,69,"(34) - Professeur, profession scientifique",Socialistes et apparentés,SOC,Côte-d'Or,3
+PA841367,Christophe,Proença,1966-05-31,60,"(34) - Professeur, profession scientifique",Socialistes et apparentés,SOC,Lot,2
+PA719578,Loïc,Prud'homme,1969-08-19,56,Fonctionnaire de catégorie B,La France insoumise - Nouveau Front Populaire,LFI-NFP,Gironde,3
+PA795966,Stéphane,Rambaud,1960-04-05,66,Retraité de la police nationale,Rassemblement National,RN,Var,3
+PA720092,Richard,Ramos,1968-03-23,58,Autre cadre (secteur privé),Les Démocrates,DEM,Loiret,6
+PA793230,Angélique,Ranc,1988-03-16,38,Sans activité professionnelle,Rassemblement National,RN,Aube,3
+PA793254,Julien,Rancoule,1993-07-31,32,Profession libérale,Rassemblement National,RN,Aude,3
+PA721062,Jean-Hugues,Ratenon,1967-06-25,58,Employé (secteur privé),La France insoumise - Nouveau Front Populaire,LFI-NFP,Réunion,5
+PA720552,Isabelle,Rauch,1968-08-10,57,Consultante,Horizons & Indépendants,HOR,Moselle,9
+PA794154,Jean-Claude,Raux,1967-01-18,59,"Professeur, profession scientifique",Écologiste et Social,ECOS,Loire-Atlantique,6
+PA793094,Nicolas,Ray,1981-05-14,45,Inspecteur principal des Finances publiques,Droite Républicaine,DR,Allier,3
+PA794778,Sandra,Regol,1978-04-13,48,(85) - Personne diverse sans activité professionnelle de moins de 60 ans (sauf r,Écologiste et Social,ECOS,Bas-Rhin,1
+PA795240,Mereana,Reid Arbelot,1970-09-12,55,Ingénieur en chef du contrôle de la navigation aérienne,Gauche Démocrate et Républicaine,GDR,Polynésie Française,3
+PA841955,Matthias,Renault,1988-05-02,38,(37) - Cadre administratif et commercial d'entreprise,Rassemblement National,RN,Somme,3
+PA841377,Emeline,Rey-Rinchet,1988-03-29,38,Ostéopathe,Droite Républicaine,DR,Lot-et-Garonne,3
+PA840657,Sophie,Ricourt Vaginay,1969-12-18,56,(37) - Cadre administratif et commercial d'entreprise,Union des droites pour la République,UDDPLR,Alpes-de-Haute-Provence,2
+PA795876,Davy,Rimane,1979-12-15,46,Technicien,Gauche Démocrate et Républicaine,GDR,Guyane,2
+PA841981,Catherine,Rimbert,1968-09-13,57,(31) - Profession libérale,Rassemblement National,RN,Vaucluse,5
+PA721426,Véronique,Riotton,1969-11-02,56,Consultante-Coach en Ressources Humaines,Ensemble pour la République,EPR,Haute-Savoie,1
+PA842227,Joseph,Rivière,1971-10-15,54,(45) - Profession intermédiaire administrative de la fonction publique,Rassemblement National,RN,Réunion,3
+PA722252,Marie-Pierre,Rixain,1977-01-18,49,Consultante en communication,Ensemble pour la République,EPR,Essonne,4
+PA794442,Laurence,Robert-Dehault,1964-01-17,62,Profession libérale,Rassemblement National,RN,Haute-Marne,2
+PA795528,Charles,Rodwell,1996-07-26,29,Cadre de la fonction publique,Ensemble pour la République,EPR,Yvelines,1
+PA266808,Vincent,Rolland,1970-02-01,56,Collaborateur parlementaire,Droite Républicaine,DR,Savoie,2
+PA841927,Anne-Sophie,Ronceret,1978-01-07,48,Collaboratrice parlementaire,Ensemble pour la République,EPR,Yvelines,10
+PA721458,Xavier,Roseren,1970-01-12,56,Commerçant,Horizons & Indépendants,HOR,Haute-Savoie,6
+PA840673,Valérie,Rossi,1964-06-05,62,(37) - Cadre administratif et commercial d'entreprise,Socialistes et apparentés,SOC,Hautes-Alpes,2
+PA342196,Claudia,Rouaux,1963-10-13,62,Gestionnaire à l'INRAE,Socialistes et apparentés,SOC,Ille-et-Vilaine,3
+PA795410,Béatrice,Roullaud,1960-06-09,66,Profession libérale,Rassemblement National,RN,Seine-et-Marne,6
+PA606545,Jean-Louis,Roumégas,1962-06-06,64,Enseignant 1er deg.- Professeur d'école,Écologiste et Social,ECOS,Hérault,1
+PA826635,Aurélien,Rousseau,1976-06-25,49,Maître des requêtes au Conseil d'État,Socialistes et apparentés,SOC,Yvelines,7
+PA795076,Sandrine,Rousseau,1972-03-08,54,"Professeur, profession scientifique",Écologiste et Social,ECOS,Paris,9
+PA841327,Fabrice,Roussel,1973-04-11,53,"(34) - Professeur, profession scientifique",Socialistes et apparentés,SOC,Loire-Atlantique,5
+PA793270,Jean-François,Rousset,1952-09-09,73,Chirurgien,Ensemble pour la République,EPR,Aveyron,3
+PA842097,Sophie-Laurence,Roy,1955-12-23,70,(31) - Profession libérale,Rassemblement National,RN,Yonne,2
+PA722142,François,Ruffin,1975-10-18,50,Reporter,Écologiste et Social,ECOS,Somme,1
+PA841717,Sandrine,Runel,1979-06-01,47,(33) - Cadre de la fonction publique,Socialistes et apparentés,SOC,Rhône,4
+PA341981,Marie,Récalde,1965-03-12,61,Avocate,Socialistes et apparentés,SOC,Gironde,6
+PA794894,Anaïs,Sabatini,1990-03-10,36,Avocate,Rassemblement National,RN,Pyrénées-Orientales,2
+PA794570,Alexandre,Sabatou,1993-02-18,33,Chef de projets SI,Rassemblement National,RN,Oise,3
+PA841845,Arnaud,Saint-Martin,1979-01-25,47,"(34) - Professeur, profession scientifique",La France insoumise - Nouveau Front Populaire,LFI-NFP,Seine-et-Marne,1
+PA841243,Sébastien,Saint-Pasteur,1980-12-08,45,(33) - Cadre de la fonction publique,Socialistes et apparentés,SOC,Gironde,7
+PA720138,Laetitia,Saint-Paul,1981-01-21,45,Officier de l'armée de Terre,Horizons & Indépendants,HOR,Maine-et-Loire,4
+PA795982,Aurélien,Saintoul,1988-05-26,38,Cadre de la fonction publique,La France insoumise - Nouveau Front Populaire,LFI-NFP,Hauts-de-Seine,11
+PA794954,Emeric,Salmon,1973-11-26,52,Cadre administratif et commercial d'entreprise,Rassemblement National,RN,Haute-Saône,2
+PA721110,Nicole,Sanquer,1972-06-16,54,Professeur du secondaire et technique,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Polynésie Française,2
+PA605745,Nicolas,Sansu,1968-06-17,58,Permanent politique,Gauche Démocrate et Républicaine,GDR,Cher,2
+PA774960,Isabelle,Santiago,1965-09-20,60,Cadre territorial,Socialistes et apparentés,SOC,Val-de-Marne,9
+PA610002,Eva,Sas,1970-08-13,55,Cadre supérieur du secteur privé,Écologiste et Social,ECOS,Paris,8
+PA340343,Hervé,Saulignac,1970-11-06,55,Cadre (entreprises publiques),Socialistes et apparentés,SOC,Ardèche,1
+PA721314,Raphaël,Schellenberger,1990-02-14,36,(33) - Cadre de la fonction publique,Non inscrit,NI,Haut-Rhin,4
+PA796050,Philippe,Schreck,1972-02-02,54,Profession libérale,Rassemblement National,RN,Var,8
+PA795808,Sabrina,Sebaihi,1981-05-10,45,Profession libérale,Écologiste et Social,ECOS,Hauts-de-Seine,4
+PA757225,Mikaele,Seo,1971-12-27,54,Profession intermédiaire administrative de la fonction publique,Ensemble pour la République,EPR,Wallis-et-Futuna,1
+PA720960,Olivier,Serva,1974-06-21,52,Expert comptable,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Guadeloupe,1
+PA842255,Anne,Sicard,1967-06-15,59,(37) - Cadre administratif et commercial d'entreprise,Rassemblement National,RN,Val-d'Oise,1
+PA841091,Arnaud,Simion,1968-05-19,58,(33) - Cadre de la fonction publique,Socialistes et apparentés,SOC,Haute-Garonne,6
+PA796018,Danielle,Simonnet,1971-07-02,54,"Professeur, profession scientifique",Écologiste et Social,ECOS,Paris,15
+PA794802,Charles,Sitzenstuhl,1988-12-03,37,Cadre de la fonction publique,Ensemble pour la République,EPR,Bas-Rhin,5
+PA720190,Bertrand,Sorre,1965-05-08,61,Enseignant 1er degré-directeur d'école (en disponibilité),Ensemble pour la République,EPR,Manche,2
+PA841681,Thierry,Sother,1982-02-02,44,(33) - Cadre de la fonction publique,Socialistes et apparentés,SOC,Bas-Rhin,3
+PA795466,Ersilia,Soudais,1988-05-21,38,"Professeur, profession scientifique",La France insoumise - Nouveau Front Populaire,LFI-NFP,Seine-et-Marne,7
+PA794486,Violette,Spillebout,1972-09-02,53,Cadre administratif et commercial d'entreprise,Ensemble pour la République,EPR,Nord,9
+PA793744,Anne,Stambach-Terrenoir,1980-06-23,46,Professeure de piano,La France insoumise - Nouveau Front Populaire,LFI-NFP,Haute-Garonne,2
+PA267794,Michèle,Tabarot,1962-10-13,63,Chef d'entreprise,Droite Républicaine,DR,Alpes-Maritimes,9
+PA720952,Aurélien,Taché,1984-05-26,42,Fonctionnaire de catégorie A,La France insoumise - Nouveau Front Populaire,LFI-NFP,Val-d'Oise,10
+PA793382,Emmanuel,Taché,1975-02-20,51,Cadre de la fonction publique,Rassemblement National,RN,Bouches-du-Rhône,16
+PA736201,Sophie,Taillé-Polian,1974-10-04,51,Cadre de la fonction publique,Écologiste et Social,ECOS,Val-de-Marne,11
+PA794178,Jean-Pierre,Taite,1962-03-14,64,"Ancien artisan, commerçant, chef d'entreprise",Droite Républicaine,DR,Loire,6
+PA795778,Jean-Philippe,Tanguy,1986-03-25,40,Cadre administratif et commercial d'entreprise,Rassemblement National,RN,Somme,4
+PA719550,Liliana,Tanguy,1967-03-12,59,Cadre supérieur du secteur public,Ensemble pour la République,EPR,Finistère,7
+PA793796,David,Taupiac,1975-05-13,51,Consultant aéronautique,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Gers,2
+PA794106,Andrée,Taurinya,1963-06-03,63,"Professeur, profession scientifique",La France insoumise - Nouveau Front Populaire,LFI-NFP,Loire,2
+PA794166,Matthias,Tavel,1987-07-06,38,Cadre de la fonction publique,La France insoumise - Nouveau Front Populaire,LFI-NFP,Loire-Atlantique,8
+PA794502,Michaël,Taverne,1979-03-10,47,Policier et militaire,Rassemblement National,RN,Nord,12
+PA841713,Boris,Tavernier,1979-08-23,46,(37) - Cadre administratif et commercial d'entreprise,Écologiste et Social,ECOS,Rhône,2
+PA721584,Jean,Terlier,1977-03-02,49,Avocat,Ensemble pour la République,EPR,Tarn,3
+PA841553,Thierry,Tesson,1957-04-22,69,(74) - Ancien cadre,Rassemblement National,RN,Nord,17
+PA795920,Prisca,Thevenot,1985-03-01,41,Collaboratrice parlementaire,Ensemble pour la République,EPR,Hauts-de-Seine,8
+PA793948,Nicolas,Thierry,1975-12-08,50,Consultant en développement durable,Écologiste et Social,ECOS,Gironde,2
+PA719822,Sabine,Thillaye,1959-05-18,67,Ancien Chef d'entreprise,Les Démocrates,DEM,Indre-et-Loire,5
+PA841893,Céline,Thiébault-Martinez,1974-08-04,51,(37) - Cadre administratif et commercial d'entreprise,Socialistes et apparentés,SOC,Seine-et-Marne,9
+PA722336,Vincent,Thiébaut,1972-05-23,54,Autre cadre (secteur privé),Horizons & Indépendants,HOR,Bas-Rhin,9
+PA643089,Jean-Louis,Thiériot,1969-06-26,56,Sans profession déclarée,Droite Républicaine,DR,Seine-et-Marne,3
+PA793816,Mélanie,Thomin,1984-06-04,42,"Professeur, profession scientifique",Socialistes et apparentés,SOC,Finistère,6
+PA793298,Lionel,Tivoli,1988-02-29,38,Chef d'entreprise de 10 salariés ou plus,Rassemblement National,RN,Alpes-Maritimes,2
+PA842299,Emmanuel,Tjibaou,1976-03-17,50,(33) - Cadre de la fonction publique,Gauche Démocrate et Républicaine,GDR,Nouvelle-Calédonie,2
+PA840067,Gabriel,Tomatis,1999-11-02,26,Sans profession déclarée,Rassemblement National,RN,Alpes-Maritimes,4
+PA840781,Romain,Tonussi,1996-04-09,30,(45) - Profession intermédiaire administrative de la fonction publique,Rassemblement National,RN,Bouches-du-Rhône,8
+PA607395,Stéphane,Travert,1969-10-12,56,Cadre secteur privé,Ensemble pour la République,EPR,Manche,3
+PA793334,Cyril,Tribuiani,1981-07-25,44,Agent d'assurances,Rassemblement National,RN,Alpes-Maritimes,6
+PA795164,Aurélie,Trouvé,1979-09-20,46,Cadre de la fonction publique,La France insoumise - Nouveau Front Populaire,LFI-NFP,Seine-Saint-Denis,9
+PA842121,Nicolas,Tryzna,1987-12-15,38,Formateur,Droite Républicaine,DR,Val-de-Marne,7
+PA840685,Vincent,Trébuchet,1988-07-05,37,(37) - Cadre administratif et commercial d'entreprise,Union des droites pour la République,UDDPLR,Ardèche,2
+PA722162,Nicolas,Turquois,1972-07-26,53,Agriculteur-propriétaire exploitant,Les Démocrates,DEM,Vienne,4
+PA878242,Antoine,Valentin,1992-10-16,33,chef d'entreprise,Union des droites pour la République,UDDPLR,Haute-Savoie,3
+PA719930,Boris,Vallaud,1975-07-25,50,Fonctionnaire de catégorie A,Socialistes et apparentés,SOC,Landes,3
+PA795350,Frédéric,Valletoux,1966-08-23,59,Profession de l'information,Horizons & Indépendants,HOR,Seine-et-Marne,2
+PA795596,Paul,Vannier,1985-09-19,40,Professeur d'histoire-géographie,La France insoumise - Nouveau Front Populaire,LFI-NFP,Val-d'Oise,5
+PA794118,Antoine,Vermorel-Marques,1993-02-17,33,Conseiller parlementaire,Droite Républicaine,DR,Loire,5
+PA840809,Gérault,Verny,1984-12-23,41,(23) - Chef d'entreprise de 10 salariés ou plus,Union des droites pour la République,UDDPLR,Bouches-du-Rhône,14
+PA794494,Roger,Vicot,1963-06-01,63,sans profession,Socialistes et apparentés,SOC,Nord,11
+PA722102,Annie,Vidal,1956-09-17,69,Retraitée de la fonction publique hospitalière,Ensemble pour la République,EPR,Seine-Maritime,2
+PA607090,Jean-Pierre,Vigier,1969-10-22,56,Fonctionnaire de catégorie A,Droite Républicaine,DR,Haute-Loire,2
+PA331582,Philippe,Vigier,1958-02-03,68,Biologiste A.I.H.P.,Les Démocrates,DEM,Eure-et-Loir,4
+PA719512,Corinne,Vignon,1963-06-10,63,Cadre supérieur (secteur privé),Ensemble pour la République,EPR,Haute-Garonne,3
+PA794946,Antoine,Villedieu,1989-03-08,37,Policier,Rassemblement National,RN,Haute-Saône,1
+PA795026,Anne-Cécile,Violland,1973-06-10,53,Profession libérale,Horizons & Indépendants,HOR,Haute-Savoie,5
+PA721474,Stéphane,Viry,1969-10-14,56,Avocat,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Vosges,1
+PA841575,Frédéric-Pierre,Vos,1963-03-10,63,avocat,Rassemblement National,RN,Oise,5
+PA2940,Dominique,Voynet,1958-11-04,67,Médecin,Écologiste et Social,ECOS,Doubs,2
+PA793194,Lionel,Vuibert,1968-08-31,57,Directeur général,Non inscrit,NI,Ardennes,1
+PA2952,Jean-Luc,Warsmann,1965-10-22,60,Directeur de mutuelle,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Ardennes,3
+PA267285,Laurent,Wauquiez,1975-04-12,51,(33) - Cadre de la fonction publique,Droite Républicaine,DR,Haute-Loire,1
+PA841479,Frédéric,Weber,1973-05-21,53,(43) - Profession intermédiaire de la santé et du travail social,Rassemblement National,RN,Meurthe-et-Moselle,3
+PA795326,Christopher,Weissberg,1985-11-26,40,Cadre dirigeant,Ensemble pour la République,EPR,Français établis hors de France,1
+PA720992,Jiovanny,William,1985-06-03,41,Profession libérale,Socialistes et apparentés,SOC,Martinique,1
+PA795046,Caroline,Yadan,1968-08-14,57,Avocat,Ensemble pour la République,EPR,Français établis hors de France,8
+PA796078,Estelle,Youssouffa,1978-07-31,47,Consultante,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Mayotte,1
+PA942,Charles,de Courson,1952-04-02,74,Conseiller référendaire honoraire à la Cour des comptes,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Marne,5
+PA841613,Marc,de Fleurian,1989-02-07,37,(33) - Cadre de la fonction publique,Rassemblement National,RN,Pas-de-Calais,7
+PA642988,Hervé,de Lépinau,1969-06-08,57,Avocat,Rassemblement National,RN,Vaucluse,3
+PA842141,Élisabeth,de Maistre,1975-10-07,50,Avocat,Droite Républicaine,DR,Hauts-de-Seine,9
+PA841359,Constance,de Pélichy,1986-04-01,40,Cadre supérieur,"Libertés, Indépendants, Outre-mer et Territoires",LIOT,Loiret,3

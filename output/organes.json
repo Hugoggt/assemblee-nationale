@@ -1,0 +1,62 @@
+[
+  {
+    "uid": "PO845401",
+    "libelle": "Rassemblement National",
+    "libelle_abrev": "RN"
+  },
+  {
+    "uid": "PO845425",
+    "libelle": "Droite Républicaine",
+    "libelle_abrev": "DR"
+  },
+  {
+    "uid": "PO845514",
+    "libelle": "Gauche Démocrate et Républicaine",
+    "libelle_abrev": "GDR"
+  },
+  {
+    "uid": "PO845454",
+    "libelle": "Les Démocrates",
+    "libelle_abrev": "DEM"
+  },
+  {
+    "uid": "PO845419",
+    "libelle": "Socialistes et apparentés",
+    "libelle_abrev": "SOC"
+  },
+  {
+    "uid": "PO845485",
+    "libelle": "Libertés, Indépendants, Outre-mer et Territoires",
+    "libelle_abrev": "LIOT"
+  },
+  {
+    "uid": "PO845413",
+    "libelle": "La France insoumise - Nouveau Front Populaire",
+    "libelle_abrev": "LFI-NFP"
+  },
+  {
+    "uid": "PO872880",
+    "libelle": "Union des droites pour la République",
+    "libelle_abrev": "UDDPLR"
+  },
+  {
+    "uid": "PO845407",
+    "libelle": "Ensemble pour la République",
+    "libelle_abrev": "EPR"
+  },
+  {
+    "uid": "PO845439",
+    "libelle": "Écologiste et Social",
+    "libelle_abrev": "ECOS"
+  },
+  {
+    "uid": "PO840056",
+    "libelle": "Non inscrit",
+    "libelle_abrev": "NI"
+  },
+  {
+    "uid": "PO845470",
+    "libelle": "Horizons & Indépendants",
+    "libelle_abrev": "HOR"
+  }
+]
