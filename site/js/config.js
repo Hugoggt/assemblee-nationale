@@ -1,7 +1,7 @@
 // Réglages du site : à modifier ici, sans toucher au reste du code.
 export const SITE = {
   nom: 'Hémicycle',
-  contact: 'hugo.georgenthum@outlook.com',
+  contact: 'contact@hemicycles.fr',
   // Lien de la cagnotte (Ko-fi, Tipeee, Liberapay…). Laisser vide pour masquer le bouton « Soutenir ».
   soutienUrl: '',
   soutienLabel: 'Soutenir le projet',
