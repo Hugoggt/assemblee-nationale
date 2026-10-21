@@ -56,7 +56,7 @@ body[data-section="senat"]        { --sec: var(--sn);   --sec-soft: var(--sn-sof
 body[data-section="comparer"]     { --sec: var(--cmp);  --sec-soft: var(--cmp-soft); }
 body[data-section="gouvernement"] { --sec: var(--gouv); --sec-soft: var(--gouv-soft); }
 body[data-section="agenda"]       { --sec: var(--an);   --sec-soft: var(--an-soft); }
-body[data-section="comprendre"]   { --sec: var(--cc);   --sec-soft: var(--cc-soft); }
+body[data-section="comprendre"], body[data-section="guide"] { --sec: var(--cc);   --sec-soft: var(--cc-soft); }
 body { --accent: var(--sec); --accent-soft: var(--sec-soft); }
 body[data-section=""] { --accent: var(--an); --accent-soft: var(--an-soft); }
 
@@ -73,12 +73,12 @@ body[data-section=""] { --accent: var(--an); --accent-soft: var(--an-soft); }
 .mainnav a:hover { color: #fff; }
 .mainnav a.active { color: #fff; border-bottom-color: var(--nc, #fff); }
 .mainnav a.nav-2 { color: rgba(255,255,255,.55); }
-.mainnav a[href="#/lois"] { --nc: var(--loi); }
-.mainnav a[href="#/votes"], .mainnav a[href="#/assemblee"], .mainnav a[href="#/agenda"] { --nc: #8ea2ff; }
-.mainnav a[href="#/senat"] { --nc: #f27aa0; }
-.mainnav a[href="#/comparer"] { --nc: #b79bf5; }
-.mainnav a[href="#/gouvernement"] { --nc: #c4c9d6; }
-.mainnav a[href="#/comprendre"] { --nc: #e8bb55; }
+.mainnav a[href="lois"] { --nc: var(--loi); }
+.mainnav a[href="votes"], .mainnav a[href="assemblee"], .mainnav a[href="agenda"] { --nc: #8ea2ff; }
+.mainnav a[href="senat"] { --nc: #f27aa0; }
+.mainnav a[href="comparer"] { --nc: #b79bf5; }
+.mainnav a[href="gouvernement"] { --nc: #c4c9d6; }
+.mainnav a[href="guide"] { --nc: #e8bb55; }
 .search input { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.15); color: #fff; }
 .search input::placeholder { color: rgba(255,255,255,.55); }
 .search input:focus { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.4); }
@@ -175,3 +175,14 @@ body[data-section] .stat.tone-cmp { --t: var(--cmp); } body[data-section] .stat.
 .page > .crumbs:first-child { margin: -32px 0 0; padding: 18px 0 0; background: var(--sec-soft); box-shadow: 0 0 0 100vmax var(--sec-soft); clip-path: inset(0 -100vmax); }
 .page > .crumbs:first-child + .page-head { margin-top: 0; padding-top: 12px; }
 .page > .crumbs:first-child + .page-head::before { top: 12px; }
+
+body[data-section] .stat.tone-pour { --t: var(--pour); } body[data-section] .stat.tone-contre { --t: var(--contre); }
+body[data-section] .stat.tone-abst { --t: var(--abst); }
+.head-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.share-btn::before { content: ""; width: 14px; height: 14px; display: inline-block; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.4a3 3 0 0 0 0-1.6l6.7-3.4A3 3 0 1 0 15 7a3 3 0 0 0 .1.8L8.4 11.2a3 3 0 1 0 0 3.6l6.7 3.4A3 3 0 1 0 18 16z'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.4a3 3 0 0 0 0-1.6l6.7-3.4A3 3 0 1 0 15 7a3 3 0 0 0 .1.8L8.4 11.2a3 3 0 1 0 0 3.6l6.7 3.4A3 3 0 1 0 18 16z'/%3E%3C/svg%3E") center / contain no-repeat; }
+.prerender h1 { margin-top: 12px; }
+.prerender ul, .prerender ol { line-height: 1.8; }
+.prerender table { border-collapse: collapse; margin-top: 10px; }
+.prerender td, .prerender th { padding: 4px 12px; border-bottom: 1px solid var(--border); text-align: left; }

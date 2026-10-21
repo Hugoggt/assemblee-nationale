@@ -1,6 +1,5 @@
 import {
-  load, ctx, dossiersIndex, esc, nf, fdate, fdateDay, relDate, statusChip, chamberChip, term, actorLink, voteBar, voteLabels,
-  resChip, setTitle, CHAMBRE, RESULT_TXT, RESULT_ICON, KIND, seg, wireSeg, ucfirst, plural, ttl, info, themeChip, tabsHtml, wireTabs, hashParams,
+  load, ctx, dossiersIndex, esc, nf, fdate, fdateDay, relDate, statusChip, chamberChip, term, actorLink, voteBar, voteLabels, resChip, setTitle, CHAMBRE, RESULT_TXT, RESULT_ICON, KIND, seg, wireSeg, ucfirst, plural, ttl, info, themeChip, tabsHtml, wireTabs, hashParams, shareBtn,
 } from '../lib.js';
 
 const READING = s => ['AN', 'SN'].includes(s.chambre) && !/^(AN20|AN21|AN-APPLI)/.test(s.code);
@@ -165,7 +164,7 @@ export async function voteCard(num, groupes) {
   const gs = s.groupes.map(g => ({ ...g, info: groupes.get(g.g) })).filter(g => g.info).sort((a, b) => a.info.ordre - b.info.ordre);
   const posName = { p: 'pour', c: 'contre', a: 'abstention', n: 'pas de position' };
   return `<div class="vote-card">
-    <div class="vh"><a href="#/vote/${s.num}"><b>Scrutin n° ${s.num}</b></a><span>${resChip(s.adopte)} · <span class="muted">${fdate(s.date)}</span></span></div>
+    <div class="vh"><a href="vote/${s.num}"><b>Scrutin n° ${s.num}</b></a><span>${resChip(s.adopte)} · <span class="muted">${fdate(s.date)}</span></span></div>
     <div class="small" style="margin-bottom:8px">${esc(s.titre)}</div>
     ${voteBar(s.pour, s.contre, s.abstention, 0, true)}
     ${voteLabels(s.pour, s.contre, s.abstention)}
@@ -184,7 +183,7 @@ export async function render(el, uid) {
   scr.forEach(s => { kinds[s[2]] = (kinds[s[2]] || 0) + 1; });
 
   el.innerHTML = `<div class="page">
-    <div class="crumbs"><a href="#/lois">Lois</a> › ${esc(d.typeLabel)}</div>
+    <div class="crumbs"><a href="lois">Lois</a> › ${esc(d.typeLabel)}</div>
     <div class="page-head">
       <div class="pill-row" style="margin-bottom:10px">
         <span class="chip">${esc(d.typeLabel)}</span>
@@ -195,6 +194,7 @@ export async function render(el, uid) {
       </div>
       <h1>${esc(d.titre)}</h1>
       ${d.titreLong && d.titreLong.toLowerCase() !== d.titre.toLowerCase() ? `<p class="lead">${esc(ucfirst(d.titreLong))}</p>` : ''}
+      <div class="head-actions">${shareBtn()}${d.urlAN ? `<a class="btn small" href="${esc(d.urlAN)}" target="_blank" rel="noopener">Dossier officiel ↗</a>` : ''}</div>
     </div>
     ${banner(d)}
 
@@ -272,7 +272,7 @@ export async function render(el, uid) {
       if (kind) items = items.filter(s => s[2] === kind);
       if (stepFilter) items = items.filter(s => stepFilter.has(s[0]));
       vlist.innerHTML = (stepFilter ? `<div class="small">Filtré sur une lecture · <a href="#" data-clear>tout afficher</a></div>` : '') +
-        items.slice(0, 400).map(s => `<a class="row" href="#/vote/${s[0]}" style="padding:10px 14px">
+        items.slice(0, 400).map(s => `<a class="row" href="vote/${s[0]}" style="padding:10px 14px">
           <div class="grow"><div class="small" style="color:var(--ink)">${esc(s[7])}</div><div class="meta"><span>${fdate(s[1], true)}</span><span>${esc(KIND[s[2]] || '')}</span></div></div>
           <div class="side" style="min-width:150px">${resChip(s[3])}<div style="margin-top:5px">${voteBar(s[4], s[5], s[6])}</div></div></a>`).join('') +
         (items.length > 400 ? `<p class="muted small">… et ${nf(items.length - 400)} autres.</p>` : '');

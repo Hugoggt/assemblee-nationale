@@ -1,4 +1,4 @@
-import { initOverlays, ctx, esc, fdate } from './lib.js';
+import { initOverlays, initShare, ctx, esc, fdate, navigate, BASE, deputes, senateurs, dossiersIndex } from './lib.js';
 import * as home from './pages/home.js';
 import * as lois from './pages/lois.js';
 import * as loi from './pages/loi.js';
@@ -13,72 +13,120 @@ import * as comparer from './pages/comparer.js';
 import * as apropos from './pages/apropos.js';
 import { SITE } from './config.js';
 
+// Les pages acceptent un identifiant officiel ou une adresse lisible (slug).
+const resolve = {
+  loi: async k => (/^DLR\w+$/.test(k) ? k : (await dossiersIndex())._bySlug.get(k)?.uid),
+  dep: async k => (/^PA\d+$/.test(k) ? k : (await deputes())._bySlug.get(k)?.id),
+  sen: async k => (/^PA\d+$/.test(k) ? k : (await senateurs())._bySlug.get(k)?.id),
+  grp: async k => (/^PO\d+$/.test(k) ? k : [...(await ctx()).groupes.values()].find(g => g.slug === k)?.id),
+};
+
 const routes = [
-  [/^\/?$/, home.render, ''],
+  [/^\/$/, home.render, ''],
   [/^\/lois$/, lois.render, 'lois'],
-  [/^\/loi\/(\w+)$/, loi.render, 'lois'],
+  [/^\/loi\/([\w-]+)$/, loi.render, 'lois', 'loi'],
   [/^\/votes$/, votes.list, 'votes'],
   [/^\/vote\/(\d+)$/, votes.detail, 'votes'],
+  [/^\/comparer$/, comparer.render, 'comparer'],
   [/^\/assemblee$/, chambres.assemblee, 'assemblee'],
   [/^\/senat$/, chambres.senat, 'senat'],
-  [/^\/groupe\/(\w+)$/, chambres.groupe, null],
+  [/^\/groupe\/([\w-]+)$/, chambres.groupe, null, 'grp'],
   [/^\/deputes$/, personnes.deputes, 'assemblee'],
-  [/^\/depute\/(\w+)$/, personnes.depute, 'assemblee'],
+  [/^\/depute\/([\w-]+)$/, personnes.depute, 'assemblee', 'dep'],
   [/^\/senateurs$/, personnes.senateurs, 'senat'],
-  [/^\/senateur\/(\w+)$/, personnes.senateur, 'senat'],
+  [/^\/senateur\/([\w-]+)$/, personnes.senateur, 'senat', 'sen'],
   [/^\/gouvernement$/, gouv.render, 'gouvernement'],
   [/^\/agenda$/, agenda.render, 'agenda'],
-  [/^\/comprendre(?:\/([\w-]+))?$/, comprendre.render, 'comprendre'],
+  [/^\/(?:guide|comprendre)(?:\/([\w-]+))?$/, comprendre.render, 'guide'],
   [/^\/recherche$/, recherche.render, null],
-  [/^\/comparer$/, comparer.render, 'comparer'],
   [/^\/a-propos$/, apropos.render, null],
 ];
 
 const main = document.getElementById('main');
 let lastPath = null;
+let first = true;
+
+function currentPath() {
+  let p = location.pathname;
+  if (p.startsWith(BASE)) p = '/' + p.slice(BASE.length);
+  p = p.replace(/\.html$/, '').replace(/\/index$/, '/');
+  if (p.length > 1) p = p.replace(/\/$/, '');
+  return p || '/';
+}
 
 async function route() {
-  const raw = location.hash.slice(1) || '/';
-  const path = raw.split('?')[0];
-  const fromLearn = lastPath?.startsWith('/comprendre') && path.startsWith('/comprendre');
+  const path = currentPath();
+  const fromLearn = lastPath?.startsWith('/guide') && path.startsWith('/guide');
   lastPath = path;
-  const match = routes.map(([rx, fn, nav]) => [rx.exec(path), fn, nav]).find(([m]) => m);
+  const match = routes.map(([rx, fn, nav, res]) => [rx.exec(path), fn, nav, res]).find(([m]) => m);
   document.querySelectorAll('.mainnav a').forEach(a => {
-    const key = a.getAttribute('href').slice(2);
-    a.classList.toggle('active', !!match && match[2] === key);
+    a.classList.toggle('active', !!match && match[2] === a.getAttribute('href'));
   });
   document.body.dataset.section = match ? (match[2] ?? '') : '';
   document.getElementById('menu-toggle').setAttribute('aria-expanded', 'false');
   document.querySelector('.mainnav').classList.remove('open');
   if (fromLearn && main.querySelector('.learn')) {
-    comprendre.scrollToSection(path.split('/')[2]); // navigation interne au guide
+    comprendre.scrollToSection(path.split('/')[2]);
     return;
   }
   if (!match) {
-    main.innerHTML = '<div class="page"><h1>Page introuvable</h1><p><a href="#/">Retour à l\'accueil</a></p></div>';
+    main.innerHTML = '<div class="page"><h1>Page introuvable</h1><p><a href="./">Retour à l\'accueil</a></p></div>';
     return;
   }
-  const [m, fn] = match;
-  main.innerHTML = '<div class="loading">Chargement…</div>';
+  const [m, fn, , res] = match;
+  if (!first) main.innerHTML = '<div class="loading">Chargement…</div>';
+  first = false;
   try {
-    await fn(main, ...m.slice(1));
+    await ctx();
+    const args = m.slice(1);
+    if (res) {
+      const id = await resolve[res](decodeURIComponent(args[0]));
+      if (!id) {
+        main.innerHTML = '<div class="page"><h1>Page introuvable</h1><p>Cette page n’existe pas ou plus. <a href="./">Retour à l’accueil</a></p></div>';
+        return;
+      }
+      args[0] = id;
+    }
+    await fn(main, ...args);
   } catch (e) {
     console.error(e);
-    main.innerHTML = `<div class="page"><h1>Oups</h1><p>Impossible d'afficher cette page.</p><pre class="note">${esc(e.message)}</pre>
-      <p class="note">Les données sont-elles générées ? Lancez <code>python pipeline/fetch.py</code> puis <code>python pipeline/build.py</code>.</p></div>`;
+    main.innerHTML = `<div class="page"><h1>Oups</h1><p>Impossible d'afficher cette page.</p><pre class="note">${esc(e.message)}</pre></div>`;
   }
-  if (!path.startsWith('/comprendre')) window.scrollTo(0, 0);
+  if (!path.startsWith('/guide')) window.scrollTo(0, 0);
 }
 
-addEventListener('hashchange', route);
+// Liens internes : navigation sans rechargement
+document.addEventListener('click', e => {
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  const a = e.target.closest('a[href]');
+  if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+  const href = a.getAttribute('href');
+  if (href.startsWith('#')) {
+    // Ancre dans la page (la balise <base> la ferait pointer vers l'accueil)
+    e.preventDefault();
+    if (href.length > 1) document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+  if (href.startsWith('mailto:') || /^https?:/.test(href)) return;
+  const url = new URL(href, document.baseURI);
+  if (url.origin !== location.origin || !url.pathname.startsWith(BASE)) return;
+  if (/\.(json|zip|xml|txt|png|jpg|svg|woff2?)$/.test(url.pathname)) return;
+  e.preventDefault();
+  if (url.pathname === location.pathname && url.search === location.search) return;
+  history.pushState(null, '', url);
+  route();
+});
+addEventListener('popstate', route);
+addEventListener('app:navigate', route);
 initOverlays();
+initShare();
 route();
 
 // En-tête : recherche, thème, menu mobile
 document.getElementById('global-search').addEventListener('submit', e => {
   e.preventDefault();
   const q = document.getElementById('q').value.trim();
-  if (q) location.hash = `#/recherche?q=${encodeURIComponent(q)}`;
+  if (q) navigate(`recherche?q=${encodeURIComponent(q)}`);
 });
 document.getElementById('theme-toggle').addEventListener('click', () => {
   const root = document.documentElement;
@@ -95,7 +143,6 @@ ctx().then(({ meta }) => {
   document.getElementById('footer-meta').textContent = `Données mises à jour le ${fdate(meta.genere)} à ${meta.genere.slice(11, 16)}. ${meta.legislature}e législature de la Ve République.`;
 }).catch(() => {});
 
-// Pied de page : bouton de soutien si un lien est configuré
 if (SITE.soutienUrl) {
   const box = document.getElementById('footer-support');
   if (box) box.innerHTML = `<a class="footer-support" href="${SITE.soutienUrl}" target="_blank" rel="noopener">${SITE.soutienLabel}</a>`;

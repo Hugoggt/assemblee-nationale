@@ -1,6 +1,5 @@
 import {
-  ctx, deputes, senateurs, scrutinsIndex, dossiersIndex, load, esc, nf, pct, fdate, age, norm, debounce, paged, seg, wireSeg,
-  setTitle, gchip, avatar, statTile, voteBar, voteLabels, resChip, posChip, term, KIND, hashParams, setHashParams, plural, ttl, info, tabsHtml, wireTabs,
+  ctx, deputes, senateurs, scrutinsIndex, dossiersIndex, load, esc, nf, pct, fdate, age, norm, debounce, paged, seg, wireSeg, setTitle, gchip, avatar, statTile, voteBar, voteLabels, resChip, posChip, term, KIND, hashParams, setHashParams, plural, ttl, info, tabsHtml, wireTabs, L, shareBtn,
 } from '../lib.js';
 import { loiRow } from './home.js';
 
@@ -13,7 +12,7 @@ function circo(p) {
 }
 
 function personCard(p, chambre, g) {
-  const href = chambre === 'AN' ? `#/depute/${p.id}` : `#/senateur/${p.id}`;
+  const href = chambre === 'AN' ? `${L.dep(p)}` : `${L.sen(p)}`;
   const sub = chambre === 'AN' ? circo(p) : p.departement || '';
   return `<a class="card link person" href="${href}">${avatar(p, chambre, g)}<span style="min-width:0"><span class="pname">${esc(p.prenom)} ${esc(p.nom)}</span><br>
     <span class="pmeta">${gchip(g, { link: false })} ${esc(sub)}</span>${!p.actif ? '<br><span class="pmeta">Ancien député</span>' : ''}</span></a>`;
@@ -28,7 +27,7 @@ async function listPage(el, chambre) {
   const groups = isAN ? c.an : c.sn;
   const depts = [...new Set(all.map(d => d.departement).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr'));
   el.innerHTML = `<div class="page">
-    <div class="crumbs"><a href="#/${isAN ? 'assemblee' : 'senat'}">${isAN ? 'Assemblée nationale' : 'Sénat'}</a></div>
+    <div class="crumbs"><a href="${isAN ? 'assemblee' : 'senat'}">${isAN ? 'Assemblée nationale' : 'Sénat'}</a></div>
     <div class="page-head"><h1>${isAN ? 'Députés' : 'Sénateurs'}</h1>
       <p class="lead">${isAN ? 'Trouvez votre député : groupe, votes, présence, textes.' : 'Trouvez les sénateurs de votre département.'}</p></div>
     <div class="filters">
@@ -89,7 +88,7 @@ export async function depute(el, id) {
   const s = d.stats || {};
   const title = fem(d) ? 'Députée' : 'Député';
   el.innerHTML = `<div class="page">
-    <div class="crumbs"><a href="#/assemblee">Assemblée nationale</a> › <a href="#/deputes">Députés</a></div>
+    <div class="crumbs"><a href="assemblee">Assemblée nationale</a> › <a href="deputes">Députés</a></div>
     <div class="profile page-head">
       ${avatar(d, 'AN', g, 'lg')}
       <div class="info">
@@ -104,6 +103,7 @@ export async function depute(el, id) {
           ${!d.actif && d.fin ? `<span>Mandat terminé le ${fdate(d.fin)}${d.causeFin ? ` (${esc(d.causeFin.split(' prévue')[0].toLowerCase())})` : ''}</span>` : ''}
         </div>
         ${d.fonctions?.length ? `<div style="margin-top:8px">${d.fonctions.map(f => `<span class="role-pill">${esc(f)}</span>`).join('')}</div>` : ''}
+        <div class="head-actions">${shareBtn()}<a class="btn small" href="comparer?d=${d.id}${g ? `&g=${g.id}` : ''}">Comparer ses votes</a></div>
       </div>
     </div>
 
@@ -132,7 +132,7 @@ export async function depute(el, id) {
           </dl>
           ${d.historiqueGroupes?.length > 1 ? `<h4 class="small muted" style="margin:14px 0 6px">Groupes pendant la législature</h4>
             <div class="small">${d.historiqueGroupes.map(([sg, a, b]) => `<div>${esc(sg || '?')} <span class="muted">· ${fdate(a, true)} → ${b ? fdate(b, true) : "aujourd'hui"}</span></div>`).join('')}</div>` : ''}
-          <a class="btn small primary" href="#/comparer?d=${d.id}${g ? `&g=${g.id}` : ''}" style="margin-top:14px">Comparer ses votes</a>
+          <a class="btn small primary" href="comparer?d=${d.id}${g ? `&g=${g.id}` : ''}" style="margin-top:14px">Comparer ses votes</a>
           <p class="small" style="margin-top:12px"><a class="ext" href="https://www.assemblee-nationale.fr/dyn/deputes/${d.id}" target="_blank" rel="noopener">Fiche officielle sur le site de l'Assemblée</a></p>
         </section>
       </aside>
@@ -166,7 +166,7 @@ export async function depute(el, id) {
       if (mode === 'dissid' && !dis.has(s.num)) continue;
       rows.push([s, ch]);
     }
-    paged(box, rows, ([s, ch]) => `<a class="row" href="#/vote/${s.num}" style="padding:10px 14px">
+    paged(box, rows, ([s, ch]) => `<a class="row" href="vote/${s.num}" style="padding:10px 14px">
       <div class="grow"><div class="small" style="color:var(--ink);font-weight:550">${esc(s.titre)}</div>
         <div class="meta"><span>${fdate(s.date, true)}</span><span>${esc(KIND[s.kind] || '')}</span>${resChip(s.adopte)}${dis.has(s.num) ? '<span class="chip" style="color:var(--warn)">≠ son groupe</span>' : ''}</div></div>
       <div class="side" style="min-width:110px">${posChip(ch)}</div></a>`, 15);
@@ -183,7 +183,7 @@ export async function senateur(el, id) {
   setTitle(`${d.prenom} ${d.nom}`);
   const g = c.groupes.get(d.groupe);
   el.innerHTML = `<div class="page">
-    <div class="crumbs"><a href="#/senat">Sénat</a> › <a href="#/senateurs">Sénateurs</a></div>
+    <div class="crumbs"><a href="senat">Sénat</a> › <a href="senateurs">Sénateurs</a></div>
     <div class="profile page-head">
       ${avatar(d, 'SN', g, 'lg')}
       <div class="info">

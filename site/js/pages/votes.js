@@ -1,6 +1,5 @@
 import {
-  load, ctx, deputes, scrutinsIndex, dossiersIndex, esc, nf, fdate, norm, paged, seg, wireSeg, debounce, setTitle,
-  hashParams, setHashParams, hemicycle, wireHemicycle, voteBar, voteLabels, resChip, term, KIND, gchip, plural, statTile, ttl, info,
+  load, ctx, deputes, scrutinsIndex, dossiersIndex, esc, nf, fdate, norm, paged, seg, wireSeg, debounce, setTitle, hashParams, setHashParams, hemicycle, wireHemicycle, voteBar, voteLabels, resChip, term, KIND, gchip, plural, statTile, ttl, info, L, shareBtn,
 } from '../lib.js';
 import { scrutinRow } from './home.js';
 
@@ -65,7 +64,7 @@ export async function detail(el, num) {
   for (const g of groups) {
     const absent = Math.max(0, g.n - g.p.length - g.c.length - g.a.length - g.nv.length);
     for (const k of ['p', 'a', 'c', 'nv']) {
-      for (const id of g[k]) seats.push({ k, g, id, tip: `${name(id)} (${g.info.sigle}) — ${LBL[k]}${deleg.has(id) ? ' (par délégation)' : ''}`, href: `#/depute/${id}` });
+      for (const id of g[k]) seats.push({ k, g, id, tip: `${name(id)} (${g.info.sigle}) — ${LBL[k]}${deleg.has(id) ? ' (par délégation)' : ''}`, href: `${L.dep(id)}` });
     }
     for (let i = 0; i < absent; i++) seats.push({ k: 'x', g, tip: `${g.info.sigle} — absent ou n'a pas pris part au vote` });
   }
@@ -81,17 +80,18 @@ export async function detail(el, num) {
   const isCensure = s.kind === 'censure';
 
   el.innerHTML = `<div class="page">
-    <div class="crumbs"><a href="#/votes">Votes</a> › Scrutin n° ${s.num}</div>
+    <div class="crumbs"><a href="votes">Votes</a> › Scrutin n° ${s.num}</div>
     <div class="page-head">
       <div class="pill-row" style="margin-bottom:10px"><span class="chip">${esc(KIND[s.kind] || 'Vote')}</span><span class="chip">${esc(s.typeLabel || '')}</span><span class="chip">${fdate(s.date)}</span></div>
       <h1 style="font-size:clamp(1.15rem,2.2vw,1.4rem);line-height:1.35">${esc(s.titre)}</h1>
-      ${dossier ? `<p>Texte concerné : <a href="#/loi/${dossier.uid}">${esc(dossier.titre)}</a></p>` : ''}
+      ${dossier ? `<p>Texte concerné : <a href="${L.loi(dossier)}">${esc(dossier.titre)}</a></p>` : ''}
+      <div class="head-actions">${shareBtn()}</div>
     </div>
     <div class="grid g4" style="margin-bottom:18px">
-      ${statTile(s.adopte ? '✓ Adopté' : '✕ Rejeté', esc(s.annonce || ''), '', null, s.adopte ? 'green' : 'red', s.adopte ? '' : '')}
-      ${statTile(nf(s.pour), 'pour', isCensure ? `${nf(s.requis)} nécessaires pour renverser` : `majorité : ${nf(s.requis)}`, null, 'green', '')}
-      ${statTile(nf(s.contre), 'contre', isCensure ? 'seuls les « pour » comptent' : '', null, 'red', '')}
-      ${statTile(nf(s.abstention), 'abstentions', `${nf(s.votants)} votants`, null, 'yellow', '')}
+      ${statTile(s.adopte ? '✓ Adopté' : '✕ Rejeté', esc(s.annonce || ''), '', null, s.adopte ? 'loi' : 'contre', s.adopte ? '' : '')}
+      ${statTile(nf(s.pour), 'pour', isCensure ? `${nf(s.requis)} nécessaires pour renverser` : `majorité : ${nf(s.requis)}`, null, 'pour', '')}
+      ${statTile(nf(s.contre), 'contre', isCensure ? 'seuls les « pour » comptent' : '', null, 'contre', '')}
+      ${statTile(nf(s.abstention), 'abstentions', `${nf(s.votants)} votants`, null, 'abst', '')}
     </div>
     <div class="two-col">
       <div>
@@ -115,7 +115,7 @@ export async function detail(el, num) {
 
         ${rebels.length ? `<section class="block">
           ${ttl('', `Ils ont voté autrement que leur groupe (${rebels.length})`, 'orange')}<div style="height:12px"></div>
-          <div class="people">${rebels.map(r => `<a class="card link person" href="#/depute/${r.id}" style="padding:10px 12px"><span><span class="pname">${esc(name(r.id))}</span><br><span class="pmeta">${esc(r.g.info.sigle)} majoritairement ${LBL[r.g.pos].toLowerCase()} · a voté <b>${LBL[r.k].toLowerCase()}</b></span></span></a>`).join('')}</div>
+          <div class="people">${rebels.map(r => `<a class="card link person" href="${L.dep(r)}" style="padding:10px 12px"><span><span class="pname">${esc(name(r.id))}</span><br><span class="pmeta">${esc(r.g.info.sigle)} majoritairement ${LBL[r.g.pos].toLowerCase()} · a voté <b>${LBL[r.k].toLowerCase()}</b></span></span></a>`).join('')}</div>
         </section>` : ''}
 
         <section class="block">
@@ -160,7 +160,7 @@ export async function detail(el, num) {
   const showTab = k => {
     el.querySelectorAll('[data-tab]').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === k));
     const blocks = groups.filter(g => g[k].length).map(g => `<div style="margin-bottom:14px"><div style="margin-bottom:6px">${gchip(g.info)} <span class="muted small">${g[k].length}</span></div>
-      <div class="small" style="line-height:1.9">${g[k].map(id => `<a href="#/depute/${id}">${esc(name(id))}</a>${deleg.has(id) ? '<span class="muted" data-tip="Vote par délégation">*</span>' : ''}`).join(', ')}</div></div>`);
+      <div class="small" style="line-height:1.9">${g[k].map(id => `<a href="${L.dep(id)}">${esc(name(id))}</a>${deleg.has(id) ? '<span class="muted" data-tip="Vote par délégation">*</span>' : ''}`).join(', ')}</div></div>`);
     nomi.innerHTML = blocks.join('') || '<p class="muted">Personne.</p>';
     if (deleg.size) nomi.insertAdjacentHTML('beforeend', '<p class="note">* vote par délégation</p>');
   };

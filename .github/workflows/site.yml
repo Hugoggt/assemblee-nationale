@@ -1,6 +1,7 @@
 name: Hémicycle
 
-# Reconstruit les données chaque matin et publie le site sur GitHub Pages.
+# Reconstruit les données chaque matin, génère une page par loi, député, vote…
+# puis publie le site sur GitHub Pages.
 on:
   push:
     branches: [main]
@@ -17,6 +18,11 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+env:
+  # Avec un nom de domaine à soi : SITE_URL=https://mon-domaine.fr et SITE_BASE=/
+  SITE_URL: https://hugoggt.github.io/assemblee-nationale
+  SITE_BASE: /assemblee-nationale/
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,9 +35,11 @@ jobs:
         run: python pipeline/fetch.py --force
       - name: Construire les données du site
         run: python -X utf8 pipeline/build.py
+      - name: Générer les pages et le plan du site
+        run: python -X utf8 pipeline/prerender.py
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: dist
 
   deploy:
     needs: build

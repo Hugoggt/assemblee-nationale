@@ -215,7 +215,7 @@ export async function render(el) {
         <tbody>${slice.map(i => {
           const s = chrono[i];
           const th = themeOf[i] && dos.themes[themeOf[i]];
-          return `<tr><td class="vt"><a href="#/vote/${s.num}">${esc(s.titre.length > 120 ? s.titre.slice(0, 118) + '…' : s.titre)}</a>
+          return `<tr><td class="vt"><a href="vote/${s.num}">${esc(s.titre.length > 120 ? s.titre.slice(0, 118) + '…' : s.titre)}</a>
             <div class="tiny muted">${fdate(s.date, true)} · ${esc(KIND[s.kind] || '')}${th ? ` · ${esc(th.label)}` : ''} · ${s.adopte ? 'adopté' : 'rejeté'}</div></td>
             ${ents.map(e => { const x = e.pos[i]; return `<td class="c">${x === 'p' || x === 'c' || x === 'a' ? `<span class="vdot" style="background:${POSC[x]}" data-tip="${esc(e.label)} : ${POSL[x]}"></span>` : '<span class="vdot none" data-tip="Pas de vote"></span>'}</td>`; }).join('')}</tr>`;
         }).join('')}</tbody></table></div>

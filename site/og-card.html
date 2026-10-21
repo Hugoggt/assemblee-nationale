@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Carte de partage</title>
+<link rel="stylesheet" href="fonts/inter.css">
+<style>
+  html, body { margin: 0; }
+  body { width: 1200px; height: 630px; background: #12164a; color: #fff; font-family: Inter, sans-serif; position: relative; overflow: hidden; }
+  .ring { position: absolute; right: -180px; top: -220px; width: 760px; height: 760px; border-radius: 50%; border: 90px solid rgba(255,255,255,.04); }
+  .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 12px; background: linear-gradient(90deg, #2d4bd8 0 50%, #a11d48 50% 100%); }
+  .wrap { position: absolute; left: 90px; top: 110px; right: 90px; }
+  .brand { display: flex; align-items: center; gap: 26px; }
+  .brand svg { width: 150px; height: 94px; }
+  .brand span { font-size: 92px; font-weight: 800; letter-spacing: -.045em; }
+  h1 { font-size: 50px; font-weight: 700; letter-spacing: -.03em; line-height: 1.15; margin: 54px 0 22px; max-width: 900px; }
+  h1 b { color: #4fd19a; font-weight: 700; }
+  p { font-size: 28px; color: rgba(255,255,255,.7); margin: 0; }
+</style>
+</head>
+<body>
+  <div class="ring"></div>
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 64 40"><path d="M5 37a27 27 0 0 1 54 0" fill="none" stroke="#8ea2ff" stroke-width="7" stroke-linecap="round"/><path d="M18 37a14 14 0 0 1 28 0" fill="none" stroke="#f27aa0" stroke-width="7" stroke-linecap="round"/><circle cx="32" cy="35" r="4.5" fill="#4fd19a"/></svg>
+      <span>hémicycle</span>
+    </div>
+    <h1>Les lois et les votes de l'Assemblée nationale et du Sénat, <b>en clair</b>.</h1>
+    <p>Où en est chaque loi · Qui a voté quoi · Qui vote avec qui</p>
+  </div>
+  <div class="bar"></div>
+</body>
+</html>

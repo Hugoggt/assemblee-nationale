@@ -12,8 +12,9 @@ Double-cliquez sur `lancer_site.bat`, ou :
 
 ```sh
 python pipeline/fetch.py          # télécharge les données ouvertes (≈ 60 Mo, cache de 12 h)
-python -X utf8 pipeline/build.py  # construit site/data/ (≈ 20 s)
-python -m http.server 8000 --directory site
+python -X utf8 pipeline/build.py      # construit site/data/ (≈ 20 s)
+python -X utf8 pipeline/prerender.py  # génère dist/ : une page par loi, député, vote… + sitemap
+python pipeline/serve.py 8000         # sert dist/ comme GitHub Pages
 ```
 
 puis ouvrez <http://localhost:8000>. Aucune dépendance : Python 3.10+ (bibliothèque standard) et un navigateur.
@@ -24,6 +25,8 @@ puis ouvrez <http://localhost:8000>. Aucune dépendance : Python 3.10+ (biblioth
 |---|---|
 | `pipeline/fetch.py` | Télécharge les archives open data de l'Assemblée dans `data/raw/` |
 | `pipeline/build.py` | Calcule statuts, parcours, rattachement des votes aux textes, statistiques ; écrit `site/data/` |
+| `pipeline/prerender.py` | Génère `dist/` : pages HTML pour le référencement (titres, descriptions, données structurées), `sitemap.xml`, `robots.txt` |
+| `pipeline/serve.py` | Serveur local qui imite GitHub Pages |
 | `site/` | Site statique (HTML, CSS, JavaScript sans framework ni étape de build) |
 | `site/js/pages/` | Une page par fichier : `loi.js` (parcours d'un texte), `votes.js`, `chambres.js`, `personnes.js`, `comprendre.js`… |
 | `.github/workflows/site.yml` | Reconstruit les données chaque matin et publie sur GitHub Pages |
@@ -46,4 +49,5 @@ Limites connues :
 ## Publier sur GitHub Pages
 
 Dans les paramètres du dépôt GitHub : *Settings → Pages → Source : GitHub Actions*.
+Avec un nom de domaine, renseigner `SITE_URL` et `SITE_BASE` en tête de `.github/workflows/site.yml`.
 Le workflow publie à chaque push sur `main` et tous les jours à 4 h 15 UTC.

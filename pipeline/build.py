@@ -179,6 +179,31 @@ def words(s: str) -> set:
     return {w for w in re.findall(r"[a-zà-ÿ0-9]+", s) if w not in STOPWORDS and len(w) > 2}
 
 
+def slugify(text: str, max_len: int = 80) -> str:
+    t = re.sub(r"[’'‘]", " ", text or "")
+    t = unicodedata.normalize("NFD", t).encode("ascii", "ignore").decode().lower()
+    t = re.sub(r"[^a-z0-9]+", "-", t).strip("-")
+    if len(t) > max_len:
+        t = t[:max_len].rsplit("-", 1)[0]
+    return t or "page"
+
+
+def unique_slugs(items, key_fn, id_fn, suffix_fn):
+    """Attribue un slug unique à chaque élément ; en cas de doublon, ajoute un suffixe."""
+    seen = {}
+    for it in items:
+        base = key_fn(it)
+        slug = base
+        if slug in seen:
+            slug = f"{base}-{suffix_fn(it)}"
+        n = 2
+        while slug in seen:
+            slug = f"{base}-{n}"
+            n += 1
+        seen[slug] = id_fn(it)
+        it["slug"] = slug
+
+
 def write(path: Path, obj) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
@@ -644,6 +669,9 @@ class Dossiers:
         m = self.ref.mandats.get(mandat_ref) if mandat_ref else None
         gouv = bool(m and m["typeOrgane"] in ("MINISTERE", "GOUVERNEMENT"))
         p = {"id": acteur_ref, "nom": self.ref.nom(acteur_ref)}
+        who = self.deputes.get(acteur_ref) or self.senateurs.get(acteur_ref)
+        if who and who.get("slug"):
+            p["slug"] = who["slug"]
         if gouv:
             p["gouv"] = True
             p["fonction"] = self.ref.organe_libelle(self.ref.organe_ref(m))
@@ -1185,8 +1213,18 @@ def main():
     groupes_an = build_groupes_an(ref)
     groupes_sn = build_groupes_sn(ref)
     groupes = {**groupes_an, **groupes_sn}
+    unique_slugs(sorted(groupes.values(), key=lambda g: (bool(g.get("fin")), g["chambre"], g["ordre"])),
+                 lambda g: f"{'an' if g['chambre'] == 'AN' else 'senat'}-{slugify(g['sigle'])}",
+                 lambda g: g["id"], lambda g: (g.get("debut") or g["id"])[:4])
     deputes, dept_names = build_deputes(ref, groupes_an)
     senateurs = build_senateurs(ref, groupes_sn, dept_names)
+    # Adresses lisibles : les élus en exercice d'abord, pour qu'ils gardent le slug le plus simple
+    unique_slugs(sorted(deputes.values(), key=lambda d: (not d["actif"], d["tri"])),
+                 lambda d: slugify(f"{d['prenom']} {d['nom']}"), lambda d: d["id"],
+                 lambda d: slugify(d.get("departement") or d["id"]))
+    unique_slugs(sorted(senateurs.values(), key=lambda d: d["tri"]),
+                 lambda d: slugify(f"{d['prenom']} {d['nom']}"), lambda d: d["id"],
+                 lambda d: slugify(d.get("departement") or d["id"]))
     gouv = build_gouvernement(ref, deputes, senateurs)
     presidences = build_presidences(ref)
     print(f"  {sum(d['actif'] for d in deputes.values())} députés en exercice ({len(deputes)} sur la législature), "
@@ -1214,6 +1252,12 @@ def main():
         for c in cos:
             cosign[c] += 1
     print(f"  {len(summaries)} dossiers, {sum(1 for s in summaries.values() if s['statut'] == 'promulguee')} lois promulguées")
+    rank = {"promulguee": 0, "adoptee": 1, "navette": 2, "rejetee": 3}
+    unique_slugs(sorted(summaries.values(), key=lambda d: (rank.get(d["statut"], 5), d["uid"])),
+                 lambda d: slugify(d["titre"], 70), lambda d: d["uid"],
+                 lambda d: re.sub(r"\D", "", d["uid"])[-5:])
+    for uid, det in details.items():
+        det["slug"] = summaries[uid]["slug"]
 
     # Index des titres de textes pour rattacher les scrutins (amendements…) à leur dossier.
     title_index = collections.defaultdict(set)
@@ -1484,6 +1528,26 @@ def main():
     write(OUT / "scrutins.json", {
         "cols": ["num", "date", "kind", "type", "adopte", "pour", "contre", "abstention", "votants", "titre", "dossier", "requis"],
         "rows": index_rows[::-1],
+    })
+    people = {**deputes, **senateurs}
+    for g in groupes.values():
+        for lst in (g.get("postes") or [], g.get("arrivees") or [], g.get("departs") or [], list((g.get("tops") or {}).values())):
+            for x in lst:
+                if x.get("id") in people:
+                    x["slug"] = people[x["id"]]["slug"]
+        if g.get("president") and g["president"]["id"] in people:
+            g["president"]["slug"] = people[g["president"]["id"]]["slug"]
+    for k, v in presidences.items():
+        if v.get("id") in people:
+            v["slug"] = people[v["id"]]["slug"]
+    for m in gouv["membres"]:
+        if m["id"] in people:
+            m["slug"] = people[m["id"]]["slug"]
+    write(OUT / "slugs.json", {
+        "loi": {u: s["slug"] for u, s in summaries.items()},
+        "dep": {i: d["slug"] for i, d in deputes.items()},
+        "sen": {i: d["slug"] for i, d in senateurs.items()},
+        "grp": {i: g["slug"] for i, g in groupes.items()},
     })
     write(OUT / "groupes.json", {
         "groupes": sorted(groupes.values(), key=lambda g: (g["chambre"], g["ordre"])),

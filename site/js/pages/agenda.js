@@ -1,4 +1,6 @@
-import { load, dossiersIndex, esc, fdateDay, setTitle, seg, wireSeg } from '../lib.js';
+import {
+  load, dossiersIndex, esc, fdateDay, setTitle, seg, wireSeg, L,
+} from '../lib.js';
 
 export async function render(el) {
   setTitle('Agenda');
@@ -18,7 +20,7 @@ export async function render(el) {
       ${evs.map(a => `<div class="ag"><div><div class="h">${a.date.slice(11, 16).replace(':', 'h')}</div><span class="chip ${a.type === 'seance' ? 'an' : ''}">${a.type === 'seance' ? 'Séance' : 'Commission'}</span></div>
         <div style="min-width:0"><b>${esc(a.organe || '')}</b><ul class="small">${a.points.map(p => {
           const d = p.dossiers.map(u => dos._index.get(u)).find(Boolean);
-          return `<li>${d ? `${esc(p.objet)} : <a href="#/loi/${d.uid}">${esc(d.titre)}</a>` : esc(p.objet)}</li>`;
+          return `<li>${d ? `${esc(p.objet)} : <a href="${L.loi(d)}">${esc(d.titre)}</a>` : esc(p.objet)}</li>`;
         }).join('')}</ul></div></div>`).join('')}</div>`).join('') : '<div class="empty">Rien de programmé pour le moment.</div>';
   };
   wireSeg(el, 't', draw);

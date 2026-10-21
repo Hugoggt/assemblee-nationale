@@ -1,6 +1,5 @@
 import {
-  ctx, deputes, senateurs, scrutinsIndex, dossiersIndex, esc, nf, pct, fdate, age, hemicycle, wireHemicycle, gchip, term,
-  statTile, setTitle, plural, KIND, resChip, ttl, info, avatar, loiCard, norm, debounce, seg, wireSeg, tabsHtml, wireTabs, hashParams,
+  ctx, deputes, senateurs, scrutinsIndex, dossiersIndex, esc, nf, pct, fdate, age, hemicycle, wireHemicycle, gchip, term, statTile, setTitle, plural, KIND, resChip, ttl, info, avatar, loiCard, norm, debounce, seg, wireSeg, tabsHtml, wireTabs, hashParams, L, shareBtn,
 } from '../lib.js';
 import { groupSeats } from './home.js';
 
@@ -11,7 +10,7 @@ function memberSeats(members, groups, total, chamber) {
   const sorted = members.filter(m => order.has(m.groupe)).sort((a, b) => order.get(a.groupe).ordre - order.get(b.groupe).ordre || a.tri.localeCompare(b.tri));
   const seats = sorted.map(m => {
     const g = order.get(m.groupe);
-    return { color: g.couleur, key: g.id, href: chamber === 'AN' ? `#/depute/${m.id}` : `#/senateur/${m.id}`, tip: `${m.prenom} ${m.nom} · ${g.sigle} · ${m.departement || ''}` };
+    return { color: g.couleur, key: g.id, href: chamber === 'AN' ? `${L.dep(m)}` : `${L.sen(m)}`, tip: `${m.prenom} ${m.nom} · ${g.sigle} · ${m.departement || ''}` };
   });
   while (seats.length < total) seats.push({ color: 'var(--absent)', tip: 'Siège vacant' });
   return seats;
@@ -47,7 +46,7 @@ function wireBuilder(root) {
 }
 
 function groupCard(g, total) {
-  return `<a class="gcard" href="#/groupe/${g.id}" style="--gc:${esc(g.couleur)}">
+  return `<a class="gcard" href="${L.grp(g)}" style="--gc:${esc(g.couleur)}">
     <div class="gtop"><span class="gsig">${esc(g.sigle)}</span><span class="gn">${g.effectif}</span></div>
     <div class="gname">${esc(g.nom)}</div>
     ${g.pitch ? `<div class="gpitch">${esc(g.pitch)}</div>` : ''}
@@ -112,7 +111,7 @@ export async function assemblee(el) {
   el.innerHTML = `<div class="page">
     <div class="page-head"><h1>Assemblée nationale</h1>
       <p class="lead">577 députés élus pour 5 ans. Elle vote la loi, contrôle le Gouvernement et peut le renverser.</p>
-      <div class="pill-row"><a class="btn small" href="#/deputes">Les députés</a><a class="btn small" href="#/votes">Les votes</a><a class="btn small" href="#/lois?origine=AN">Ses textes</a></div>
+      <div class="pill-row"><a class="btn small" href="deputes">Les députés</a><a class="btn small" href="votes">Les votes</a><a class="btn small" href="lois?origine=AN">Ses textes</a></div>
     </div>
     ${tabsHtml('ch', [['hemicycle', 'Hémicycle'], ['groupes', `Groupes (${groups.length})`], ['alliances', 'Qui vote avec qui'], ['portrait', 'Portrait']], ['hemicycle', 'groupes', 'alliances', 'portrait'].includes(hashParams().tab) ? hashParams().tab : 'hemicycle')}
     <div data-panel-of="ch" data-panel="hemicycle">
@@ -132,7 +131,7 @@ export async function assemblee(el) {
     </div>
 
     <div data-panel-of="ch" data-panel="alliances">
-      <div class="section-title"><p class="muted small" style="margin:0">Part des scrutins publics où deux groupes ont eu la même position.</p><a class="btn small" href="#/comparer?tab=alliances">Comparer par sujet →</a></div>
+      <div class="section-title"><p class="muted small" style="margin:0">Part des scrutins publics où deux groupes ont eu la même position.</p><a class="btn small" href="comparer?tab=alliances">Comparer par sujet →</a></div>
       <div class="card">${heatmap(groups, c.gdata.proximite)}</div>
     </div>
 
@@ -150,7 +149,7 @@ export async function senat(el) {
   el.innerHTML = `<div class="page">
     <div class="page-head"><h1>Sénat</h1>
       <p class="lead">348 sénateurs élus pour 6 ans par les ${term('senatoriales', 'grands électeurs')}. Il représente les territoires.</p>
-      <div class="pill-row"><a class="btn small" href="#/senateurs">Les sénateurs</a><a class="btn small" href="#/lois?origine=SN">Ses textes</a></div>
+      <div class="pill-row"><a class="btn small" href="senateurs">Les sénateurs</a><a class="btn small" href="lois?origine=SN">Ses textes</a></div>
     </div>
     ${tabsHtml('ch', [['hemicycle', 'Hémicycle'], ['groupes', `Groupes (${groups.length})`], ['portrait', 'Portrait']], ['hemicycle', 'groupes', 'alliances', 'portrait'].includes(hashParams().tab) ? hashParams().tab : 'hemicycle')}
     <div data-panel-of="ch" data-panel="hemicycle">
@@ -167,7 +166,7 @@ export async function senat(el) {
           <div class="facts3"><div class="fact tone-green"><b>Amende la loi</b><span>tous les textes passent par lui</span></div>
           <div class="fact tone-red"><b>Veto</b><span>sur la Constitution</span></div>
           <div class="fact tone-slate"><b>Pas de censure</b><span>l'Assemblée a le dernier mot</span></div></div>
-          <a class="small" href="#/comprendre/dernier-mot">En savoir plus →</a>
+          <a class="small" href="guide/dernier-mot">En savoir plus →</a>
         </section>
       </div>
     </div>
@@ -207,7 +206,7 @@ function memberTable(list, g, isAN) {
   return `<div class="tbl-wrap"><table class="tbl mtable">
     <thead><tr><th data-sort="nom">Nom</th><th data-sort="dep">Département</th>${isAN ? '<th data-sort="part" class="n">Participation</th><th data-sort="loy" class="n">Avec le groupe</th>' : ''}<th data-sort="textes" class="n">Textes</th><th data-sort="age" class="n">Âge</th></tr></thead>
     <tbody>${list.map(m => `<tr data-nom="${esc(m.tri)}" data-dep="${esc(m.departement || '')}" data-part="${m.stats?.participation ?? -1}" data-loy="${m.stats?.loyaute ?? -1}" data-textes="${m.roles?.auteur?.length || 0}" data-age="${age(m.naissance) ?? 0}">
-      <td><a class="person" href="#/${isAN ? 'depute' : 'senateur'}/${m.id}">${avatar(m, g.chambre, g, 'sm')}<span><span class="pname">${esc(m.prenom)} ${esc(m.nom)}</span>${m.presidentGroupe ? ' <span class="role-pill">Président·e</span>' : ''}${m.apparente || m.rattache ? ' <span class="chip" style="font-size:.7rem">apparenté</span>' : ''}${(m.fonctions || []).slice(0, 1).map(f => `<br><span class="role-pill">${esc(f.length > 48 ? f.slice(0, 46) + '…' : f)}</span>`).join('')}</span></a></td>
+      <td><a class="person" href="${(isAN ? L.dep : L.sen)(m)}">${avatar(m, g.chambre, g, 'sm')}<span><span class="pname">${esc(m.prenom)} ${esc(m.nom)}</span>${m.presidentGroupe ? ' <span class="role-pill">Président·e</span>' : ''}${m.apparente || m.rattache ? ' <span class="chip" style="font-size:.7rem">apparenté</span>' : ''}${(m.fonctions || []).slice(0, 1).map(f => `<br><span class="role-pill">${esc(f.length > 48 ? f.slice(0, 46) + '…' : f)}</span>`).join('')}</span></a></td>
       <td class="small">${esc(m.departement || '')}</td>
       ${isAN ? `<td class="n small"><span class="mini-bar"><span style="width:${m.stats?.participation || 0}%"></span></span>${pct(m.stats?.participation)}</td><td class="n small">${pct(m.stats?.loyaute)}</td>` : ''}
       <td class="n small">${m.roles?.auteur?.length || 0}</td><td class="n small">${age(m.naissance) ?? ''}</td></tr>`).join('')}</tbody></table></div>`;
@@ -237,23 +236,24 @@ export async function groupe(el, id) {
   const pos = c.gdata.positions[id];
   if (isAN && pos) {
     const key = scr.chrono.map((s, i) => [s, pos[i]]).filter(([s, p]) => (s.kind === 'ensemble' || s.kind === 'censure') && 'pca'.includes(p)).slice(-8).reverse();
-    keyVotes = `<section class="block">${ttl('', 'Ses derniers grands votes', 'violet')}<div class="list" style="margin-top:12px">${key.map(([s, p]) => `<a class="row striped" href="#/vote/${s.num}" style="--stripe:${{ p: 'var(--pour)', c: 'var(--contre)', a: 'var(--abst)' }[p]}"><div class="grow"><div class="title small">${esc(s.titre)}</div><div class="meta"><span>${fdate(s.date, true)}</span>${resChip(s.adopte)}</div></div><div class="side"><span class="pos pos-${p}">${{ p: 'Pour', c: 'Contre', a: 'Abstention' }[p]}</span></div></a>`).join('')}</div></section>`;
+    keyVotes = `<section class="block">${ttl('', 'Ses derniers grands votes', 'violet')}<div class="list" style="margin-top:12px">${key.map(([s, p]) => `<a class="row striped" href="vote/${s.num}" style="--stripe:${{ p: 'var(--pour)', c: 'var(--contre)', a: 'var(--abst)' }[p]}"><div class="grow"><div class="title small">${esc(s.titre)}</div><div class="meta"><span>${fdate(s.date, true)}</span>${resChip(s.adopte)}</div></div><div class="side"><span class="pos pos-${p}">${{ p: 'Pour', c: 'Contre', a: 'Abstention' }[p]}</span></div></a>`).join('')}</div></section>`;
   }
 
   el.innerHTML = `<div class="page">
     <div class="gbanner${isLight(g.couleur) ? ' light' : ''}" style="--gc:${esc(g.couleur)}">
       <div class="gb-grid">
         <div>
-          <div class="crumbs"><a href="#/${isAN ? 'assemblee' : 'senat'}">${isAN ? 'Assemblée nationale' : 'Sénat'}</a> › Groupes</div>
+          <div class="crumbs"><a href="${isAN ? 'assemblee' : 'senat'}">${isAN ? 'Assemblée nationale' : 'Sénat'}</a> › Groupes</div>
           <div class="sig">${esc(g.sigle)}</div>
           <h1>${esc(g.nom)}</h1>
           ${g.pitch ? `<p>${esc(g.pitch)}</p>` : ''}
+          <div class="head-actions" style="margin:0 0 12px">${shareBtn()}</div>
           <div class="gb-chips">
             <span>${esc(g.bloc)}</span>
             <span>${plural(g.effectif, 'siège')} · ${pct((100 * g.effectif) / total, 1)}</span>
-            ${g.president ? `<a href="#/${isAN ? 'depute' : 'senateur'}/${g.president.id}">${esc(g.president.nom)}</a>` : ''}
+            ${g.president ? `<a href="${(isAN ? L.dep : L.sen)(g.president)}">${esc(g.president.nom)}</a>` : ''}
             ${isAN && g.debut ? `<span>depuis ${fdate(g.debut, true)}</span>` : ''}
-            ${isAN ? `<a href="#/comparer?g=${[id, ...prox.slice(0, 2).map(([o]) => o.id), prox.length ? prox[prox.length - 1][0].id : ''].filter(Boolean).join(',')}">Comparer ses votes</a>` : ''}
+            ${isAN ? `<a href="comparer?g=${[id, ...prox.slice(0, 2).map(([o]) => o.id), prox.length ? prox[prox.length - 1][0].id : ''].filter(Boolean).join(',')}">Comparer ses votes</a>` : ''}
           </div>
         </div>
         <div class="hemi-box">${hemicycle(groupSeats(chamberGroups, total, id), { label: String(g.effectif), sub: `sur ${total}` })}</div>
@@ -281,7 +281,7 @@ export async function groupe(el, id) {
 
     ${tops.length ? `<section class="block" style="margin-top:22px">${ttl('', 'Le palmarès', 'yellow')}<div class="awards" style="margin-top:12px">${tops.map(([k, e, l, tone, f]) => {
       const t = g.tops[k];
-      return `<a class="award tone-${tone}" href="#/${isAN ? 'depute' : 'senateur'}/${t.id}"><span class="ae">${e}</span><span style="min-width:0"><span class="al">${l}</span><br><span class="an">${esc(t.nom)}</span><br><span class="av">${f(t.v)}</span></span></a>`;
+      return `<a class="award tone-${tone}" href="${(isAN ? L.dep : L.sen)(t)}"><span class="ae">${e}</span><span style="min-width:0"><span class="al">${l}</span><br><span class="an">${esc(t.nom)}</span><br><span class="av">${f(t.v)}</span></span></a>`;
     }).join('')}</div></section>` : ''}
     ${lois.length ? `<section class="block">${ttl('', 'Ses textes devenus loi', 'green')}<div class="lcards" style="margin-top:12px">${lois.slice(0, 6).map(d => loiCard(d, dos.themes)).join('')}</div></section>` : ''}
     </div>
@@ -297,15 +297,15 @@ export async function groupe(el, id) {
     </div>
     <div data-panel-of="g" data-panel="composition">
     <div class="grid g2" style="margin-top:8px">
-      ${g.postes?.length ? `<section class="card">${ttl('', 'Postes clés', 'yellow', 'h3')}<div class="list small" style="margin-top:10px;gap:8px">${g.postes.slice(0, 10).map(p => `<div><a href="#/${isAN ? 'depute' : 'senateur'}/${p.id}"><b>${esc(p.nom)}</b></a><br><span class="muted">${esc(p.fonction)}</span></div>`).join('')}</div></section>` : ''}
+      ${g.postes?.length ? `<section class="card">${ttl('', 'Postes clés', 'yellow', 'h3')}<div class="list small" style="margin-top:10px;gap:8px">${g.postes.slice(0, 10).map(p => `<div><a href="${(isAN ? L.dep : L.sen)(p)}"><b>${esc(p.nom)}</b></a><br><span class="muted">${esc(p.fonction)}</span></div>`).join('')}</div></section>` : ''}
       ${partis.length ? `<section class="card">${ttl('', 'Partis représentés', 'pink', 'h3')}${hbars(partis, n, g.couleur)}</section>` : ''}
       ${g.commissions?.length ? `<section class="card">${ttl('', 'Dans les commissions', 'teal', 'h3')}${hbars(g.commissions.slice(0, 8).map(([l, k]) => [l.replace(/^Commission (des |de la |de l’|de l'|du )?/i, ''), k]), n, 'var(--v-teal)')}</section>` : ''}
       ${g.regions?.length ? `<section class="card">${ttl('', 'D’où viennent-ils ?', 'orange', 'h3')}${hbars(g.regions, n, 'var(--v-orange)')}</section>` : ''}
     </div>
 
     ${(g.arrivees?.length || g.departs?.length) ? `<section class="block">${ttl('', 'Arrivées et départs', 'blue')}<div class="grid g2" style="margin-top:12px">
-      <div class="card"><h3 class="small muted">Ont rejoint le groupe</h3><div class="moves">${(g.arrivees || []).map(a => `<div><a href="#/depute/${a.id}">${esc(a.nom)}</a><span class="tiny muted">${fdate(a.date, true)}${a.de ? ` · venant de ${esc(a.de)}` : ' · nouveau député'}</span></div>`).join('') || '<span class="muted small">Personne depuis la création.</span>'}</div></div>
-      <div class="card"><h3 class="small muted">Ont quitté le groupe</h3><div class="moves">${(g.departs || []).map(a => `<div><a href="#/depute/${a.id}">${esc(a.nom)}</a><span class="tiny muted">${fdate(a.date, true)} · ${a.vers ? `vers ${esc(a.vers)}` : 'a quitté l’Assemblée'}</span></div>`).join('') || '<span class="muted small">Aucun départ.</span>'}</div></div>
+      <div class="card"><h3 class="small muted">Ont rejoint le groupe</h3><div class="moves">${(g.arrivees || []).map(a => `<div><a href="${L.dep(a)}">${esc(a.nom)}</a><span class="tiny muted">${fdate(a.date, true)}${a.de ? ` · venant de ${esc(a.de)}` : ' · nouveau député'}</span></div>`).join('') || '<span class="muted small">Personne depuis la création.</span>'}</div></div>
+      <div class="card"><h3 class="small muted">Ont quitté le groupe</h3><div class="moves">${(g.departs || []).map(a => `<div><a href="${L.dep(a)}">${esc(a.nom)}</a><span class="tiny muted">${fdate(a.date, true)} · ${a.vers ? `vers ${esc(a.vers)}` : 'a quitté l’Assemblée'}</span></div>`).join('') || '<span class="muted small">Aucun départ.</span>'}</div></div>
     </div></section>` : ''}
     </div>
   </div>`;
@@ -313,7 +313,7 @@ export async function groupe(el, id) {
   wireTabs(el, 'g');
   const box = el.querySelector('#members');
   let view = 'grid', q = '';
-  const cardHtml = m => `<a class="card link person" href="#/${isAN ? 'depute' : 'senateur'}/${m.id}" style="padding:12px 14px">${avatar(m, g.chambre, g)}<span style="min-width:0"><span class="pname">${esc(m.prenom)} ${esc(m.nom)}</span><br><span class="pmeta">${esc(m.departement || '')}${isAN && m.stats?.participation != null ? ` · ${pct(m.stats.participation)} présence` : ''}</span>${m.presidentGroupe ? '<br><span class="role-pill">Président·e du groupe</span>' : (m.fonctions || []).length ? `<br><span class="role-pill">${esc(m.fonctions[0].split(' de la ')[0])}</span>` : ''}</span></a>`;
+  const cardHtml = m => `<a class="card link person" href="${(isAN ? L.dep : L.sen)(m)}" style="padding:12px 14px">${avatar(m, g.chambre, g)}<span style="min-width:0"><span class="pname">${esc(m.prenom)} ${esc(m.nom)}</span><br><span class="pmeta">${esc(m.departement || '')}${isAN && m.stats?.participation != null ? ` · ${pct(m.stats.participation)} présence` : ''}</span>${m.presidentGroupe ? '<br><span class="role-pill">Président·e du groupe</span>' : (m.fonctions || []).length ? `<br><span class="role-pill">${esc(m.fonctions[0].split(' de la ')[0])}</span>` : ''}</span></a>`;
   const draw = () => {
     const words = norm(q).split(/\s+/).filter(Boolean);
     const items = list.filter(m => !words.length || words.every(w => norm(`${m.prenom} ${m.nom} ${m.departement} ${m.parti || ''}`).includes(w)));

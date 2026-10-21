@@ -1,4 +1,6 @@
-import { ctx, dossiersIndex, esc, nf, fdate, term, setTitle, GLOSSARY, plural } from '../lib.js';
+import {
+  ctx, dossiersIndex, esc, nf, fdate, term, setTitle, GLOSSARY, plural, L,
+} from '../lib.js';
 
 const FLOW = [
   ['AN', 'Dépôt', 'Le texte arrive', `Un <b>projet de loi</b> vient du Gouvernement (après avis du Conseil d'État et passage en Conseil des ministres). Une <b>proposition de loi</b> vient d'un ou plusieurs parlementaires. Le texte est déposé à l'Assemblée ou au Sénat — les projets de budget commencent toujours par l'Assemblée, ceux sur les collectivités territoriales par le Sénat.`],
@@ -29,12 +31,12 @@ export function scrollToSection(id) {
   const sections = [...learn.querySelectorAll(':scope > section')];
   const cur = sections.find(x => x.id === id) || sections[0];
   sections.forEach(x => { x.hidden = x !== cur; });
-  document.querySelectorAll('.learn-nav a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#/comprendre/${cur.id}`));
+  document.querySelectorAll('.learn-nav a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === `guide/${cur.id}`));
   const i = sections.indexOf(cur);
   const label = x => x.querySelector('h2')?.textContent.replace(/^\d+\.\s*/, '') || '';
   let pager = learn.querySelector('.learn-pager');
   if (!pager) { pager = document.createElement('div'); pager.className = 'learn-pager'; learn.appendChild(pager); }
-  pager.innerHTML = `${i > 0 ? `<a class="btn" href="#/comprendre/${sections[i - 1].id}">← ${label(sections[i - 1])}</a>` : '<span></span>'}${i < sections.length - 1 ? `<a class="btn primary" href="#/comprendre/${sections[i + 1].id}">${label(sections[i + 1])} →</a>` : ''}`;
+  pager.innerHTML = `${i > 0 ? `<a class="btn" href="guide/${sections[i - 1].id}">← ${label(sections[i - 1])}</a>` : '<span></span>'}${i < sections.length - 1 ? `<a class="btn primary" href="guide/${sections[i + 1].id}">${label(sections[i + 1])} →</a>` : ''}`;
   window.scrollTo({ top: 0 });
 }
 
@@ -50,7 +52,7 @@ export async function render(el, anchor) {
   const pplOk = ppl.filter(d => d.statut === 'promulguee').length;
   const pjl = lois.filter(d => d.gouv);
   const pjlOk = pjl.filter(d => d.statut === 'promulguee').length;
-  const exLink = d => d ? `<a href="#/loi/${d.uid}">${esc(d.titre)}</a>` : '';
+  const exLink = d => d ? `<a href="${L.loi(d)}">${esc(d.titre)}</a>` : '';
 
   const fact = (tone, e, b, t) => `<div class="fact tone-${tone}"><div class="fe">${e}</div><b>${b}</b><span>${t}</span></div>`;
   const more = (txt) => `<details class="more-box small"><summary>En savoir plus</summary><p style="margin-top:6px">${txt}</p></details>`;
@@ -61,22 +63,22 @@ export async function render(el, anchor) {
       <p class="lead">Le jeu parlementaire en 11 étapes, illustré par les vrais textes de la législature.</p></div>
     <div class="learn-layout">
       <nav class="learn-nav" aria-label="Sommaire">
-        <a href="#/comprendre/chambres">Deux chambres</a><a href="#/comprendre/origine">D'où viennent les lois</a>
-        <a href="#/comprendre/parcours">Le parcours</a><a href="#/comprendre/acceleree">Procédure accélérée</a>
-        <a href="#/comprendre/cmp">La CMP</a><a href="#/comprendre/dernier-mot">Le dernier mot</a>
-        <a href="#/comprendre/cc">Conseil constitutionnel</a><a href="#/comprendre/arme">49.3 et censure</a>
-        <a href="#/comprendre/vote">Comment on vote</a><a href="#/comprendre/groupes">Groupes et majorité</a>
-        <a href="#/comprendre/speciales">Les lois à part</a><a href="#/comprendre/quiz">Le quiz</a><a href="#/comprendre/glossaire">Glossaire</a>
+        <a href="guide/chambres">Deux chambres</a><a href="guide/origine">D'où viennent les lois</a>
+        <a href="guide/parcours">Le parcours</a><a href="guide/acceleree">Procédure accélérée</a>
+        <a href="guide/cmp">La CMP</a><a href="guide/dernier-mot">Le dernier mot</a>
+        <a href="guide/cc">Conseil constitutionnel</a><a href="guide/arme">49.3 et censure</a>
+        <a href="guide/vote">Comment on vote</a><a href="guide/groupes">Groupes et majorité</a>
+        <a href="guide/speciales">Les lois à part</a><a href="guide/quiz">Le quiz</a><a href="guide/glossaire">Glossaire</a>
       </nav>
       <div class="learn">
         <section id="chambres">${H('chambres', 1, '', 'blue', 'Deux chambres')}
           <div class="compare">
             <div class="card" style="--c:var(--an)"><h3>Assemblée nationale</h3>
               <div class="facts3">${fact('blue', '', '577 députés', 'élus par vous')}${fact('blue', '', '5 ans', 'sauf dissolution')}${fact('blue', '', 'Peut censurer', 'le Gouvernement')}</div>
-              <a class="small" href="#/assemblee">Voir la composition →</a></div>
+              <a class="small" href="assemblee">Voir la composition →</a></div>
             <div class="card" style="--c:var(--sn)"><h3>Sénat</h3>
               <div class="facts3">${fact('pink', '', '348 sénateurs', 'élus par les élus locaux')}${fact('pink', '', '6 ans', 'moitié renouvelée tous les 3 ans')}${fact('pink', '', 'Les territoires', 'sa mission')}</div>
-              <a class="small" href="#/senat">Voir la composition →</a></div>
+              <a class="small" href="senat">Voir la composition →</a></div>
           </div>
           <div class="callout"><b>La règle d'or</b>Une loi doit être votée <b>dans les mêmes termes</b> par les deux chambres.</div>
         </section>
@@ -96,8 +98,8 @@ export async function render(el, anchor) {
           <div class="flow" id="flow">${FLOW.map(([ch, t, s], i) => `<button type="button" class="c-${ch}" aria-pressed="${i === 0}" data-i="${i}"><b>${i + 1}. ${t}</b><small>${s}</small></button>`).join('')}</div>
           <div class="flow-detail" id="flow-detail" aria-live="polite"></div>
           <div class="facts3">
-            ${ex ? `<a class="fact tone-violet" href="#/loi/${ex.uid}" style="color:inherit"><div class="fe"></div><b>Le parcours complet</b><span>${esc(ex.titre)}</span></a>` : ''}
-            ${exConforme ? `<a class="fact tone-green" href="#/loi/${exConforme.uid}" style="color:inherit"><div class="fe"></div><b>Le parcours express</b><span>${esc(exConforme.titre)}</span></a>` : ''}
+            ${ex ? `<a class="fact tone-violet" href="${L.loi(ex)}" style="color:inherit"><div class="fe"></div><b>Le parcours complet</b><span>${esc(ex.titre)}</span></a>` : ''}
+            ${exConforme ? `<a class="fact tone-green" href="${L.loi(exConforme)}" style="color:inherit"><div class="fe"></div><b>Le parcours express</b><span>${esc(exConforme.titre)}</span></a>` : ''}
             ${fact('orange', '', `${Math.round(100 - (100 * k.examines) / k.textes)} %`, 'des textes ne sont jamais débattus')}
           </div>
         </section>
@@ -119,7 +121,7 @@ export async function render(el, anchor) {
           <p>Si le désaccord persiste, l'Assemblée nationale peut trancher seule, à la demande du Gouvernement.</p>
           <div class="facts3">${fact('violet', '1', 'Échec de la CMP', '')}${fact('blue', '2', 'Nouvelle lecture', 'dans chaque chambre')}${fact('green', '3', 'Lecture définitive', "l'Assemblée tranche")}</div>
           <div class="callout warn"><b>Sauf…</b>Pour réviser la <b>Constitution</b> ou voter une <b>loi organique sur le Sénat</b>, il faut l'accord du Sénat : il a un droit de veto.</div>
-          ${exLdef ? `<p class="small">Exemple : <a href="#/loi/${exLdef.uid}">${esc(exLdef.titre)}</a></p>` : ''}
+          ${exLdef ? `<p class="small">Exemple : <a href="${L.loi(exLdef)}">${esc(exLdef.titre)}</a></p>` : ''}
         </section>
 
         <section id="cc">${H('cc', 7, '', 'yellow', 'Conseil constitutionnel et promulgation')}
@@ -139,7 +141,7 @@ export async function render(el, anchor) {
               <p class="small muted">Seuls les « pour » comptent.</p></div>
           </div>
           <div class="facts3">${fact('violet', '', nf(k.art493), '49.3 depuis 2024')}${fact('orange', '', nf(k.censures), 'censures votées')}${fact('red', '', nf(k.censuresAdoptees), 'gouvernement renversé')}</div>
-          <a class="small" href="#/gouvernement">Voir chaque motion →</a>
+          <a class="small" href="gouvernement">Voir chaque motion →</a>
         </section>
 
         <section id="vote">${H('vote', 9, '', 'blue', 'Comment on vote')}
@@ -151,7 +153,7 @@ export async function render(el, anchor) {
         <section id="groupes">${H('groupes', 10, '', 'pink', 'Groupes et majorité')}
           <p>Les élus se regroupent par affinités politiques ; une majorité se construit entre groupes.</p>
           <div class="facts3">${fact('pink', '', '15 députés', 'pour former un groupe')}${fact('pink', '', '10 sénateurs', 'au Sénat')}${fact('violet', '', '289', 'majorité absolue')}</div>
-          <a class="btn small" href="#/assemblee">Construisez une majorité</a>
+          <a class="btn small" href="assemblee">Construisez une majorité</a>
         </section>
 
         <section id="speciales">${H('speciales', 11, '', 'slate', 'Les lois à part')}

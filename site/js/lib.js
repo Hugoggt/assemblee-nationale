@@ -1,5 +1,27 @@
 // Bibliothèque commune : données, formatage, composants HTML, hémicycle, glossaire.
 
+// ─────────────────────────────────────────── Adresses
+/** Registre id → slug, rempli au chargement des listes, pour produire des liens lisibles. */
+const REG = { loi: new Map(), dep: new Map(), sen: new Map(), grp: new Map() };
+const pick = (reg, x, key) => (x && typeof x === 'object' ? x.slug || reg.get(x[key]) || x[key] : reg.get(x) || x);
+/** Liens relatifs, résolus par <base href> : fonctionnent à la racine d'un domaine comme dans un sous-dossier. */
+export const L = {
+  loi: x => `loi/${pick(REG.loi, x, 'uid')}`,
+  dep: x => `depute/${pick(REG.dep, x, 'id')}`,
+  sen: x => `senateur/${pick(REG.sen, x, 'id')}`,
+  grp: x => `groupe/${pick(REG.grp, x, 'id')}`,
+  vote: n => `vote/${n}`,
+};
+const fill = (reg, list, key) => { for (const x of list) if (x.slug) reg.set(x[key], x.slug); };
+/** Navigation interne sans rechargement. */
+export function navigate(path) {
+  const url = new URL(path, document.baseURI);
+  history.pushState(null, '', url);
+  dispatchEvent(new Event('app:navigate'));
+}
+export const BASE = new URL(document.baseURI).pathname;
+export function absUrl(path) { return new URL(path, document.baseURI).href; }
+
 // ─────────────────────────────────────────── Données
 const cache = new Map();
 export function load(name) {
@@ -18,6 +40,7 @@ export function ctx() {
   if (!ctxPromise) {
     ctxPromise = Promise.all([load('meta'), load('groupes')]).then(([meta, g]) => {
       const groupes = new Map(g.groupes.map(x => [x.id, x]));
+      fill(REG.grp, g.groupes, 'id');
       const actifs = c => g.groupes.filter(x => x.chambre === c && x.effectif > 0).sort((a, b) => a.ordre - b.ordre);
       return { meta, groupes, gdata: g, an: actifs('AN'), sn: actifs('SN') };
     });
@@ -27,12 +50,20 @@ export function ctx() {
 
 export async function deputes() {
   const list = await load('deputes');
-  if (!list._index) Object.defineProperty(list, '_index', { value: new Map(list.map(d => [d.id, d])) });
+  if (!list._index) {
+    Object.defineProperty(list, '_index', { value: new Map(list.map(d => [d.id, d])) });
+    Object.defineProperty(list, '_bySlug', { value: new Map(list.map(d => [d.slug, d])) });
+    fill(REG.dep, list, 'id');
+  }
   return list;
 }
 export async function senateurs() {
   const list = await load('senateurs');
-  if (!list._index) Object.defineProperty(list, '_index', { value: new Map(list.map(d => [d.id, d])) });
+  if (!list._index) {
+    Object.defineProperty(list, '_index', { value: new Map(list.map(d => [d.id, d])) });
+    Object.defineProperty(list, '_bySlug', { value: new Map(list.map(d => [d.slug, d])) });
+    fill(REG.sen, list, 'id');
+  }
   return list;
 }
 export async function scrutinsIndex() {
@@ -52,7 +83,11 @@ export async function scrutinsIndex() {
 }
 export async function dossiersIndex() {
   const d = await load('dossiers');
-  if (!d._index) Object.defineProperty(d, '_index', { value: new Map(d.dossiers.map(x => [x.uid, x])) });
+  if (!d._index) {
+    Object.defineProperty(d, '_index', { value: new Map(d.dossiers.map(x => [x.uid, x])) });
+    Object.defineProperty(d, '_bySlug', { value: new Map(d.dossiers.map(x => [x.slug, x])) });
+    fill(REG.loi, d.dossiers, 'uid');
+  }
   return d;
 }
 
@@ -126,7 +161,7 @@ export function gchip(g, opts = {}) {
   if (!g) return '<span class="gchip"><i style="background:var(--absent)"></i>—</span>';
   const inner = `<i style="background:${esc(g.couleur)}"></i>${esc(g.sigle)}`;
   const tip = `data-tip="${esc(g.nom)}"`;
-  return opts.link === false ? `<span class="gchip" ${tip}>${inner}</span>` : `<a class="gchip" href="#/groupe/${g.id}" ${tip}>${inner}</a>`;
+  return opts.link === false ? `<span class="gchip" ${tip}>${inner}</span>` : `<a class="gchip" href="${L.grp(g)}" ${tip}>${inner}</a>`;
 }
 export function statusChip(statut, label) {
   if (!label) return '';
@@ -168,13 +203,13 @@ export function avatar(p, chambre, g, size = '') {
   return `<span class="avatar ${size}" style="background:${esc(bg)}">${esc(ini)}${img}</span>`;
 }
 export function personLink(p, chambre, g, sub) {
-  const href = chambre === 'AN' ? `#/depute/${p.id}` : `#/senateur/${p.id}`;
+  const href = chambre === 'AN' ? `${L.dep(p)}` : `${L.sen(p)}`;
   return `<a class="person" href="${href}">${avatar(p, chambre, g)}<span><span class="pname">${esc(p.prenom)} ${esc(p.nom)}</span><br><span class="pmeta">${sub || ''}</span></span></a>`;
 }
 /** Lien vers une personne citée dans un dossier (rapporteur, auteur…). */
 export function actorLink(a, groupes) {
   if (!a) return '';
-  const href = a.chambre === 'AN' ? `#/depute/${a.id}` : a.chambre === 'SN' ? `#/senateur/${a.id}` : null;
+  const href = a.chambre === 'AN' ? `${L.dep(a)}` : a.chambre === 'SN' ? `${L.sen(a)}` : null;
   const name = href ? `<a href="${href}">${esc(a.nom)}</a>` : esc(a.nom);
   const extra = a.gouv ? ` <span class="muted">(${esc(a.fonction || 'Gouvernement')})</span>` : a.groupe ? ` <span class="muted">(${esc(a.groupe)}${a.chambre === 'SN' ? ', Sénat' : ''})</span>` : '';
   return name + extra;
@@ -201,12 +236,12 @@ export const THEME_COLOR = {
 export function themeChip(key, themes) {
   const t = themes[key];
   if (!t) return '';
-  return `<a class="chip theme" style="--tc:${THEME_COLOR[key] || '#94a3b8'}" href="#/lois?theme=${key}">${t.emoji} ${esc(t.label)}</a>`;
+  return `<a class="chip theme" style="--tc:${THEME_COLOR[key] || '#94a3b8'}" href="lois?theme=${key}">${t.emoji} ${esc(t.label)}</a>`;
 }
 /** Carte compacte d'un texte (grilles de l'accueil, des groupes…). */
 export function loiCard(d, themes) {
   const auteur = d.gouv ? 'Gouvernement' : d.auteur ? `${d.auteur.nom}${d.auteur.groupe ? ` (${d.auteur.groupe})` : ''}` : '';
-  return `<a class="lcard" href="#/loi/${d.uid}" style="--tc:${THEME_COLOR[d.theme] || 'var(--accent)'}">
+  return `<a class="lcard" href="${L.loi(d)}" style="--tc:${THEME_COLOR[d.theme] || 'var(--accent)'}">
     <div class="pill-row">${statusChip(d.statut, d.statutLabel)}<span class="chip theme" style="--tc:${THEME_COLOR[d.theme] || '#94a3b8'}">${themes[d.theme]?.emoji || ''} ${esc(themes[d.theme]?.label || '')}</span></div>
     <div class="lt">${esc(d.titre)}</div>
     <div class="lf"><span>${esc(auteur)}</span>${miniParcours(d.parcours, d.statut)}</div>
@@ -259,7 +294,7 @@ export function hemicycle(seats, { label = '', sub = '', inner = 0.38 } = {}) {
 export function wireHemicycle(root) {
   root.addEventListener('click', e => {
     const c = e.target.closest('circle[data-href]');
-    if (c) location.hash = c.dataset.href;
+    if (c) navigate(c.dataset.href);
   });
   root.querySelectorAll('[data-hl]').forEach(b => {
     const on = () => root.querySelectorAll('circle[data-k]').forEach(c => c.classList.toggle('dim', c.dataset.k !== b.dataset.hl));
@@ -332,7 +367,7 @@ export function initOverlays() {
   const openTerm = el => {
     const g = GLOSSARY[el.dataset.term];
     if (!g) return;
-    pop.innerHTML = `<b>${esc(g[0])}</b>${esc(g[1])}<div style="margin-top:8px"><a href="#/comprendre/${g[2]}">En savoir plus →</a></div>`;
+    pop.innerHTML = `<b>${esc(g[0])}</b>${esc(g[1])}<div style="margin-top:8px"><a href="guide/${g[2]}">En savoir plus →</a></div>`;
     pop.hidden = false;
     const r = el.getBoundingClientRect();
     const pr = pop.getBoundingClientRect();
@@ -389,15 +424,30 @@ export function setTitle(t) {
   document.title = t ? `${t} · Hémicycle` : 'Hémicycle · Assemblée nationale et Sénat';
 }
 
-/** Lit/écrit des paramètres de filtre dans le hash (#/lois?statut=navette). */
+/** Lit/écrit les paramètres de filtre dans l'adresse (lois?statut=navette). */
 export function hashParams() {
-  const q = location.hash.split('?')[1] || '';
-  return Object.fromEntries(new URLSearchParams(q));
+  return Object.fromEntries(new URLSearchParams(location.search));
 }
 export function setHashParams(params) {
-  const base = location.hash.split('?')[0];
   const qs = new URLSearchParams(Object.entries(params).filter(([, v]) => v !== '' && v != null && v !== false)).toString();
-  history.replaceState(null, '', base + (qs ? '?' + qs : ''));
+  history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''));
+}
+
+/** Bouton « Partager » : partage natif sur mobile, copie du lien ailleurs. */
+export function shareBtn(label = 'Partager') {
+  return `<button type="button" class="btn small share-btn" data-share>${label}</button>`;
+}
+export function initShare() {
+  document.addEventListener('click', async e => {
+    const b = e.target.closest('[data-share]');
+    if (!b) return;
+    const data = { title: document.title, url: location.href };
+    try {
+      if (navigator.share) { await navigator.share(data); return; }
+      await navigator.clipboard.writeText(location.href);
+      const old = b.textContent; b.textContent = 'Lien copié'; setTimeout(() => { b.textContent = old; }, 1800);
+    } catch (err) { /* partage annulé */ }
+  });
 }
 
 // ─────────────────────────────────────────── Onglets
