@@ -219,6 +219,7 @@ export async function groupe(el, id) {
   if (!g) { el.innerHTML = '<div class="page"><h1>Groupe introuvable</h1></div>'; return; }
   setTitle(g.nom);
   const isAN = g.chambre === 'AN';
+  document.body.dataset.section = isAN ? 'assemblee' : 'senat';
   const total = isAN ? 577 : 348;
   const [members, scr, dos] = await Promise.all([isAN ? deputes() : senateurs(), isAN ? scrutinsIndex() : null, dossiersIndex()]);
   const list = members.filter(m => m.groupe === id && m.actif).sort((a, b) => (b.presidentGroupe - a.presidentGroupe) || a.tri.localeCompare(b.tri));

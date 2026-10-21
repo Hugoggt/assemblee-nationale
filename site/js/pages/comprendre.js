@@ -75,7 +75,7 @@ export async function render(el, anchor) {
               <div class="facts3">${fact('blue', '', '577 députés', 'élus par vous')}${fact('blue', '', '5 ans', 'sauf dissolution')}${fact('blue', '', 'Peut censurer', 'le Gouvernement')}</div>
               <a class="small" href="#/assemblee">Voir la composition →</a></div>
             <div class="card" style="--c:var(--sn)"><h3>Sénat</h3>
-              <div class="facts3">${fact('red', '', '348 sénateurs', 'élus par les élus locaux')}${fact('red', '', '6 ans', 'moitié renouvelée tous les 3 ans')}${fact('red', '', 'Les territoires', 'sa mission')}</div>
+              <div class="facts3">${fact('pink', '', '348 sénateurs', 'élus par les élus locaux')}${fact('pink', '', '6 ans', 'moitié renouvelée tous les 3 ans')}${fact('pink', '', 'Les territoires', 'sa mission')}</div>
               <a class="small" href="#/senat">Voir la composition →</a></div>
           </div>
           <div class="callout"><b>La règle d'or</b>Une loi doit être votée <b>dans les mêmes termes</b> par les deux chambres.</div>
@@ -110,7 +110,7 @@ export async function render(el, anchor) {
 
         <section id="cmp">${H('cmp', 5, '', 'violet', 'La commission mixte paritaire')}
           <p>Quand l'Assemblée et le Sénat ne s'accordent pas, une commission mixte paritaire cherche un texte de compromis, à huis clos.</p>
-          <div class="facts3">${fact('blue', '', '7 députés', '')}${fact('red', '', '7 sénateurs', '')}${fact('violet', '', '1 compromis', 'sur les articles en désaccord')}</div>
+          <div class="facts3">${fact('blue', '', '7 députés', '')}${fact('pink', '', '7 sénateurs', '')}${fact('violet', '', '1 compromis', 'sur les articles en désaccord')}</div>
           <div class="facts3">${fact('green', '', `${nf(k.cmpAccord)} accords`, `sur ${nf(k.cmp)} CMP réunies`)}${fact('red', '', `${nf(k.cmp - k.cmpAccord)} échecs`, 'nouvelle lecture ensuite')}</div>
           ${more("En cas d'accord, le texte commun est voté par les deux chambres, qui ne peuvent plus l'amender sans l'accord du Gouvernement.")}
         </section>

@@ -77,7 +77,7 @@ export async function render(el) {
   el.innerHTML = `
   <div class="hero"><div class="wrap">
     <div>
-      <h1>Suivre le Parlement</h1>
+      <h1>Suivre le Parlement<span class="dot">.</span></h1>
       <p class="lead">Composition, lois et votes de l'Assemblée nationale et du Sénat.</p>
       <div class="intro">
         <p>Ce qui se vote au Parlement est public, mais rarement clair : des milliers de scrutins, des textes qui passent d'une chambre à l'autre, des procédures que peu de gens connaissent.</p>
@@ -94,10 +94,10 @@ export async function render(el) {
   <div class="page">
     <section class="block" style="margin-top:0">
       <div class="grid g4">
-        ${statTile(nf(k.promulguees), 'lois promulguées', `depuis ${fdate(meta.debutLegislature, true)}`, '#/lois?statut=promulguee', 'green', '')}
-        ${statTile(`${Math.round((100 * k.examines) / k.textes)} %`, 'des textes déposés sont débattus', `${nf(k.examines)} sur ${nf(k.textes)}`, '#/lois', 'blue', '')}
-        ${statTile(nf(k.art493), `${term('art493', '49.3')} utilisés`, `${k.censures} ${term('censure', 'censures')} votées, ${k.censuresAdoptees} adoptée${k.censuresAdoptees > 1 ? 's' : ''}`, '#/gouvernement', 'orange', '')}
-        ${statTile(nf(k.scrutins), 'votes nominatifs', 'député par député', '#/votes', 'violet', '')}
+        ${statTile(nf(k.promulguees), 'lois promulguées', `depuis ${fdate(meta.debutLegislature, true)}`, '#/lois?statut=promulguee', 'loi', '')}
+        ${statTile(`${Math.round((100 * k.examines) / k.textes)} %`, 'des textes déposés sont débattus', `${nf(k.examines)} sur ${nf(k.textes)}`, '#/lois', 'loi', '')}
+        ${statTile(nf(k.art493), `${term('art493', '49.3')} utilisés`, `${k.censures} ${term('censure', 'censures')} votées, ${k.censuresAdoptees} adoptée${k.censuresAdoptees > 1 ? 's' : ''}`, '#/gouvernement', 'gouv', '')}
+        ${statTile(nf(k.scrutins), 'votes nominatifs', 'député par député', '#/votes', 'an', '')}
       </div>
     </section>
 

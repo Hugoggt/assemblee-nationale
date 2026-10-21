@@ -47,6 +47,7 @@ async function route() {
     const key = a.getAttribute('href').slice(2);
     a.classList.toggle('active', !!match && match[2] === key);
   });
+  document.body.dataset.section = match ? (match[2] ?? '') : '';
   document.getElementById('menu-toggle').setAttribute('aria-expanded', 'false');
   document.querySelector('.mainnav').classList.remove('open');
   if (fromLearn && main.querySelector('.learn')) {

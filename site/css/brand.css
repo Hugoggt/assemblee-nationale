@@ -1,0 +1,177 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Identité Hémicycle — un système de couleurs où chaque teinte a un sens.
+     Encre      la marque (en-tête, accueil, pied de page)
+     Bleu       l'Assemblée nationale et ses votes
+     Pourpre    le Sénat
+     Violet     les deux chambres ensemble (CMP) → le comparateur
+     Vert       la loi : adopté, promulgué, « pour »
+     Rouge      contre, rejeté
+     Ocre       le Conseil constitutionnel, les règles → le guide
+     Graphite   le Gouvernement
+   Chargé en dernier : redéfinit les jetons utilisés par toutes les feuilles.
+   ═══════════════════════════════════════════════════════════════════ */
+:root {
+  --encre: #12164a;
+  --encre-2: #1d2366;
+  --an: #2d4bd8;       --an-soft: #e9edfd;
+  --sn: #a11d48;       --sn-soft: #f9e8ee;
+  --cmp: #6b3fc4;      --cmp-soft: #efe9fb;
+  --loi: #128a5c;      --loi-soft: #e2f4ec;
+  --cc: #b07a12;       --cc-soft: #f8f0dd;
+  --gouv: #3b4152;     --gouv-soft: #eceef2;
+  --prom: var(--loi);  --prom-soft: var(--loi-soft);
+  --pour: #128a5c;
+  --contre: #e0442f;
+  --abst: #e3a21a;
+  --accent: var(--an);
+  --accent-soft: var(--an-soft);
+  --navy: var(--encre);
+  --bad: var(--contre); --ok: var(--loi); --warn: #b77b00;
+  /* Les tons génériques suivent la palette */
+  --v-blue: var(--an); --v-pink: var(--sn); --v-violet: var(--cmp); --v-green: var(--loi);
+  --v-red: var(--contre); --v-orange: var(--cc); --v-yellow: var(--abst); --v-slate: var(--gouv); --v-teal: #0e7c86;
+  --sec: var(--encre); --sec-soft: #eceefa;
+  --bg: #f6f6f9;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --encre: #0b0e30; --encre-2: #151a52;
+    --an: #8ea2ff; --an-soft: #1c2350; --sn: #f27aa0; --sn-soft: #3a1626; --cmp: #b79bf5; --cmp-soft: #2a2047;
+    --loi: #4fd19a; --loi-soft: #11301f; --cc: #e8bb55; --cc-soft: #352a10; --gouv: #b7bdcc; --gouv-soft: #2a2d36;
+    --pour: #4fd19a; --contre: #ff7a66; --abst: #f2bd45; --sec-soft: #1a1d3a; --bg: #101117;
+  }
+}
+:root[data-theme="dark"] {
+  --encre: #0b0e30; --encre-2: #151a52;
+  --an: #8ea2ff; --an-soft: #1c2350; --sn: #f27aa0; --sn-soft: #3a1626; --cmp: #b79bf5; --cmp-soft: #2a2047;
+  --loi: #4fd19a; --loi-soft: #11301f; --cc: #e8bb55; --cc-soft: #352a10; --gouv: #b7bdcc; --gouv-soft: #2a2d36;
+  --pour: #4fd19a; --contre: #ff7a66; --abst: #f2bd45; --sec-soft: #1a1d3a; --bg: #101117;
+}
+
+/* Couleur de rubrique : posée sur <body data-section> par le routeur */
+body[data-section="lois"]         { --sec: var(--loi);  --sec-soft: var(--loi-soft); }
+body[data-section="votes"]        { --sec: var(--an);   --sec-soft: var(--an-soft); }
+body[data-section="assemblee"]    { --sec: var(--an);   --sec-soft: var(--an-soft); }
+body[data-section="senat"]        { --sec: var(--sn);   --sec-soft: var(--sn-soft); }
+body[data-section="comparer"]     { --sec: var(--cmp);  --sec-soft: var(--cmp-soft); }
+body[data-section="gouvernement"] { --sec: var(--gouv); --sec-soft: var(--gouv-soft); }
+body[data-section="agenda"]       { --sec: var(--an);   --sec-soft: var(--an-soft); }
+body[data-section="comprendre"]   { --sec: var(--cc);   --sec-soft: var(--cc-soft); }
+body { --accent: var(--sec); --accent-soft: var(--sec-soft); }
+body[data-section=""] { --accent: var(--an); --accent-soft: var(--an-soft); }
+
+/* ─── En-tête : bandeau encre ─── */
+.topbar { background: var(--encre); border-bottom: 0; color: #fff; }
+.topbar::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: linear-gradient(90deg, var(--an) 0 50%, var(--sn) 50% 100%); }
+:root[data-theme="dark"] .topbar::after { opacity: .8; }
+.brand, .brand:hover { color: #fff; }
+.brand .word { font-weight: 800; font-size: 1.12rem; letter-spacing: -.035em; }
+.brand .sub { color: rgba(255,255,255,.55); }
+.brand svg { width: 34px; height: 22px; }
+.mainnav a { color: rgba(255,255,255,.72); border-bottom: 3px solid transparent; }
+.mainnav a:hover { color: #fff; }
+.mainnav a.active { color: #fff; border-bottom-color: var(--nc, #fff); }
+.mainnav a.nav-2 { color: rgba(255,255,255,.55); }
+.mainnav a[href="#/lois"] { --nc: var(--loi); }
+.mainnav a[href="#/votes"], .mainnav a[href="#/assemblee"], .mainnav a[href="#/agenda"] { --nc: #8ea2ff; }
+.mainnav a[href="#/senat"] { --nc: #f27aa0; }
+.mainnav a[href="#/comparer"] { --nc: #b79bf5; }
+.mainnav a[href="#/gouvernement"] { --nc: #c4c9d6; }
+.mainnav a[href="#/comprendre"] { --nc: #e8bb55; }
+.search input { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.15); color: #fff; }
+.search input::placeholder { color: rgba(255,255,255,.55); }
+.search input:focus { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.4); }
+.icon-btn { color: rgba(255,255,255,.8); }
+.icon-btn:hover { background: rgba(255,255,255,.1); color: #fff; }
+@media (max-width: 1140px) {
+  .mainnav { background: var(--encre); }
+  .mainnav a.active { background: rgba(255,255,255,.08); }
+}
+
+/* ─── Bandeau de titre de rubrique (pleine largeur) ─── */
+.page > .page-head {
+  position: relative; padding: 26px 0 22px; margin: -32px 0 24px;
+  background: var(--sec-soft); box-shadow: 0 0 0 100vmax var(--sec-soft); clip-path: inset(0 -100vmax);
+}
+.page > .page-head::before { content: ""; position: absolute; left: 0; top: 26px; width: 36px; height: 4px; border-radius: 2px; background: var(--sec); }
+.page > .page-head h1 { margin-top: 16px; color: var(--ink); font-weight: 750; letter-spacing: -.03em; font-size: clamp(1.6rem, 3vw, 2.1rem); }
+.page > .crumbs { margin: -14px 0 18px; position: relative; z-index: 1; }
+.page > .crumbs + .page-head { margin-top: -22px; }
+.page > .profile.page-head { padding-top: 22px; }
+.page > .profile.page-head::before { display: none; }
+.page > .profile.page-head h1 { margin-top: 0; }
+
+/* ─── Accueil : hero encre ─── */
+.hero { background: var(--encre); color: #fff; border-bottom: 0; position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; right: -120px; top: -160px; width: 520px; height: 520px; border-radius: 50%;
+  border: 60px solid rgba(255,255,255,.035); box-shadow: 0 0 0 60px rgba(255,255,255,.02); pointer-events: none; }
+.hero h1 { color: #fff; font-weight: 800; letter-spacing: -.04em; font-size: clamp(2rem, 4.4vw, 3rem); }
+.hero h1 .dot { color: var(--loi); }
+.hero .lead { color: rgba(255,255,255,.72); }
+.hero .intro { background: rgba(255,255,255,.06); border-left-color: var(--loi); }
+.hero .intro p { color: rgba(255,255,255,.82); }
+.hero .intro a { color: #fff; }
+.hero-search input { background: #fff; color: #16161a; border: 0; }
+.hero-search .btn.primary { background: var(--loi); border-color: var(--loi); color: #fff; }
+.hero-chambers a { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); color: #fff; }
+.hero-chambers a:hover { border-color: rgba(255,255,255,.35); }
+.hero-chambers .muted { color: rgba(255,255,255,.6) !important; }
+.hero-chambers .hemi .center-label { fill: #fff; }
+.hero-chambers .hemi .center-sub { fill: rgba(255,255,255,.6); }
+.hero-chambers a:first-child b { color: #b8c4ff; }
+.hero-chambers a:last-child b { color: #ffb3c9; }
+
+/* ─── Composants alignés sur la palette ─── */
+.btn.primary { background: var(--sec); border-color: var(--sec); color: #fff; }
+body[data-section=""] .btn.primary { background: var(--an); border-color: var(--an); }
+.tabs button[aria-selected="true"] { color: var(--sec); border-bottom-color: var(--sec); }
+body[data-section=""] .tabs button[aria-selected="true"] { color: var(--an); border-bottom-color: var(--an); }
+.section-title h2::before, .block > h2.ttl::before, .panel > header h2::before, .block > .ttl::before { background: var(--t, var(--sec)); }
+.toolbar { border-top-color: var(--sec); }
+.learn-nav a.active { background: var(--sec-soft); color: var(--sec); }
+.stat[class*="tone-"] { border-top: 3px solid var(--t); background: var(--surface); }
+.st-promulguee, .st-adoptee { background: var(--loi-soft); color: var(--loi); }
+.st-navette { background: var(--an-soft); color: var(--an); }
+.st-rejetee, .st-censuree { background: color-mix(in srgb, var(--contre) 12%, var(--surface)); color: var(--contre); }
+.chip.an { background: var(--an-soft); color: var(--an); } .chip.sn { background: var(--sn-soft); color: var(--sn); }
+.chip.cmp { background: var(--cmp-soft); color: var(--cmp); } .chip.gouv { background: var(--gouv-soft); color: var(--gouv); }
+.res.ok { color: var(--loi); } .res.ko { color: var(--contre); }
+
+/* Pied de page */
+.footer { background: var(--encre); position: relative; }
+.footer::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: linear-gradient(90deg, var(--an) 0 50%, var(--sn) 50% 100%); }
+.footer-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -.035em; }
+.footer-brand svg { width: 30px; height: 19px; }
+
+/* ─── Cohérence : les accents suivent la rubrique, sauf couleur porteuse de sens ─── */
+h3.ttl { color: var(--sec) !important; }
+body[data-section=""] h3.ttl { color: var(--encre) !important; }
+:root[data-theme="dark"] body[data-section=""] h3.ttl { color: #b8c4ff !important; }
+.section-title h2::before, .block > h2.ttl::before, .panel > header h2::before, .block > .ttl::before { background: var(--sec) !important; }
+body[data-section=""] .section-title h2::before { background: var(--encre) !important; }
+.stat[class*="tone-"], .award[class*="tone-"] { --t: var(--sec); }
+body[data-section=""] .stat[class*="tone-"] { --t: var(--encre); }
+.stat.tone-loi { --t: var(--loi); } .stat.tone-an { --t: var(--an); } .stat.tone-sn { --t: var(--sn); }
+.stat.tone-gouv { --t: var(--gouv); } .stat.tone-cmp { --t: var(--cmp); } .stat.tone-cc { --t: var(--cc); }
+.kvb { border-top-color: var(--sec); }
+
+/* Accueil : hémicycles sur cartes claires pour garder les couleurs lisibles */
+.hero-chambers a { background: var(--surface); border: 0; color: var(--ink); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+.hero-chambers a:hover { transform: translateY(-2px); }
+.hero-chambers .muted { color: var(--muted) !important; }
+.hero-chambers .hemi .center-label { fill: var(--ink); }
+.hero-chambers .hemi .center-sub { fill: var(--muted); }
+.hero-chambers a:first-child b { color: var(--an); }
+.hero-chambers a:last-child b { color: var(--sn); }
+.hero-chambers a:first-child { border-top: 4px solid var(--an); }
+.hero-chambers a:last-child { border-top: 4px solid var(--sn); }
+
+body[data-section] .stat.tone-loi { --t: var(--loi); } body[data-section] .stat.tone-an { --t: var(--an); }
+body[data-section] .stat.tone-sn { --t: var(--sn); } body[data-section] .stat.tone-gouv { --t: var(--gouv); }
+body[data-section] .stat.tone-cmp { --t: var(--cmp); } body[data-section] .stat.tone-cc { --t: var(--cc); }
+
+/* Fil d'Ariane intégré au bandeau de rubrique */
+.page > .crumbs:first-child { margin: -32px 0 0; padding: 18px 0 0; background: var(--sec-soft); box-shadow: 0 0 0 100vmax var(--sec-soft); clip-path: inset(0 -100vmax); }
+.page > .crumbs:first-child + .page-head { margin-top: 0; padding-top: 12px; }
+.page > .crumbs:first-child + .page-head::before { top: 12px; }
