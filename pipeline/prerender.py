@@ -346,6 +346,9 @@ def main():
     (DIST / "sitemap.xml").write_text("\n".join(sm), encoding="utf-8")
     (DIST / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: {BASE}recherche\n\nSitemap: {SITE_URL}/sitemap.xml\n", encoding="utf-8")
     (DIST / ".nojekyll").write_text("", encoding="utf-8")
+    host = re.sub(r"^https?://", "", SITE_URL).split("/")[0]
+    if BASE == "/" and not re.match(r"^(localhost|127\.|\d+\.)", host):
+        (DIST / "CNAME").write_text(host + "\n", encoding="utf-8")  # domaine personnalisé GitHub Pages
     print(f"  ✓ {len(P.urls)} pages générées dans {DIST} (base {BASE}, {SITE_URL})")
 
 

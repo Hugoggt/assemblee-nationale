@@ -20,8 +20,8 @@ concurrency:
 
 env:
   # Avec un nom de domaine à soi : SITE_URL=https://mon-domaine.fr et SITE_BASE=/
-  SITE_URL: https://hugoggt.github.io/assemblee-nationale
-  SITE_BASE: /assemblee-nationale/
+  SITE_URL: https://hemicycles.fr
+  SITE_BASE: /
 
 jobs:
   build:
