@@ -34,3 +34,8 @@ app_err.txt
 fix_*.py
 inspect_data.py
 diag.py
+
+# Parlement en clair : données téléchargées et générées (reconstruites par pipeline/ et la CI)
+data/raw/
+data/dossier_sample.txt
+site/data/

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hémicycle</title>
+  <meta name="description" content="Assemblée nationale et Sénat : composition, lois, votes et parcours de chaque texte.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><path d='M4 52a28 28 0 0 1 56 0h-12a16 16 0 0 0-32 0z' fill='%2318181b'/></svg>">
+  <link rel="stylesheet" href="fonts/inter.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/ui.css">
+  <link rel="stylesheet" href="css/colors.css">
+  <script>
+    try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Aller au contenu</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#/" aria-label="Accueil Hémicycle">
+        <svg viewBox="0 0 64 40" aria-hidden="true"><path d="M2 38a30 30 0 0 1 60 0H48a16 16 0 0 0-32 0z" fill="var(--ink)"/></svg>
+        <span>Hémicycle <span class="sub">Assemblée · Sénat</span></span>
+      </a>
+      <nav class="mainnav" aria-label="Navigation principale">
+        <a href="#/lois">Lois</a>
+        <a href="#/votes">Votes</a>
+        <a href="#/comparer">Comparer</a>
+        <a href="#/assemblee">Assemblée</a>
+        <a href="#/senat">Sénat</a>
+        <a href="#/gouvernement">Gouvernement</a>
+        <a href="#/agenda" class="nav-2" style="margin-left:auto">Agenda</a>
+        <a href="#/comprendre" class="nav-2">Guide</a>
+      </nav>
+      <form class="search" role="search" id="global-search">
+        <input type="search" id="q" placeholder="Un député, une loi…" aria-label="Rechercher" autocomplete="off">
+      </form>
+      <button class="icon-btn" id="theme-toggle" aria-label="Changer de thème" title="Thème clair / sombre">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu-toggle" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="loading">Chargement…</div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div>
+        <div class="footer-brand">Hémicycle</div>
+        <p><b>Site indépendant.</b> Hémicycle n'est affilié ni à l'Assemblée nationale, ni au Sénat, ni au Gouvernement.
+          Il réutilise leurs données publiques et les présente sous une forme plus lisible.</p>
+        <p>Les données sont retraitées automatiquement (statut des textes, thèmes, rattachement des votes aux textes) :
+          des erreurs ou des approximations sont possibles. En cas de doute, la source officielle fait foi.</p>
+      </div>
+      <div>
+        <h4>Sources</h4>
+        <ul>
+          <li><a href="https://data.assemblee-nationale.fr" target="_blank" rel="noopener">Open data de l'Assemblée nationale</a></li>
+          <li><a href="https://data.assemblee-nationale.fr/travaux-parlementaires/dossiers-legislatifs" target="_blank" rel="noopener">Dossiers législatifs</a> — navette AN, Sénat, CMP, Conseil constitutionnel, promulgation</li>
+          <li><a href="https://data.assemblee-nationale.fr/travaux-parlementaires/votes" target="_blank" rel="noopener">Scrutins publics</a> — votes nominatifs des députés</li>
+          <li><a href="https://data.assemblee-nationale.fr/acteurs/historique-des-deputes" target="_blank" rel="noopener">Acteurs, mandats et organes</a> — députés, sénateurs, groupes, gouvernement
+            (<a href="https://data.assemblee-nationale.fr/static/openData/repository/17/amo/tous_acteurs_mandats_organes_xi_legislature/AMO30_tous_acteurs_tous_mandats_tous_organes_historique.json.zip">fichier</a>)</li>
+          <li><a href="https://data.assemblee-nationale.fr/static/openData/repository/17/vp/reunions/Agenda.json.zip">Agenda des séances et des commissions</a></li>
+          <li>Photos des députés : <a href="https://www.assemblee-nationale.fr" target="_blank" rel="noopener">assemblee-nationale.fr</a></li>
+          <li>Liens complémentaires : <a href="https://www.senat.fr" target="_blank" rel="noopener">senat.fr</a>,
+            <a href="https://www.legifrance.gouv.fr" target="_blank" rel="noopener">Légifrance</a>,
+            <a href="https://www.conseil-constitutionnel.fr" target="_blank" rel="noopener">Conseil constitutionnel</a></li>
+        </ul>
+        <p class="footer-small">Données sous <a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence/" target="_blank" rel="noopener">Licence Ouverte (Etalab 2.0)</a>.
+          Les présentations des groupes sont rédigées par l'auteur du site.</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>Une erreur, une remarque, une idée ?</p>
+        <p><a class="footer-mail" href="mailto:hugo.georgenthum@outlook.com?subject=H%C3%A9micycle">hugo.georgenthum@outlook.com</a></p>
+        <div id="footer-support"></div>
+        <p class="footer-small"><a href="#/a-propos">À propos</a> · <a href="#/a-propos">Mentions légales</a> · <a href="https://github.com/Hugoggt/assemblee-nationale" target="_blank" rel="noopener">Code source</a></p>
+        <p id="footer-meta" class="footer-small"></p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="tooltip" role="tooltip" hidden></div>
+  <div id="popover" role="dialog" hidden></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
