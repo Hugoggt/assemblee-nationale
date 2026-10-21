@@ -12,6 +12,7 @@ import * as recherche from './pages/recherche.js';
 import * as comparer from './pages/comparer.js';
 import * as apropos from './pages/apropos.js';
 import * as budget from './pages/budget.js';
+import * as europe from './pages/europe.js';
 import { SITE } from './config.js';
 
 // Les pages acceptent un identifiant officiel ou une adresse lisible (slug).
@@ -38,6 +39,14 @@ const routes = [
   [/^\/senateurs$/, personnes.senateurs, 'senat'],
   [/^\/senateur\/([\w-]+)$/, personnes.senateur, 'senat', 'sen'],
   [/^\/gouvernement$/, gouv.render, 'gouvernement'],
+  [/^\/europe$/, europe.overview, 'europe'],
+  [/^\/europe\/eurodeputes$/, europe.meps, 'europe'],
+  [/^\/eurodepute\/([\w-]+)$/, europe.mep, 'europe'],
+  [/^\/europe\/votes$/, europe.votesList, 'europe'],
+  [/^\/europe\/vote\/(\d+)$/, europe.voteDetail, 'europe'],
+  [/^\/europe\/textes$/, europe.textesList, 'europe'],
+  [/^\/europe\/texte\/([\w-]+)$/, europe.texte, 'europe'],
+  [/^\/europe\/calendrier$/, europe.calendrier, 'europe'],
   [/^\/agenda$/, agenda.render, 'agenda'],
   [/^\/(?:guide|comprendre)(?:\/([\w-]+))?$/, comprendre.render, 'guide'],
   [/^\/recherche$/, recherche.render, null],

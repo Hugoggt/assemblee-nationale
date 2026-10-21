@@ -1,0 +1,397 @@
+{
+"6562": {
+"code": "AFET",
+"nom": "Commission des affaires étrangères",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6563": {
+"code": "DEVE",
+"nom": "Commission du développement",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6564": {
+"code": "INTA",
+"nom": "Commission du commerce international",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6565": {
+"code": "DMED",
+"nom": "Délégation à l'Assemblée parlementaire de l'Union pour la Méditerranée",
+"type": "DELEGATION_PARLIAMENTARY_ASSEMBLY"
+},
+"6566": {
+"code": "DLAT",
+"nom": "Délégation à l'Assemblée parlementaire euro-latino-américaine",
+"type": "DELEGATION_PARLIAMENTARY_ASSEMBLY"
+},
+"6567": {
+"code": "BUDG",
+"nom": "Commission des budgets",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6568": {
+"code": "CONT",
+"nom": "Commission du contrôle budgétaire",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6569": {
+"code": "DEPA",
+"nom": "Délégation à l'Assemblée parlementaire Euronest",
+"type": "DELEGATION_PARLIAMENTARY_ASSEMBLY"
+},
+"6570": {
+"code": "ECON",
+"nom": "Commission des affaires économiques et monétaires",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6571": {
+"code": "DNAT",
+"nom": "Délégation pour les relations avec l'Assemblée parlementaire de l'OTAN",
+"type": "DELEGATION_PARLIAMENTARY_ASSEMBLY"
+},
+"6572": {
+"code": "EMPL",
+"nom": "Commission de l'emploi et des affaires sociales",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6573": {
+"code": "DACP",
+"nom": "Délégation à l'Assemblée parlementaire paritaire OEACP-UE",
+"type": "DELEGATION_PARLIAMENTARY_ASSEMBLY"
+},
+"6574": {
+"code": "ENVI",
+"nom": "Commission de l'environnement, de la santé publique et de la sécurité alimentaire",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6575": {
+"code": "DAFR",
+"nom": "Délégation à l'Assemblée parlementaire Afrique-UE",
+"type": "DELEGATION_PARLIAMENTARY_ASSEMBLY"
+},
+"6576": {
+"code": "ITRE",
+"nom": "Commission de l'industrie, de la recherche et de l'énergie",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6577": {
+"code": "DCAB",
+"nom": "Délégation à l'Assemblée parlementaire Caraïbes-UE",
+"type": "DELEGATION_PARLIAMENTARY_ASSEMBLY"
+},
+"6578": {
+"code": "DPAC",
+"nom": "Délégation à l'Assemblée parlementaire Pacifique-UE",
+"type": "DELEGATION_PARLIAMENTARY_ASSEMBLY"
+},
+"6579": {
+"code": "IMCO",
+"nom": "Commission du marché intérieur et de la protection des consommateurs",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6580": {
+"code": "TRAN",
+"nom": "Commission des transports et du tourisme",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6581": {
+"code": "REGI",
+"nom": "Commission du développement régional",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6582": {
+"code": "AGRI",
+"nom": "Commission de l'agriculture et du développement rural",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6583": {
+"code": "PECH",
+"nom": "Commission de la pêche",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6584": {
+"code": "CULT",
+"nom": "Commission de la culture et de l'éducation",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6585": {
+"code": "JURI",
+"nom": "Commission des affaires juridiques",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6586": {
+"code": "LIBE",
+"nom": "Commission des libertés civiles, de la justice et des affaires intérieures",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6587": {
+"code": "AFCO",
+"nom": "Commission des affaires constitutionnelles",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6588": {
+"code": "FEMM",
+"nom": "Commission des droits des femmes et de l'égalité des genres",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6589": {
+"code": "DEEA",
+"nom": "Délégation pour la coopération septentrionale et pour les relations avec la Suisse et la Norvège, à la commission parlementaire mixte UE-Islande et à la commission parlementaire mixte de l'Espace économique européen (EEE)",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6590": {
+"code": "DSEE",
+"nom": "Délégation pour les relations avec la Bosnie-Herzégovine et le Kosovo, y compris la commission parlementaire de stabilisation et d’association UE-Bosnie-Herzégovine et la commission parlementaire de stabilisation et  d’association UE-Kosovo",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6591": {
+"code": "PETI",
+"nom": "Commission des pétitions",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"6592": {
+"code": "D-RU",
+"nom": "Délégation à la commission de coopération parlementaire UE-Russie",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6593": {
+"code": "D-UA",
+"nom": "Délégation à la commission parlementaire d'association UE-Ukraine",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6594": {
+"code": "D-MD",
+"nom": "Délégation à la commission parlementaire d'association UE-Moldavie",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6596": {
+"code": "DSCA",
+"nom": "Délégation au comité parlementaire de partenariat UE-Arménie, à la commission de coopération parlementaire UE-Azerbaïdjan et à la commission parlementaire d’association UE-Géorgie",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6597": {
+"code": "D-IL",
+"nom": "Délégation pour les relations avec Israël",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6598": {
+"code": "DPAL",
+"nom": "Délégation pour les relations avec la Palestine",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6599": {
+"code": "DMAG",
+"nom": "Délégation pour les relations avec les pays du Maghreb et l’Union du Maghreb arabe, y compris les commissions parlementaires mixtes UE-Maroc, UE-Tunisie et UE-Algérie",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6600": {
+"code": "DMAS",
+"nom": "Délégation pour les relations avec les pays du Machrek",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6601": {
+"code": "DARP",
+"nom": "Délégation pour les relations avec la péninsule arabique",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6602": {
+"code": "D-IQ",
+"nom": "Délégation pour les relations avec l'Iraq, y compris la commission de coopération parlementaire UE-Iraq",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6604": {
+"code": "D-US",
+"nom": "Délégation pour les relations avec les États-Unis",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6605": {
+"code": "D-CA",
+"nom": "Délégation pour les relations avec le Canada",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6606": {
+"code": "D-BR",
+"nom": "Délégation pour les relations avec la République fédérative du Brésil",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6607": {
+"code": "DCAM",
+"nom": "Délégation pour les relations avec les pays d'Amérique centrale, y compris la commission parlementaire d’association UE-Amérique centrale",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6608": {
+"code": "DAND",
+"nom": "Délégation pour les relations avec les pays de la Communauté andine",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6609": {
+"code": "DMER",
+"nom": "Délégation pour les relations avec le Mercosur",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6610": {
+"code": "D-JP",
+"nom": "Délégation pour les relations avec le Japon",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6611": {
+"code": "D-CN",
+"nom": "Délégation pour les relations avec la République populaire de Chine",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6612": {
+"code": "D-IN",
+"nom": "Délégation pour les relations avec l'Inde",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6613": {
+"code": "D-AF",
+"nom": "Délégation pour les relations avec l'Afghanistan",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6614": {
+"code": "DSAS",
+"nom": "Délégation pour les relations avec les pays de l'Asie du Sud",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6615": {
+"code": "DASE",
+"nom": "Délégation pour les relations avec les pays de l'Asie du Sud-Est et l'Association des nations de l'Asie du Sud-Est (ANASE)",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6616": {
+"code": "DKOR",
+"nom": "Délégation pour les relations avec la Péninsule coréenne",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6617": {
+"code": "DANZ",
+"nom": "Délégation pour les relations avec l'Australie et la Nouvelle-Zélande",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6618": {
+"code": "DCAS",
+"nom": "Délégation pour les relations avec l’Asie centrale",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6619": {
+"code": "D-ZA",
+"nom": "Délégation pour les relations avec l'Afrique du Sud",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6620": {
+"code": "DPAP",
+"nom": "Délégation pour les relations avec le Parlement panafricain",
+"type": "DELEGATION_PARLIAMENTARY"
+},
+"6622": {
+"code": "D-TR",
+"nom": "Délégation à la commission parlementaire mixte UE-Turquie",
+"type": "DELEGATION_JOINT_COMMITTEE"
+},
+"6623": {
+"code": "D-MX",
+"nom": "Délégation à la commission parlementaire mixte UE-Mexique",
+"type": "DELEGATION_JOINT_COMMITTEE"
+},
+"6624": {
+"code": "D-CL",
+"nom": "Délégation à la commission parlementaire mixte UE-Chili",
+"type": "DELEGATION_JOINT_COMMITTEE"
+},
+"6625": {
+"code": "DCAR",
+"nom": "Délégation à la commission parlementaire Cariforum-UE",
+"type": "DELEGATION_JOINT_COMMITTEE"
+},
+"6626": {
+"code": "D-RS",
+"nom": "Délégation à la commission parlementaire de stabilisation et d'association UE-Serbie",
+"type": "DELEGATION_JOINT_COMMITTEE"
+},
+"6627": {
+"code": "D-AL",
+"nom": "Délégation à la commission parlementaire de stabilisation et d'association UE-Albanie",
+"type": "DELEGATION_JOINT_COMMITTEE"
+},
+"6628": {
+"code": "D-ME",
+"nom": "Délégation à la commission parlementaire de stabilisation et d'association UE-Monténégro",
+"type": "DELEGATION_JOINT_COMMITTEE"
+},
+"6629": {
+"code": "D-UK",
+"nom": "Délégation à l’Assemblée parlementaire de partenariat UE-Royaume-Uni",
+"type": "DELEGATION_JOINT_COMMITTEE"
+},
+"6630": {
+"code": "BURO",
+"nom": "Bureau du Parlement européen",
+"type": "GOVERNING_BODY"
+},
+"6631": {
+"code": "BCPR",
+"nom": "Conférence des présidents",
+"type": "GOVERNING_BODY"
+},
+"6632": {
+"code": "QUE",
+"nom": "Questeurs",
+"type": "GOVERNING_BODY"
+},
+"6633": {
+"code": "PRCO",
+"nom": "Conférence des présidents des commissions",
+"type": "GOVERNING_BODY"
+},
+"6634": {
+"code": "PRDE",
+"nom": "Conférence des présidents des délégations",
+"type": "GOVERNING_BODY"
+},
+"7005": {
+"code": "DROI",
+"nom": "Sous-commission \"Droits de l'homme\"",
+"type": "COMMITTEE_PARLIAMENTARY_SUB"
+},
+"7006": {
+"code": "SEDE",
+"nom": "Sous-commission \"sécurité et défense\"",
+"type": "COMMITTEE_PARLIAMENTARY_SUB"
+},
+"7007": {
+"code": "FISC",
+"nom": "Sous-commission des affaires fiscales",
+"type": "COMMITTEE_PARLIAMENTARY_SUB"
+},
+"7008": {
+"code": "SANT",
+"nom": "Sous-commission de la santé publique",
+"type": "COMMITTEE_PARLIAMENTARY_SUB"
+},
+"7911": {
+"code": "SEDE",
+"nom": "Commission de la sécurité et de la défense",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"7912": {
+"code": "SANT",
+"nom": "Commission de la santé publique",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"7913": {
+"code": "ENVI",
+"nom": "Commission de l’environnement, du climat et de la sécurité alimentaire",
+"type": "COMMITTEE_PARLIAMENTARY_STANDING"
+},
+"7914": {
+"code": "EUDS",
+"nom": "Commission spéciale sur le bouclier européen de la démocratie",
+"type": "COMMITTEE_PARLIAMENTARY_TEMPORARY"
+},
+"7915": {
+"code": "HOUS",
+"nom": "Commission spéciale sur la crise du logement dans l'Union européenne",
+"type": "COMMITTEE_PARLIAMENTARY_TEMPORARY"
+}
+}

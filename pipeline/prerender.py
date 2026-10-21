@@ -156,12 +156,12 @@ def main():
         return f'<a href="{"depute" if chamber == "AN" else "senateur"}/{e(slug)}">{e(name or slug)}</a>'
 
     # ── Accueil et pages de rubrique
-    recent = sorted([d for d in D["dossiers"] if d["cat"] == "loi" and d["examine"]], key=lambda d: d["maj"] or "", reverse=True)[:15]
+    recent = sorted([d for d in D["dossiers"] if d["cat"] == "loi" and d["statut"] == "promulguee"], key=lambda d: d["maj"] or "", reverse=True)[:15]
     P.write("", "les votes de l'Assemblée nationale et du Sénat",
             f"Suivez le Parlement simplement : {k['deputes']} députés, {k['senateurs']} sénateurs, {k['promulguees']} lois promulguées, "
             f"{k['scrutins']} votes nominatifs. Où en est chaque loi, qui a voté quoi, qui vote avec qui.",
             f"<h1>Suivre le Parlement</h1><p>Composition, lois et votes de l'Assemblée nationale et du Sénat.</p>"
-            f"<h2>Textes en cours</h2><ul>{''.join(f'<li>{loi_link(d)}</li>' for d in recent)}</ul>"
+            f"<h2>Lois récemment promulguées</h2><ul>{''.join(f'<li>{loi_link(d)}</li>' for d in recent)}</ul>"
             '<p><a href="lois">Toutes les lois</a> · <a href="votes">Tous les votes</a> · <a href="comparer">Comparer les votes</a> · '
             '<a href="assemblee">Assemblée nationale</a> · <a href="senat">Sénat</a> · <a href="guide">Guide du Parlement</a></p>',
             today, "1.0", [{"@context": "https://schema.org", "@type": "WebSite", "name": NOM, "url": SITE_URL + "/",
@@ -345,6 +345,12 @@ def main():
         P.write(f"vote/{r['num']}", title, desc, body, r["date"], "0.6",
                 [breadcrumb([("Votes", "votes"), (f"Scrutin n° {r['num']}", f"vote/{r['num']}")])], og_type="article")
 
+    # ── Parlement européen
+    try:
+        prerender_europe(P, today)
+    except FileNotFoundError:
+        pass
+
     # ── Page 404 (sert aussi de point d'entrée pour les pages non pré-générées)
     shell = P.template.replace('<base href="/">', f'<base href="{BASE}">').replace('<meta name="description"', '<meta name="robots" content="noindex">\n  <meta name="description"', 1)
     (DIST / "404.html").write_text(shell, encoding="utf-8")
@@ -362,6 +368,122 @@ def main():
     if BASE == "/" and not re.match(r"^(localhost|127\.|\d+\.)", host):
         (DIST / "CNAME").write_text(host + "\n", encoding="utf-8")  # domaine personnalisé GitHub Pages
     print(f"  ✓ {len(P.urls)} pages générées dans {DIST} (base {BASE}, {SITE_URL})")
+
+
+def prerender_europe(P, today):
+    E = load("europe/europe")
+    V = load("europe/votes")
+    T = load("europe/textes")
+    pos = load("europe/positions")
+    G = {g["code"]: g for g in E["groupes"]}
+    PA = {p["id"]: p for p in E["partis"]}
+    TY = E["types"]
+    meps = E["meps"]
+    actifs = [d for d in meps if d["actif"]]
+    vidx = {v: i for i, v in enumerate(pos["votes"])}
+    by_v = {v["id"]: v for v in V}
+    by_mep = {d["id"]: d for d in meps}
+    POSL = {"p": "pour", "c": "contre", "a": "abstention", ".": "absent"}
+    src = ('<p>Votes : <a href="https://howtheyvote.eu">HowTheyVote.eu</a> (Open Database License) · '
+           'titres et parcours : open data du Parlement européen.</p>')
+
+    def mep_link(d):
+        return f'<a href="eurodepute/{e(d["slug"])}">{e(d["prenom"])} {e(d["nom"])}</a>'
+
+    def vote_line(v):
+        return (f'<li><a href="europe/vote/{v["id"]}">{e(v["titre"])}</a> — {"adopté" if v["adopte"] else "rejeté"} le {fdate(v["date"])} '
+                f'({v["p"]} pour, {v["c"]} contre ; Français : {v["fr"][0]} pour, {v["fr"][1]} contre)</li>')
+
+    partis = sorted([p for p in E["partis"] if p["n"]], key=lambda p: -p["n"])
+    P.write("europe", "Parlement européen : les eurodéputés français et leurs votes",
+            f"Les {len(actifs)} eurodéputés élus en France : groupe, parti, présence et votes au Parlement européen. "
+            f"{len(V)} votes finaux, les textes européens et le calendrier des sessions.",
+            "<h1>Parlement européen</h1><p>Les eurodéputés élus en France, leurs votes et les textes européens.</p>"
+            "<h2>La délégation française</h2><ul>" + "".join(f"<li>{e(p['nom'])} ({e(p['sigle'])}) : {p['n']} eurodéputés, groupe {e(G.get(p['groupe'], {}).get('nom', ''))}</li>" for p in partis) + "</ul>"
+            "<h2>Derniers votes</h2><ul>" + "".join(vote_line(v) for v in V[:15]) + "</ul>"
+            '<p><a href="europe/eurodeputes">Eurodéputés</a> · <a href="europe/votes">Votes</a> · <a href="europe/textes">Textes</a> · <a href="europe/calendrier">Calendrier</a></p>' + src,
+            today, "0.9")
+    P.write("europe/eurodeputes", f"Les {len(actifs)} eurodéputés français : parti, groupe et votes",
+            "La liste des eurodéputés élus en France, avec leur parti, leur groupe au Parlement européen, leur présence et leur loyauté de vote.",
+            "<h1>Eurodéputés élus en France</h1><ul>" + "".join(f"<li>{mep_link(d)} — {e(PA.get(d['parti'], {}).get('sigle', ''))}, {e(G.get(d['groupe'], {}).get('sigle', ''))}</li>" for d in actifs) + "</ul>" + src,
+            today, "0.8")
+    P.write("europe/votes", "Les votes du Parlement européen et la position des Français",
+            "Chaque vote final du Parlement européen depuis 2024 : résultat, vote des groupes et des eurodéputés français, parti par parti.",
+            "<h1>Votes du Parlement européen</h1><ul>" + "".join(vote_line(v) for v in V[:200]) + "</ul>" + src, today, "0.8")
+    P.write("europe/textes", "Les textes européens : lois, budgets, résolutions",
+            "Les règlements, directives, budgets, accords et résolutions votés par le Parlement européen, avec leur parcours et le vote des Français.",
+            "<h1>Textes européens</h1><ul>" + "".join(f'<li><a href="europe/texte/{e(t["slug"])}">{e(t["titre"])}</a> — {e(TY.get(t["type"] or "", [""])[0])}</li>' for t in T[:300]) + "</ul>" + src, today, "0.7")
+    nxt = [x for x in E["sessions"] if x["avenir"]][:12]
+    P.write("europe/calendrier", "Calendrier des sessions du Parlement européen",
+            "Les prochaines sessions plénières du Parlement européen à Strasbourg et Bruxelles, et les votes des sessions passées.",
+            "<h1>Calendrier du Parlement européen</h1><ul>" + "".join(f"<li>{fdate(x['debut'])} → {fdate(x['fin'])} {e(x['lieu'] or '')}</li>" for x in nxt) + "</ul>", today, "0.6")
+
+    # Eurodéputés
+    for d in meps:
+        g, p = G.get(d["groupe"]), PA.get(d["parti"])
+        st = d["stats"]
+        role = ("Eurodéputée" if d["femme"] else "Eurodéputé") + ("" if d["actif"] else (" (ancienne)" if d["femme"] else " (ancien)"))
+        title = f"{d['prenom']} {d['nom']}, {role.lower()}" + (f" {p['sigle']}" if p else "") + " : votes au Parlement européen"
+        desc = (f"{role} élu{'e' if d['femme'] else ''} en France" + (f", {p['nom']}" if p else "") + (f", groupe {g['nom']}" if g else "") +
+                f". Présence aux votes {fr(st['participation'])} %, vote comme son groupe à {fr(st['loyauteGroupe'])} %. Ses votes et ses rapports.")
+        chain = pos["meps"].get(d["id"], "")
+        lst = []
+        for i in range(len(pos["votes"]) - 1, -1, -1):
+            if i < len(chain) and chain[i] in "pca":
+                v = by_v.get(pos["votes"][i])
+                if v and v["type"] in ("COD", "BUD", "NLE"):
+                    lst.append(f'<li><a href="europe/vote/{v["id"]}">{e(v["titre"])}</a> : <b>{POSL[chain[i]]}</b> ({fdate(v["date"])})</li>')
+            if len(lst) >= 15:
+                break
+        coms = ", ".join(c["nom"] for c in d["commissions"] if c["titulaire"])
+        body = (f"<h1>{e(d['prenom'])} {e(d['nom'])}</h1><p>{e(role)}" + (f" · {e(p['nom'])}" if p else "") + (f" · {e(g['nom'])}" if g else "") + "</p>"
+                f"<p>Présence aux votes : {fr(st['participation'])} % · vote comme son groupe : {fr(st['loyauteGroupe'])} % · comme son parti : {fr(st['loyautePartie'])} %</p>"
+                + (f"<p>Commissions : {e(coms)}</p>" if coms else "")
+                + (f"<h2>Ses derniers votes sur des lois européennes</h2><ul>{''.join(lst)}</ul>" if lst else "")
+                + '<p><a href="europe/eurodeputes">Tous les eurodéputés français</a></p>')
+        jl = [breadcrumb([("Parlement européen", "europe"), ("Eurodéputés", "europe/eurodeputes"), (f"{d['prenom']} {d['nom']}", f"eurodepute/{d['slug']}")]),
+              {"@context": "https://schema.org", "@type": "Person", "name": f"{d['prenom']} {d['nom']}", "jobTitle": role,
+               "memberOf": {"@type": "Organization", "name": g["nom"]} if g else None,
+               "image": f"https://www.europarl.europa.eu/mepphoto/{d['id']}.jpg", "url": f"{SITE_URL}/eurodepute/{d['slug']}"}]
+        P.write(f"eurodepute/{d['slug']}", title, desc, body, today, "0.7" if d["actif"] else "0.3", jl, og_type="profile")
+
+    # Textes
+    for t in T:
+        ty = TY.get(t["type"] or "", ["Texte", ""])
+        title = f"{clip(t['titre'], 110)} : vote au Parlement européen"
+        last = by_v.get(t["votes"][-1]) if t["votes"] else None
+        desc = (f"{ty[0]} ({t['ref']}) {'adopté' if t['adopte'] else 'rejeté'} par le Parlement européen le {fdate(t['date'])}"
+                + (f", {last['p']} voix pour et {last['c']} contre ; les eurodéputés français : {last['fr'][0]} pour, {last['fr'][1]} contre" if last else "")
+                + ". Parcours et vote parti par parti.")
+        etapes = "".join(f"<li>{fdate(x[0])} : {e(x[1])}</li>" for x in t["etapes"])
+        body = (f"<h1>{e(t['titre'])}</h1><p>{e(ty[0])} · {e(t['ref'])} · {'adopté' if t['adopte'] else 'rejeté'}</p><p>{e(ty[1])}</p>"
+                + (f"<h2>Parcours</h2><ol>{etapes}</ol>" if etapes else "")
+                + "<h2>Votes en séance</h2><ul>" + "".join(vote_line(by_v[i]) for i in t["votes"] if i in by_v) + "</ul>"
+                + '<p><a href="europe/textes">Tous les textes européens</a></p>')
+        P.write(f"europe/texte/{t['slug']}", title, desc, body, t["date"], "0.6" if t["type"] == "COD" else "0.4",
+                [breadcrumb([("Parlement européen", "europe"), ("Textes", "europe/textes"), (clip(t["titre"], 80), f"europe/texte/{t['slug']}")])], og_type="article")
+
+    # Votes
+    for v in V:
+        i = vidx.get(v["id"])
+        par = {}
+        for mid, chain in pos["meps"].items():
+            k = chain[i] if i is not None and i < len(chain) else "-"
+            if k in POSL:
+                par.setdefault(by_mep[mid]["parti"], []).append(k)
+        table = "".join(f"<tr><td>{e(PA.get(pk, {}).get('sigle', pk))}</td><td>{POSL.get(v['partis'].get(pk), '—')}</td>"
+                        f"<td>{ks.count('p')}</td><td>{ks.count('c')}</td><td>{ks.count('a')}</td></tr>" for pk, ks in par.items())
+        res = "adopté" if v["adopte"] else "rejeté"
+        title = f"{clip(v['titre'], 100)} : le vote des eurodéputés français"
+        desc = (f"{res.capitalize()} par le Parlement européen le {fdate(v['date'])} ({v['p']} pour, {v['c']} contre, {v['a']} abstentions). "
+                f"Les eurodéputés français : {v['fr'][0]} pour, {v['fr'][1]} contre, {v['fr'][2]} abstentions. Le vote parti par parti.")
+        body = (f"<h1>{e(v['titre'])}</h1><p><b>{res.capitalize()}</b> · {fdate(v['date'])} · {e(TY.get(v['type'] or '', [''])[0])}</p>"
+                f"<p>{v['p']} pour · {v['c']} contre · {v['a']} abstentions</p>"
+                + (f'<p>Texte : <a href="europe/texte/{e(v["texte"])}">{e(v["titre"])}</a></p>' if v.get("texte") else "")
+                + "<h2>Les eurodéputés français, parti par parti</h2><table><thead><tr><th>Parti</th><th>Position</th><th>Pour</th><th>Contre</th><th>Abst.</th></tr></thead>"
+                + f"<tbody>{table}</tbody></table>")
+        P.write(f"europe/vote/{v['id']}", title, desc, body, v["date"], "0.5",
+                [breadcrumb([("Parlement européen", "europe"), ("Votes", "europe/votes"), (clip(v["titre"], 80), f"europe/vote/{v['id']}")])], og_type="article")
 
 
 if __name__ == "__main__":

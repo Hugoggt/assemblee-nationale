@@ -25,6 +25,8 @@ export async function render(el) {
         <li><a href="https://data.assemblee-nationale.fr/acteurs/historique-des-deputes" target="_blank" rel="noopener">acteurs, mandats et organes</a> : députés, sénateurs, groupes, gouvernement ;</li>
         <li><a href="${R}/vp/reunions/Agenda.json.zip">agenda</a> des séances et des commissions.</li>
       </ul>
+      <p>Pour le <b>Parlement européen</b> : les votes nominatifs viennent de <a href="https://howtheyvote.eu" target="_blank" rel="noopener">HowTheyVote.eu</a> (<a href="https://github.com/HowTheyVote/data" target="_blank" rel="noopener">jeu de données</a>), publié sous <a href="https://opendatacommons.org/licenses/odbl/1-0/" target="_blank" rel="noopener">Open Database License</a> — <i>Data source: HowTheyVote.eu (Open Database License)</i>. Les données dérivées affichées ici (positions des partis, taux de présence et de loyauté) sont partagées sous la même licence, dans les fichiers JSON du site. Les titres en français, le parcours des textes, les rapporteurs et les fonctions des eurodéputés viennent de l'<a href="https://data.europarl.europa.eu" target="_blank" rel="noopener">open data du Parlement européen</a> ; les photos sont celles du site du Parlement (© Union européenne).</p>
+      <p>Le budget de l'État vient de <a href="https://data.economie.gouv.fr" target="_blank" rel="noopener">data.economie.gouv.fr</a> et l'indice des prix de l'<a href="https://www.insee.fr" target="_blank" rel="noopener">Insee</a>.</p>
       <p>Les données sont mises à jour automatiquement chaque jour. Dernière mise à jour : ${fdate(meta.genere)}. Les photos des députés sont affichées depuis le site de l'Assemblée nationale.</p>
     </section>
 
@@ -34,6 +36,7 @@ export async function render(el) {
         <li>Une partie des votes d'amendements n'est pas reliée à son texte dans la source : le site les rattache par le titre et la date de séance (environ 96 % des ${nf(meta.chiffres.scrutins)} scrutins).</li>
         <li>Les thèmes sont déduits du titre et de la commission saisie : c'est une indication, pas une classification officielle.</li>
         <li>Les votes nominatifs des sénateurs ne figurent pas dans les données utilisées.</li>
+        <li>Au Parlement européen, seuls les votes finaux en séance plénière sont repris (un par texte et par étape), pas les votes sur les amendements. La position d'un parti français est celle de la majorité de ses eurodéputés présents.</li>
         <li>Les courtes présentations des groupes sont rédigées par l'auteur du site.</li>
       </ul>
       <p>En cas de doute, la source officielle fait foi. Vous avez repéré une erreur ? Écrivez à <a href="mailto:${mail}">${mail}</a>.</p>

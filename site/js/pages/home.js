@@ -49,14 +49,12 @@ export function scrutinRow(s, dossiers) {
 
 export async function render(el) {
   setTitle('');
-  const [c, dos, scr, agenda] = await Promise.all([ctx(), dossiersIndex(), scrutinsIndex(), load('agenda')]);
+  const [c, dos, agenda] = await Promise.all([ctx(), dossiersIndex(), load('agenda')]);
   const { meta } = c;
   const k = meta.chiffres;
   const lois = dos.dossiers.filter(d => d.cat === 'loi');
   const byMaj = (a, b) => (b.maj || '').localeCompare(a.maj || '');
-  const moving = lois.filter(d => d.examine && ['navette', 'adoptee'].includes(d.statut)).sort(byMaj).slice(0, 6);
   const promulguees = lois.filter(d => d.statut === 'promulguee').sort(byMaj).slice(0, 6);
-  const grands = scr.list.filter(s => s.kind === 'censure' || (s.kind === 'ensemble' && (s.type === 'SPS' || s.votants > 300))).slice(0, 5);
   const seen = new Set();
   const upcoming = [];
   for (const ev of agenda.filter(a => a.type === 'seance')) {
@@ -70,7 +68,6 @@ export async function render(el) {
     }
     if (upcoming.length >= 5) break;
   }
-  const pm = meta.gouvernement.membres.find(m => m.fonction === 'Premier ministre');
   const biggest = [...c.an].sort((a, b) => b.effectif - a.effectif)[0];
 
   el.innerHTML = `
@@ -103,44 +100,16 @@ export async function render(el) {
     <div class="two-col">
       <div>
         <section class="block" style="margin-top:0">
-          <div class="section-title">${ttl('', 'Textes en cours', 'blue')}<a href="lois?statut=navette">Tout voir →</a></div>
-          <div class="lcards">${moving.map(d => loiCard(d, dos.themes)).join('')}</div>
-        </section>
-        <section class="block">
-          <div class="section-title">${ttl('', 'Derniers votes importants', 'violet')}<a href="votes">Tout voir →</a></div>
-          <div class="list">${grands.map(s => scrutinRow(s, dos._index)).join('')}</div>
-        </section>
-        <section class="block">
           <div class="section-title">${ttl('', 'Lois récemment promulguées', 'green')}<a href="lois?statut=promulguee">Tout voir →</a></div>
           <div class="lcards">${promulguees.map(d => loiCard(d, dos.themes)).join('')}</div>
         </section>
       </div>
       <aside>
-        <section class="card" style="margin-bottom:16px">
+        <section class="card">
           ${ttl('', 'À l’ordre du jour', 'teal', 'h3')}
           ${upcoming.length ? `<ul class="agenda-mini">${upcoming.map(u => `<li><span class="tiny muted">${fdateDay(u.date)} · ${u.date.slice(11, 16).replace(':', 'h')}</span>
             ${u.dossier ? `<a href="${L.loi(u.dossier)}">${esc(u.objet)}</a>` : `<span>${esc(u.objet)}</span>`}</li>`).join('')}</ul>` : '<p class="muted small">Rien de programmé pour le moment.</p>'}
           <a class="small" href="agenda">Tout l'agenda →</a>
-        </section>
-        <section class="card" style="margin-bottom:16px">
-          ${ttl('', 'Institutions', 'orange', 'h3')}
-          <dl class="kv small" style="margin-top:10px">
-            ${meta.presidences.republique ? `<dt>Élysée</dt><dd>${esc(meta.presidences.republique.nom)}</dd>` : ''}
-            ${pm ? `<dt>Matignon</dt><dd>${esc(pm.prenom)} ${esc(pm.nom)}</dd>` : ''}
-            ${meta.presidences.assemblee ? `<dt>Assemblée</dt><dd><a href="${L.dep(meta.presidences.assemblee)}">${esc(meta.presidences.assemblee.nom)}</a></dd>` : ''}
-            ${meta.presidences.senat ? `<dt>Sénat</dt><dd>${esc(meta.presidences.senat.nom)}</dd>` : ''}
-          </dl>
-          <a class="small" href="gouvernement" style="display:block;margin-top:10px">Le Gouvernement →</a>
-        </section>
-        <section class="card">
-          ${ttl('', 'Guide', 'pink', 'h3')}
-          <div class="list small" style="margin-top:10px;gap:8px">
-            <a href="guide/parcours">Comment une loi est votée</a>
-            <a href="guide/cmp">La commission mixte paritaire</a>
-            <a href="guide/arme">Le 49.3 et la censure</a>
-            <a href="guide/dernier-mot">Qui a le dernier mot ?</a>
-            <a href="guide/quiz">Le quiz</a>
-          </div>
         </section>
       </aside>
     </div>

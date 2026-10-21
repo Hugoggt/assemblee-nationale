@@ -8,6 +8,7 @@
      Rouge      contre, rejeté
      Ocre       le Conseil constitutionnel, les règles → le guide
      Graphite   le Gouvernement
+     Turquoise  le Parlement européen
    Chargé en dernier : redéfinit les jetons utilisés par toutes les feuilles.
    ═══════════════════════════════════════════════════════════════════ */
 :root {
@@ -19,6 +20,7 @@
   --loi: #128a5c;      --loi-soft: #e2f4ec;
   --cc: #b07a12;       --cc-soft: #f8f0dd;
   --gouv: #3b4152;     --gouv-soft: #eceef2;
+  --ue: #0b7487;       --ue-soft: #e1f2f4;
   --prom: var(--loi);  --prom-soft: var(--loi-soft);
   --pour: #128a5c;
   --contre: #e0442f;
@@ -37,14 +39,14 @@
   :root:not([data-theme="light"]) {
     --encre: #0b0e30; --encre-2: #151a52;
     --an: #8ea2ff; --an-soft: #1c2350; --sn: #f27aa0; --sn-soft: #3a1626; --cmp: #b79bf5; --cmp-soft: #2a2047;
-    --loi: #4fd19a; --loi-soft: #11301f; --cc: #e8bb55; --cc-soft: #352a10; --gouv: #b7bdcc; --gouv-soft: #2a2d36;
+    --loi: #4fd19a; --loi-soft: #11301f; --cc: #e8bb55; --cc-soft: #352a10; --gouv: #b7bdcc; --gouv-soft: #2a2d36; --ue: #5cc8d8; --ue-soft: #0f2e34;
     --pour: #4fd19a; --contre: #ff7a66; --abst: #f2bd45; --sec-soft: #1a1d3a; --bg: #101117;
   }
 }
 :root[data-theme="dark"] {
   --encre: #0b0e30; --encre-2: #151a52;
   --an: #8ea2ff; --an-soft: #1c2350; --sn: #f27aa0; --sn-soft: #3a1626; --cmp: #b79bf5; --cmp-soft: #2a2047;
-  --loi: #4fd19a; --loi-soft: #11301f; --cc: #e8bb55; --cc-soft: #352a10; --gouv: #b7bdcc; --gouv-soft: #2a2d36;
+  --loi: #4fd19a; --loi-soft: #11301f; --cc: #e8bb55; --cc-soft: #352a10; --gouv: #b7bdcc; --gouv-soft: #2a2d36; --ue: #5cc8d8; --ue-soft: #0f2e34;
   --pour: #4fd19a; --contre: #ff7a66; --abst: #f2bd45; --sec-soft: #1a1d3a; --bg: #101117;
 }
 
@@ -55,6 +57,7 @@ body[data-section="assemblee"]    { --sec: var(--an);   --sec-soft: var(--an-sof
 body[data-section="senat"]        { --sec: var(--sn);   --sec-soft: var(--sn-soft); }
 body[data-section="comparer"]     { --sec: var(--cmp);  --sec-soft: var(--cmp-soft); }
 body[data-section="gouvernement"] { --sec: var(--gouv); --sec-soft: var(--gouv-soft); }
+body[data-section="europe"]       { --sec: var(--ue);   --sec-soft: var(--ue-soft); }
 body[data-section="agenda"]       { --sec: var(--an);   --sec-soft: var(--an-soft); }
 body[data-section="comprendre"], body[data-section="guide"] { --sec: var(--cc);   --sec-soft: var(--cc-soft); }
 body { --accent: var(--sec); --accent-soft: var(--sec-soft); }
@@ -78,6 +81,7 @@ body[data-section=""] { --accent: var(--an); --accent-soft: var(--an-soft); }
 .mainnav a[href="senat"] { --nc: #f27aa0; }
 .mainnav a[href="comparer"] { --nc: #b79bf5; }
 .mainnav a[href="gouvernement"] { --nc: #c4c9d6; }
+.mainnav a[href="europe"] { --nc: #5cc8d8; }
 .mainnav a[href="guide"] { --nc: #e8bb55; }
 .search input { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.15); color: #fff; }
 .search input::placeholder { color: rgba(255,255,255,.55); }
@@ -214,3 +218,34 @@ body[data-section] .stat.tone-abst { --t: var(--abst); }
 .btable .down { color: var(--contre); font-weight: 600; }
 .btable .mini-bar { width: 120px; height: 6px; border-radius: 99px; background: var(--surface-2); overflow: hidden; display: inline-block; vertical-align: middle; margin-right: 6px; }
 .btable .mini-bar span { display: block; height: 100%; }
+
+/* ─── Parlement européen ─── */
+body[data-section] .stat.tone-ue, .stat.tone-ue { --t: var(--ue); }
+.chip.ue { background: var(--ue-soft); color: var(--ue); }
+.subnav { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 16px; }
+.subnav a { padding: 6px 13px; border-radius: 999px; font-size: .88rem; font-weight: 550; color: var(--ink-2); background: color-mix(in srgb, var(--surface) 70%, transparent); border: 1px solid color-mix(in srgb, var(--sec) 18%, var(--border)); text-decoration: none; }
+.subnav a:hover { border-color: var(--sec); color: var(--sec); }
+.subnav a[aria-current="page"] { background: var(--sec); border-color: var(--sec); color: #fff; }
+:root[data-theme="dark"] .subnav a[aria-current="page"] { color: #06161a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .subnav a[aria-current="page"] { color: #06161a; } }
+a.hbar { color: inherit; text-decoration: none; border-radius: 6px; }
+a.hbar:hover span:first-child { color: var(--sec); }
+.explain { margin: 10px 0 0; padding-left: 18px; line-height: 1.6; }
+.explain li { margin-bottom: 6px; }
+.src-note { margin-top: 28px; }
+.eu-steps { list-style: none; margin: 14px 0 6px; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; counter-reset: s; }
+.eu-steps li { position: relative; padding: 12px 12px 12px; border-radius: 10px; background: var(--surface-2); border-top: 3px solid var(--border); counter-increment: s; }
+.eu-steps li b { display: block; font-size: .9rem; }
+.eu-steps li b::before { content: counter(s) ". "; color: var(--muted); font-weight: 600; }
+.eu-steps li span { display: block; font-size: .78rem; color: var(--muted); margin-top: 3px; line-height: 1.35; }
+.eu-steps li.done { border-top-color: var(--ue); background: var(--ue-soft); }
+.eu-steps li.now { border-top-color: var(--ue); background: var(--surface); box-shadow: inset 0 0 0 1px var(--ue); }
+.eu-steps li.now b::after { content: " · en cours"; color: var(--ue); font-weight: 600; font-size: .78rem; }
+@media (max-width: 720px) { .eu-steps { grid-template-columns: 1fr; } }
+.eu-tl { margin-top: 12px; }
+.eu-tl-i { display: grid; grid-template-columns: 84px 16px minmax(0, 1fr); gap: 10px; position: relative; padding-bottom: 14px; }
+.eu-tl-i .d { font-size: .8rem; color: var(--muted); text-align: right; padding-top: 1px; font-variant-numeric: tabular-nums; }
+.eu-tl-i .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--c); margin-top: 4px; box-shadow: 0 0 0 3px var(--surface); position: relative; z-index: 1; }
+.eu-tl-i::before { content: ""; position: absolute; left: 99px; top: 10px; bottom: -4px; width: 2px; background: var(--border); }
+.eu-tl-i:last-child::before { display: none; }
+.eu-tl-i b { font-size: .92rem; }

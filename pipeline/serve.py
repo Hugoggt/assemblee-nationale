@@ -31,8 +31,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             return None
         if target.is_dir() and (target / "index.html").exists():
             self.path = path.rstrip("/") + "/index.html"
-        elif not target.exists() and target.with_suffix(target.suffix + ".html").exists():
-            self.path = path + ".html"
+        elif not path.endswith("/") and target.with_suffix(target.suffix + ".html").exists():
+            self.path = path + ".html"  # /europe → europe.html même s'il existe un dossier europe/
         elif not target.exists():
             f = open(DIST / "404.html", "rb")
             self.send_response(404)
