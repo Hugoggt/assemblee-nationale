@@ -11,6 +11,7 @@ import * as comprendre from './pages/comprendre.js';
 import * as recherche from './pages/recherche.js';
 import * as comparer from './pages/comparer.js';
 import * as apropos from './pages/apropos.js';
+import * as budget from './pages/budget.js';
 import { SITE } from './config.js';
 
 // Les pages acceptent un identifiant officiel ou une adresse lisible (slug).
@@ -28,6 +29,7 @@ const routes = [
   [/^\/votes$/, votes.list, 'votes'],
   [/^\/vote\/(\d+)$/, votes.detail, 'votes'],
   [/^\/comparer$/, comparer.render, 'comparer'],
+  [/^\/budget$/, budget.render, 'budget'],
   [/^\/assemblee$/, chambres.assemblee, 'assemblee'],
   [/^\/senat$/, chambres.senat, 'senat'],
   [/^\/groupe\/([\w-]+)$/, chambres.groupe, null, 'grp'],

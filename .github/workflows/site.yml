@@ -35,6 +35,9 @@ jobs:
         run: python pipeline/fetch.py --force
       - name: Construire les données du site
         run: python -X utf8 pipeline/build.py
+      - name: Budget de l'État (data.economie.gouv.fr, INSEE)
+        run: python -X utf8 pipeline/budget.py
+        continue-on-error: true
       - name: Générer les pages et le plan du site
         run: python -X utf8 pipeline/prerender.py
       - uses: actions/upload-pages-artifact@v3

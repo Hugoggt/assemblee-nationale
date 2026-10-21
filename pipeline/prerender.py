@@ -193,6 +193,18 @@ def main():
     P.write("gouvernement", "Le Gouvernement, le 49.3 et les motions de censure",
             f"La composition du Gouvernement{(' de ' + pm['prenom'] + ' ' + pm['nom']) if pm else ''}, les {k['art493']} recours au 49.3 et les {k['censures']} motions de censure de la législature.",
             "<h1>Gouvernement</h1><ul>" + "".join(f"<li>{e(m['prenom'])} {e(m['nom'])} — {e(m['portefeuille'])}</li>" for m in meta["gouvernement"]["membres"]) + "</ul>", today, "0.7")
+    try:
+        BUD = load("budget")
+        last = BUD["annees"][-1]
+        rows = sorted(BUD["domaines"], key=lambda d: -d["values"][str(last)])
+        P.write("budget", "Budget de l'État : l'évolution des crédits par ministère depuis " + str(BUD["annees"][0]),
+                f"Le budget de l'État domaine par domaine de {BUD['annees'][0]} à {last} : montants, part du budget et évolution corrigée de l'inflation. "
+                "Éducation, défense, solidarités, écologie, justice…",
+                f"<h1>Budget de l'État</h1><p>{e(BUD['perimetre'])}</p><table><thead><tr><th>Domaine</th><th>{last} (Md€)</th></tr></thead><tbody>"
+                + "".join(f"<tr><td>{e(d['label'])}</td><td>{d['values'][str(last)] / 1e9:.1f}</td></tr>" for d in rows) + "</tbody></table>",
+                today, "0.8")
+    except FileNotFoundError:
+        pass
     P.write("agenda", "Agenda de l'Assemblée nationale : séances et commissions",
             "Ce qui est programmé à l'Assemblée nationale dans les prochains jours : séances publiques et réunions de commission.",
             "<h1>Agenda</h1>", today, "0.6")

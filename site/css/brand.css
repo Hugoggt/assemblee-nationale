@@ -49,7 +49,7 @@
 }
 
 /* Couleur de rubrique : posée sur <body data-section> par le routeur */
-body[data-section="lois"]         { --sec: var(--loi);  --sec-soft: var(--loi-soft); }
+body[data-section="lois"], body[data-section="budget"] { --sec: var(--loi);  --sec-soft: var(--loi-soft); }
 body[data-section="votes"]        { --sec: var(--an);   --sec-soft: var(--an-soft); }
 body[data-section="assemblee"]    { --sec: var(--an);   --sec-soft: var(--an-soft); }
 body[data-section="senat"]        { --sec: var(--sn);   --sec-soft: var(--sn-soft); }
@@ -73,7 +73,7 @@ body[data-section=""] { --accent: var(--an); --accent-soft: var(--an-soft); }
 .mainnav a:hover { color: #fff; }
 .mainnav a.active { color: #fff; border-bottom-color: var(--nc, #fff); }
 .mainnav a.nav-2 { color: rgba(255,255,255,.55); }
-.mainnav a[href="lois"] { --nc: var(--loi); }
+.mainnav a[href="lois"], .mainnav a[href="budget"] { --nc: var(--loi); }
 .mainnav a[href="votes"], .mainnav a[href="assemblee"], .mainnav a[href="agenda"] { --nc: #8ea2ff; }
 .mainnav a[href="senat"] { --nc: #f27aa0; }
 .mainnav a[href="comparer"] { --nc: #b79bf5; }
@@ -186,3 +186,31 @@ body[data-section] .stat.tone-abst { --t: var(--abst); }
 .prerender ul, .prerender ol { line-height: 1.8; }
 .prerender table { border-collapse: collapse; margin-top: 10px; }
 .prerender td, .prerender th { padding: 4px 12px; border-bottom: 1px solid var(--border); text-align: left; }
+
+/* ─── Budget ─── */
+.chart-controls { display: flex; flex-wrap: wrap; gap: 14px 22px; margin-bottom: 14px; }
+.chart-controls .field { min-width: 0; }
+.bchart { position: relative; }
+.bc { width: 100%; height: auto; display: block; }
+.bc-grid { stroke: var(--border); stroke-width: 1; }
+.bc-axis { font: 12px var(--font); fill: var(--muted); }
+.bc-axis.plf { font-style: italic; }
+.bc-cursor { stroke: var(--ink-2); stroke-width: 1; stroke-dasharray: 3 3; }
+.bc-area { opacity: .88; stroke: var(--surface); stroke-width: 1; }
+.bc-hit { cursor: crosshair; }
+.bc-tip { position: absolute; z-index: 5; pointer-events: none; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.14); padding: 10px 12px; font-size: .84rem; min-width: 230px; }
+.bc-tip > b { display: block; margin-bottom: 6px; }
+.bc-tip div { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 2px 0; }
+.bc-tip i { width: 10px; height: 10px; border-radius: 3px; }
+.bc-tip div b { font-variant-numeric: tabular-nums; }
+.blegend { margin-top: 12px; }
+.blegend-actions { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; margin-bottom: 8px; }
+.blegend-items { display: flex; flex-wrap: wrap; gap: 6px; }
+.bl-item { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--border); background: var(--surface); border-radius: 999px; padding: 4px 11px 4px 8px; font: inherit; font-size: .82rem; cursor: pointer; color: var(--ink); }
+.bl-item i { width: 10px; height: 10px; border-radius: 50%; }
+.bl-item[aria-pressed="false"] { opacity: .45; }
+.bl-item[aria-pressed="false"] i { background: var(--border) !important; }
+.btable .up { color: var(--loi); font-weight: 600; }
+.btable .down { color: var(--contre); font-weight: 600; }
+.btable .mini-bar { width: 120px; height: 6px; border-radius: 99px; background: var(--surface-2); overflow: hidden; display: inline-block; vertical-align: middle; margin-right: 6px; }
+.btable .mini-bar span { display: block; height: 100%; }
