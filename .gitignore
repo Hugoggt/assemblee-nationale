@@ -39,3 +39,18 @@ diag.py
 data/raw/
 data/dossier_sample.txt
 site/data/
+
+# Ancienne application (Dash) : gardée en local, hors du site publié
+app.py
+dash_app.py
+main.py
+fetch_scrutins.py
+fetch_dossiers.py
+fetch_deputes.py
+classify_themes.py
+run.bat
+launch_app.bat
+render.yaml
+requirements.txt
+assets/
+output/
