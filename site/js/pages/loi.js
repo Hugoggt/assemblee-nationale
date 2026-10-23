@@ -173,6 +173,43 @@ export async function voteCard(num, groupes) {
 }
 
 // ─────────────────────────────────────────── Page
+/** Le texte : présentation par ses auteurs (exposé des motifs) et liens vers les versions officielles. */
+function texteBlock(d) {
+  const docs = d.documents || [];
+  const depot = docs.find(x => x.kind === 'depot');
+  // La version la plus récente : texte transmis après un vote en séance, texte de CMP ou de commission
+  const last = [...docs].reverse().find(x => ['navette', 'cmp', 'commission'].includes(x.kind));
+  const lastLabel = x => x.kind === 'cmp' ? 'Texte de la commission mixte paritaire'
+    : x.kind === 'navette' ? `Texte adopté par ${x.chambre === 'AN' ? 'le Sénat' : 'l’Assemblée'}`
+      : `Texte de la commission (${x.chambre === 'AN' ? 'Assemblée' : 'Sénat'})`;
+  const ps = d.expose?.p || [];
+  const qui = d.gouv ? 'le Gouvernement' : d.auteurs?.length > 1 ? 'ses auteurs' : d.auteur ? esc(d.auteur.nom) : 'ses auteurs';
+  // Introduction : les premiers paragraphes jusqu'à ~650 caractères
+  let n = 0, cut = 0;
+  for (const x of ps) { if (cut && n + x.length > 650) break; n += x.length; cut++; }
+  const para = x => `<p>${esc(x)}</p>`;
+  const link = (x, label, primary) => x?.url
+    ? `<a class="btn small${primary ? ' primary' : ''}" href="${esc(x.url)}" target="_blank" rel="noopener">${label}</a>`
+    : x && d.urlSenat ? `<a class="btn small${primary ? ' primary' : ''}" href="${esc(d.urlSenat)}" target="_blank" rel="noopener">${label} (senat.fr)</a>` : '';
+  const prom = d.promulgation?.url ? `<a class="btn small primary" href="${esc(d.promulgation.url.replace('http://', 'https://'))}" target="_blank" rel="noopener">Loi n° ${esc(d.promulgation.numero)} au Journal officiel</a>` : '';
+  const buttons = [
+    prom,
+    last && !prom ? link(last, `Dernière version : ${lastLabel(last)}${last.date ? `, ${fdate(last.date, true)}` : ''}`, true) : '',
+    depot ? link(depot, `Texte déposé${depot.date ? ` le ${fdate(depot.date, true)}` : ''}`, !prom && !last) : '',
+    depot?.pdf ? `<a class="btn small" href="${esc(depot.pdf)}" target="_blank" rel="noopener">PDF</a>` : '',
+  ].filter(Boolean);
+  if (!ps.length && !buttons.length) return '';
+  return `<section class="card texte-card">
+    ${ttl('', 'Le texte', 'blue', 'h3')}
+    ${ps.length ? `<p class="tiny muted texte-src">Présentation rédigée par ${qui} (exposé des motifs du texte déposé). Ce n'est pas un résumé neutre : c'est leur argumentaire.</p>
+      <div class="expose">${ps.slice(0, cut).map(para).join('')}</div>
+      ${ps.length > cut ? `<details class="expose-more"><summary>Lire la suite de l'exposé des motifs</summary><div class="expose">${ps.slice(cut).map(para).join('')}</div>
+        ${depot?.url ? `<p class="small"><a class="ext" href="${esc(depot.url)}" target="_blank" rel="noopener">Texte intégral sur le site de l'Assemblée</a></p>` : ''}</details>` : ''}`
+      : `<p class="small muted">${d.origine === 'SN' || (depot && !depot.an) ? `Ce texte a été déposé au Sénat : sa présentation par ses auteurs est sur le site du Sénat.${d.urlSenat ? ` <a class="ext" href="${esc(d.urlSenat)}" target="_blank" rel="noopener">Dossier sur senat.fr</a>` : ''}` : 'La présentation de ce texte n’est disponible que dans sa version officielle, ci-dessous.'}</p>`}
+    ${buttons.length ? `<div class="doc-links">${buttons.join('')}</div>` : ''}
+  </section>`;
+}
+
 export async function render(el, uid) {
   const [d, c, dos] = await Promise.all([load(`dossiers/${uid}`), ctx(), dossiersIndex()]);
   setTitle(d.titre);
@@ -197,6 +234,7 @@ export async function render(el, uid) {
       <div class="head-actions">${shareBtn()}${d.urlAN ? `<a class="btn small" href="${esc(d.urlAN)}" target="_blank" rel="noopener">Dossier officiel ↗</a>` : ''}</div>
     </div>
     ${banner(d)}
+    ${texteBlock(d)}
 
     ${tabsHtml('l', [['parcours', 'Parcours'], ['etapes', 'Étape par étape'], ...(scr.length ? [['votes', `Votes (${nf(scr.length)})`]] : []), ['fiche', 'Fiche']], ['parcours', 'etapes', 'votes', 'fiche'].includes(hashParams().tab) ? hashParams().tab : 'parcours')}
 

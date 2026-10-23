@@ -233,6 +233,36 @@ def classify_theme(titre: str, commission: str | None) -> str:
 # ─────────────────────────────────────────────────────────────── acteurs
 
 
+def doc_list(raw):
+    """Liens vers les textes officiels, dans l'ordre de la navette (un par document).
+
+    kind : depot (texte initial, avec exposé des motifs), navette (texte adopté en séance par une chambre et
+    transmis à l'autre), cmp (texte de la commission mixte paritaire), commission (texte adopté en commission),
+    rapport (rapport de la commission).
+    """
+    out, seen = [], set()
+    for uid, date, chamber, key, xtype in raw:
+        if uid in seen or "-" in uid:
+            continue
+        seen.add(uid)
+        an = uid[4:6] == "AN"
+        if key == "texteAdopte":
+            kind = "commission"
+        elif xtype == "DepotInitiative_Type":
+            kind = "depot"
+        elif xtype == "DepotInitiativeNavette_Type":
+            kind = "cmp" if chamber == "CMP" else "navette"
+        elif xtype == "DepotAccordInternational_Type":
+            kind = "accord"
+        elif uid.startswith("RAPP"):
+            kind = "rapport"
+        else:
+            continue
+        out.append({"uid": uid, "date": date, "chambre": "AN" if an else "SN", "etape": chamber, "kind": kind, "an": an,
+                    "url": f"https://www.assemblee-nationale.fr/dyn/opendata/{uid}.html" if an else None,
+                    "pdf": f"https://www.assemblee-nationale.fr/dyn/opendata/{uid}.pdf" if an else None})
+    return out
+
 class Referentiel:
     """Acteurs (députés, sénateurs, ministres…) et organes."""
 
@@ -730,6 +760,7 @@ class Dossiers:
         prom = None
         cc = None
         depot_doc = None
+        documents = []  # textes officiels de la navette : déposé, rapports, adoptés
         commission_fond = None
         rapporteurs = collections.OrderedDict()
         acteur_roles = []
@@ -745,6 +776,9 @@ class Dossiers:
                 ev = self.event(a, uid, chamber, flags, com_dates, seance_dates, vote_refs)
                 if a.get("@xsi:type") == "DepotInitiative_Type" and not depot_doc:
                     depot_doc = a.get("texteAssocie")
+                for key in ("texteAssocie", "texteAdopte"):
+                    if isinstance(a.get(key), str) and a[key]:
+                        documents.append((a[key], d10(a.get("dateActe")), chamber, key, a.get("@xsi:type")))
                 if a.get("@xsi:type") == "SaisieComFond_Type" and not commission_fond:
                     commission_fond = ref.organe_libelle(a.get("organeRef"))
                 if a.get("@xsi:type") == "NominRapporteurs_Type":
@@ -884,6 +918,7 @@ class Dossiers:
             "promulgation": prom,
             "conseilConstitutionnel": cc,
             "suite": self.next_steps(cat, typ, steps, status, flags),
+            "documents": doc_list(documents),
         }
         return summary, detail, vote_refs, acteur_roles, (doc or {}).get("cosignataires", [])
 

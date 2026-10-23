@@ -247,6 +247,9 @@ def main():
         key = [x for x in scr if x[2] in ("ensemble", "motion", "censure")][:10]
         body = (f"<h1>{e(s['titre'])}</h1><p>{e(s['statutLabel'])} · {e(s['typeLabel'])}" + (f" · {e(th)}" if th else "") + "</p>"
                 + (f"<p>{e(det.get('titreLong') or '')}</p>" if det.get("titreLong") else "")
+                + (("<h2>Présentation du texte par ses auteurs</h2>" + "".join(f"<p>{e(x)}</p>" for x in det["expose"]["p"][:3])) if det.get("expose") else "")
+                + "".join(f'<p><a href="{e(x["url"])}">Texte officiel {"déposé" if x["kind"] == "depot" else "transmis"} le {fdate(x["date"])}</a></p>'
+                          for x in [y for y in (det.get("documents") or []) if y.get("url") and y["kind"] in ("depot", "navette")][-2:])
                 + (f"<p>Auteur : {person_link(s['auteur'], s['auteur'].get('chambre'))}</p>" if s.get("auteur") and not s.get("gouv") else "")
                 + (f"<h2>Parcours</h2><ol>{''.join(steps)}</ol>" if steps else "")
                 + (f"<h2>Votes</h2><ul>{''.join(f'<li><a href=\"vote/{x[0]}\">{e(x[7])}</a> : {x[4]} pour, {x[5]} contre</li>' for x in key)}</ul>" if key else "")

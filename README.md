@@ -13,6 +13,7 @@ Double-cliquez sur `lancer_site.bat`, ou :
 ```sh
 python pipeline/fetch.py          # télécharge les données ouvertes (≈ 60 Mo, cache de 12 h)
 python -X utf8 pipeline/build.py      # construit site/data/ (≈ 20 s)
+python -X utf8 pipeline/textes.py     # exposé des motifs et liens vers les textes officiels
 python -X utf8 pipeline/budget.py     # budget de l'État (data.economie.gouv.fr, Insee)
 python -X utf8 pipeline/europe.py     # Parlement européen : eurodéputés français, votes, textes
 python -X utf8 pipeline/prerender.py  # génère dist/ : une page par loi, député, vote… + sitemap
@@ -27,6 +28,7 @@ puis ouvrez <http://localhost:8000>. Aucune dépendance : Python 3.10+ (biblioth
 |---|---|
 | `pipeline/fetch.py` | Télécharge les archives open data de l'Assemblée dans `data/raw/` |
 | `pipeline/build.py` | Calcule statuts, parcours, rattachement des votes aux textes, statistiques ; écrit `site/data/` |
+| `pipeline/textes.py` | Lit l'exposé des motifs de chaque loi sur le site de l'Assemblée (cache `data/cache/exposes.json`) et l'ajoute aux fiches |
 | `pipeline/budget.py` | Budget de l'État par mission et par domaine depuis 2012, en euros courants ou constants ; écrit `site/data/budget.json` |
 | `pipeline/europe.py` | Parlement européen : votes HowTheyVote.eu (ODbL) + open data du Parlement (titres français, parcours, fonctions), avec un cache des appels dans `data/cache/` ; écrit `site/data/europe/` |
 | `pipeline/prerender.py` | Génère `dist/` : pages HTML pour le référencement (titres, descriptions, données structurées), `sitemap.xml`, `robots.txt` |

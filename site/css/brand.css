@@ -257,3 +257,11 @@ a.hbar:hover span:first-child { color: var(--sec); }
 .indep-bar a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
 .indep-bar a:hover { color: #b8c4ff; }
 @media (max-width: 640px) { .indep-bar span { display: none; } }
+
+/* ─── Loi : le texte et ses versions officielles ─── */
+.texte-card { margin-bottom: 18px; }
+.texte-card .texte-src { margin: 4px 0 10px; }
+.expose p { margin: 0 0 10px; line-height: 1.65; max-width: 78ch; color: var(--ink); }
+.expose-more summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: .9rem; margin: 2px 0 10px; }
+.expose-more[open] summary { margin-bottom: 12px; }
+.doc-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }

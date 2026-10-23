@@ -33,17 +33,22 @@ jobs:
           python-version: "3.12"
       - name: Télécharger les données ouvertes
         run: python pipeline/fetch.py --force
-      - name: Construire les données du site
-        run: python -X utf8 pipeline/build.py
-      - name: Budget de l'État (data.economie.gouv.fr, INSEE)
-        run: python -X utf8 pipeline/budget.py
-        continue-on-error: true
-      - name: Cache des appels à l'API du Parlement européen
+      - name: Cache des textes officiels et des appels aux API
         uses: actions/cache@v4
         with:
           path: data/cache
-          key: europe-${{ github.run_id }}
-          restore-keys: europe-
+          key: cache-${{ github.run_id }}
+          restore-keys: |
+            cache-
+            europe-
+      - name: Construire les données du site
+        run: python -X utf8 pipeline/build.py
+      - name: Exposés des motifs et liens vers les textes officiels
+        run: python -X utf8 pipeline/textes.py
+        continue-on-error: true
+      - name: Budget de l'État (data.economie.gouv.fr, INSEE)
+        run: python -X utf8 pipeline/budget.py
+        continue-on-error: true
       - name: Parlement européen (HowTheyVote.eu, data.europarl.europa.eu)
         run: python -X utf8 pipeline/europe.py
         continue-on-error: true

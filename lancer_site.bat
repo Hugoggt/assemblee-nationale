@@ -3,6 +3,7 @@ rem Met a jour les donnees, genere les pages puis ouvre le site sur http://local
 cd /d "%~dp0"
 python pipeline\fetch.py || goto :err
 python -X utf8 pipeline\build.py || goto :err
+python -X utf8 pipeline\textes.py
 python -X utf8 pipeline\budget.py
 python -X utf8 pipeline\europe.py
 python -X utf8 pipeline\prerender.py || goto :err
