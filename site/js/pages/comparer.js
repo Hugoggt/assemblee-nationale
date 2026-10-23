@@ -127,6 +127,25 @@ function proximityMap(ents, idx, refKey) {
     ${nodes.map(node).join('')}</svg>`;
 }
 
+// ─────────────────────────────────────────── Tableau à double entrée des accords
+function agreeMatrix(ents, idx, refKey) {
+  if (ents.length < 2) return '<p class="muted small">Sélectionnez au moins deux groupes ou députés.</p>';
+  const color = v => {
+    const t = Math.max(0, Math.min(1, (v - 40) / 60)) ** 1.6;  // accentue les écarts entre 60 % et 100 %
+    return `background:color-mix(in srgb, var(--cmp) ${Math.round(4 + t * 86)}%, var(--surface));color:${t > 0.45 ? '#fff' : 'var(--ink)'}`;
+  };
+  const head = e => `<th scope="col" class="mx-col${e.key === refKey ? ' on' : ''}" style="--gc:${esc(e.color)}" data-tip="${esc(e.long)}"><span>${esc(e.label)}</span></th>`;
+  return `<div class="mx-wrap"><table class="mx">
+    <thead><tr><th class="mx-corner"></th>${ents.map(head).join('')}</tr></thead>
+    <tbody>${ents.map(a => `<tr class="${a.key === refKey ? 'on' : ''}"><th scope="row"><button type="button" class="mx-row" data-ref="${esc(a.key)}" style="--gc:${esc(a.color)}">${esc(a.label)}</button></th>${ents.map(b => {
+      if (a.key === b.key) return '<td class="mx-self"></td>';
+      const ag = agreement(a.pos, b.pos, idx);
+      if (!ag) return '<td><span class="mx-cell empty" data-tip="Pas assez de votes en commun">·</span></td>';
+      return `<td><span class="mx-cell" style="${color(ag.v)}" data-tip="${esc(a.long)} et ${esc(b.long)} : même position dans ${Math.round(ag.v)} % des ${nf(ag.n)} votes comparés">${Math.round(ag.v)}</span></td>`;
+    }).join('')}</tr>`).join('')}</tbody></table></div>
+    <div class="mx-legend"><span>40 % ou moins</span><i></i><span>100 % : votent toujours pareil</span></div>`;
+}
+
 // ─────────────────────────────────────────── Positions par thème : diagramme en points
 function dotPlot(ents, cols, current) {
   const rows = cols.map(([k, t, ix]) => {
@@ -292,6 +311,12 @@ export async function render(el) {
             <div class="rank">${refChart}</div>
           </section>
         </div>
+        <section class="panel">
+          <header><h2>Le tableau des accords</h2>
+            <label class="mx-theme"><span class="muted small">Thème</span><select id="c-mx-theme" class="inline-select"><option value="">Tous les sujets</option>${themes.map(([k, t]) => `<option value="${k}"${k === st.theme ? ' selected' : ''}>${esc(t.label)}</option>`).join('')}</select></label></header>
+          <p class="small muted" style="margin:-4px 0 12px">Chaque case : la part des ${esc(kindLabel)} où les deux groupes ont eu la même position (pour, contre ou abstention)${st.theme || words.length ? `, sur ${subj}` : ''} · ${nf(idx.length)} votes.</p>
+          ${agreeMatrix(ents, idx, ref.key)}
+        </section>
         ${pairs.length > 1 ? `<div class="grid g2">
           <section class="panel"><header><h2>Les plus proches</h2></header><ul class="pairs">${pairList(pairs.slice(0, nTop))}</ul></section>
           <section class="panel"><header><h2>Les plus éloignés</h2></header><ul class="pairs">${pairList(pairs.slice(nTop).slice(-5).reverse())}</ul></section>
@@ -341,7 +366,8 @@ export async function render(el) {
       st.ref = t.dataset.ref;
       draw();
     };
-    out.querySelectorAll('.pmap, .rank').forEach(x => { x.addEventListener('click', pickRef); x.addEventListener('keydown', pickRef); });
+    out.querySelector('#c-mx-theme')?.addEventListener('change', e => { st.theme = e.target.value; el.querySelector('#c-theme').value = st.theme; draw(); });
+    out.querySelectorAll('.pmap, .rank, .mx').forEach(x => { x.addEventListener('click', pickRef); x.addEventListener('keydown', pickRef); });
     out.querySelectorAll('.dp-row').forEach(b => b.addEventListener('click', () => {
       st.theme = st.theme === b.dataset.t ? '' : b.dataset.t;
       el.querySelector('#c-theme').value = st.theme;

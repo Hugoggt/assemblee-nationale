@@ -335,3 +335,23 @@ button.rank-row:hover { background: var(--surface-2); }
 .dp-dot { position: absolute; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; box-shadow: 0 0 0 2px var(--surface); transition: transform .12s; }
 .dp-dot:hover { transform: scale(1.5); z-index: 2; }
 @media (max-width: 640px) { .dp-axis, .dp-row { grid-template-columns: 1fr; gap: 4px; } .dp-axis > span:first-child { display: none; } }
+
+/* ─── Comparer : tableau à double entrée ─── */
+.mx-theme { display: inline-flex; align-items: center; gap: 8px; }
+.mx-wrap { overflow-x: auto; }
+.mx { border-collapse: separate; border-spacing: 3px; font-size: .82rem; margin: 0 auto 0 0; }
+.mx th { font-weight: 600; white-space: nowrap; }
+.mx-corner { min-width: 70px; }
+.mx-col { padding: 0 0 6px; text-align: center; vertical-align: bottom; color: var(--ink); }
+.mx-col span { display: block; min-width: 44px; padding-top: 6px; border-top: 4px solid var(--gc); font-size: .78rem; }
+.mx-col.on span { color: var(--cmp); }
+.mx-row { display: flex; align-items: center; gap: 7px; background: none; border: 0; padding: 0 8px 0 0; font: inherit; font-weight: 650; color: var(--ink); cursor: pointer; width: 100%; }
+.mx-row::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--gc); flex: none; }
+.mx-row:hover { color: var(--cmp); }
+tr.on .mx-row { color: var(--cmp); }
+.mx-cell { display: flex; align-items: center; justify-content: center; width: 44px; height: 34px; border-radius: 6px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.mx-cell.empty { color: var(--muted); border: 1px dashed var(--border); }
+.mx-self { background: repeating-linear-gradient(135deg, var(--surface-2) 0 4px, transparent 4px 8px); border-radius: 6px; }
+tr.on .mx-cell { box-shadow: 0 0 0 1.5px var(--cmp); }
+.mx-legend { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: .78rem; color: var(--muted); }
+.mx-legend i { width: 160px; height: 10px; border-radius: 99px; background: linear-gradient(90deg, color-mix(in srgb, var(--cmp) 4%, var(--surface)), color-mix(in srgb, var(--cmp) 25%, var(--surface)) 50%, var(--cmp)); }
