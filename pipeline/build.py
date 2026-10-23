@@ -912,6 +912,7 @@ class Dossiers:
             "commission": commission_fond,
             "auteurs": auteurs[:12],
             "cosignataires": len(doc["cosignataires"]) if doc and not gouv else 0,
+            "cosignatairesIds": [x for x in doc["cosignataires"] if x] if doc and not gouv else [],
             "organesInitiateurs": [o for o in organes_init if o],
             "rapporteurs": [self.personne(r) for r in rapporteurs],
             "steps": steps,

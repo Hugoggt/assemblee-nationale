@@ -1,11 +1,11 @@
 import {
   ctx, deputes, scrutinsIndex, dossiersIndex, load, esc, nf, pct, fdate, norm, debounce, setTitle, hashParams, setHashParams,
-  info, avatar, KIND, plural, tabsHtml, wireTabs,
+  info, avatar, KIND, plural, tabsHtml, wireTabs, THEME_COLOR,
 } from '../lib.js';
 
 const POSL = { p: 'Pour', c: 'Contre', a: 'Abstention' };
 const POSC = { p: 'var(--pour)', c: 'var(--contre)', a: 'var(--abst)' };
-const KINDS = [['tous', 'Tous les votes'], ['finaux', 'Votes finaux sur un texte'], ['amendements', 'Amendements et articles']];
+const KINDS = [['finaux', 'Votes sur l’ensemble d’un texte'], ['tous', 'Tous les votes'], ['amendements', 'Amendements et articles']];
 
 function inScope(s, kind) {
   if (s.kind === 'censure' || s.kind === 'declaration') return false;
@@ -26,12 +26,129 @@ function agreement(pa, pb, idxs) {
   }
   return tot >= 3 ? { v: (100 * same) / tot, n: tot } : null;
 }
-/** Échelle divergente sobre : rouge (contre) → neutre → vert (pour). */
-function divColor(net) {
-  const t = Math.round(Math.abs(net) * 70);
-  return `color-mix(in srgb, ${net >= 0 ? 'var(--pour)' : 'var(--contre)'} ${t}%, var(--surface-2))`;
-}
 const chipOf = e => `<span class="ent"><i style="background:${e.color}"></i>${esc(e.label)}</span>`;
+
+// ─────────────────────────────────────────── Carte des proximités
+/** Positionne les entités dans le plan : proches si elles votent souvent pareil (MDS classique). */
+function mds(D) {
+  const n = D.length;
+  if (n < 2) return D.map(() => [0, 0]);
+  const D2 = D.map(r => r.map(x => x * x));
+  const rowM = D2.map(r => r.reduce((a, b) => a + b, 0) / n);
+  const allM = rowM.reduce((a, b) => a + b, 0) / n;
+  const B = D2.map((r, i) => r.map((x, j) => -0.5 * (x - rowM[i] - rowM[j] + allM)));
+  const eig = deflate => {
+    let v = Array.from({ length: n }, (_, i) => Math.sin(i + 1) + 0.5);
+    let lambda = 0;
+    for (let it = 0; it < 200; it++) {
+      let w = B.map(r => r.reduce((s, x, j) => s + x * v[j], 0));
+      if (deflate) { const d = deflate.v.reduce((s, x, j) => s + x * w[j], 0); w = w.map((x, j) => x - d * deflate.v[j]); }
+      const norm_ = Math.hypot(...w) || 1;
+      lambda = norm_;
+      v = w.map(x => x / norm_);
+    }
+    return { v, lambda };
+  };
+  const e1 = eig(), e2 = eig(e1);
+  return e1.v.map((x, i) => [x * Math.sqrt(e1.lambda), e2.v[i] * Math.sqrt(e2.lambda)]);
+}
+
+function proximityMap(ents, idx, refKey) {
+  const n = ents.length;
+  const ag = ents.map(a => ents.map(b => (a === b ? { v: 100 } : agreement(a.pos, b.pos, idx))));
+  const known = ag.flat().filter(Boolean).map(x => x.v);
+  const mean = known.reduce((s, x) => s + x, 0) / (known.length || 1);
+  const D = ag.map(r => r.map(x => 1 - (x ? x.v : mean) / 100));
+  let P = mds(D);
+  // Orientation : la gauche de l'hémicycle à gauche
+  const ord = ents.map(e => e.ordre ?? 50);
+  const mo = ord.reduce((s, x) => s + x, 0) / n, mx = P.reduce((s, p) => s + p[0], 0) / n;
+  if (P.reduce((s, p, i) => s + (p[0] - mx) * (ord[i] - mo), 0) < 0) P = P.map(([x, y]) => [-x, y]);
+  // Mise à l'échelle (même échelle sur les deux axes)
+  const W = 680, H = 460, pad = 60;
+  const xs = P.map(p => p[0]), ys = P.map(p => p[1]);
+  const span = Math.max(Math.max(...xs) - Math.min(...xs), (Math.max(...ys) - Math.min(...ys)) * (W - 2 * pad) / (H - 2 * pad), 1e-6);
+  const k = (W - 2 * pad) / span;
+  const cx = (Math.max(...xs) + Math.min(...xs)) / 2, cy = (Math.max(...ys) + Math.min(...ys)) / 2;
+  const maxSeats = Math.max(...ents.map(e => e.seats || 1));
+  const nodes = ents.map((e, i) => ({
+    e, i, x: W / 2 + (P[i][0] - cx) * k, y: H / 2 + (P[i][1] - cy) * k,
+    r: e.seats ? 9 + 22 * Math.sqrt(e.seats / maxSeats) : 8,
+  }));
+  // Évite que les bulles se chevauchent
+  for (let it = 0; it < 200; it++) {
+    for (const a of nodes) for (const b of nodes) {
+      if (a === b) continue;
+      const dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 0.01, min = a.r + b.r + 22;
+      if (d < min) { const m = (min - d) / 2; a.x -= (dx / d) * m; a.y -= (dy / d) * m; b.x += (dx / d) * m; b.y += (dy / d) * m; }
+    }
+    for (const a of nodes) { a.x = Math.max(a.r + 4, Math.min(W - a.r - 4, a.x)); a.y = Math.max(a.r + 16, Math.min(H - a.r - 4, a.y)); }
+  }
+  // Étiquettes : au-dessus, en dessous, à droite ou à gauche, là où elles ne cachent rien
+  const boxes = nodes.map(nd => ({ x: nd.x - nd.r, y: nd.y - nd.r, w: 2 * nd.r, h: 2 * nd.r }));
+  const hit = (a, b) => a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+  for (const nd of [...nodes].sort((a, b) => b.r - a.r)) {
+    const w = nd.e.label.length * 7.6 + 6, h = 15;
+    const cands = [[nd.x - w / 2, nd.y - nd.r - h - 3, 'middle'], [nd.x - w / 2, nd.y + nd.r + 3, 'middle'],
+      [nd.x + nd.r + 4, nd.y - h / 2, 'start'], [nd.x - nd.r - 4 - w, nd.y - h / 2, 'end']];
+    let pick = cands[0];
+    for (const cnd of cands) {
+      const b = { x: cnd[0], y: cnd[1], w, h };
+      if (b.x < 0 || b.x + w > W || b.y < 0 || b.y + h > H) continue;
+      if (!boxes.some(o => hit(o, b))) { pick = cnd; break; }
+    }
+    boxes.push({ x: pick[0], y: pick[1], w, h });
+    nd.lx = pick[2] === 'middle' ? pick[0] + w / 2 : pick[2] === 'start' ? pick[0] : pick[0] + w;
+    nd.ly = pick[1] + 12; nd.la = pick[2];
+  }
+  const ref = nodes.find(nd => nd.e.key === refKey);
+  const edges = [];
+  for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) {
+    const v = ag[i][j]?.v;
+    if (v == null) continue;
+    const touchesRef = ref && (i === ref.i || j === ref.i);
+    if (v < 70 && !touchesRef) continue;
+    edges.push({ a: nodes[i], b: nodes[j], v, touchesRef });
+  }
+  const line = ({ a, b, v, touchesRef }) => {
+    const t = Math.max(0, (v - 40) / 60);
+    return `<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" class="pm-edge${touchesRef ? ' ref' : ''}"
+      style="stroke-width:${(1 + t * 6).toFixed(1)};opacity:${touchesRef ? 0.25 + t * 0.6 : 0.12 + t * 0.35}"/>`;
+  };
+  const node = nd => {
+    const others = nodes.filter(o => o !== nd && ag[nd.i][o.i]).sort((x, y) => ag[nd.i][y.i].v - ag[nd.i][x.i].v);
+    const tip = `${nd.e.long} — vote le plus souvent comme ${others.slice(0, 3).map(o => `${o.e.label} (${Math.round(ag[nd.i][o.i].v)} %)`).join(', ')}`;
+    return `<g class="pm-node${ref && nd === ref ? ' on' : ''}" data-ref="${esc(nd.e.key)}" data-tip="${esc(tip)}" tabindex="0" role="button" aria-label="${esc(nd.e.long)}">
+      <circle cx="${nd.x.toFixed(1)}" cy="${nd.y.toFixed(1)}" r="${nd.r.toFixed(1)}" fill="${esc(nd.e.color)}"/>
+      <text x="${nd.lx.toFixed(1)}" y="${nd.ly.toFixed(1)}" text-anchor="${nd.la}">${esc(nd.e.label)}</text></g>`;
+  };
+  return `<svg class="pmap" viewBox="0 0 ${W} ${H}" role="img" aria-label="Carte des proximités de vote">
+    ${edges.filter(x => !x.touchesRef).map(line).join('')}${edges.filter(x => x.touchesRef).map(line).join('')}
+    ${nodes.map(node).join('')}</svg>`;
+}
+
+// ─────────────────────────────────────────── Positions par thème : diagramme en points
+function dotPlot(ents, cols, current) {
+  const rows = cols.map(([k, t, ix]) => {
+    const dots = ents.map(e => ({ e, r: tally(e.pos, ix) })).filter(x => x.r.n >= 2)
+      .map(x => ({ ...x, v: (100 * x.r.p) / x.r.n })).sort((a, b) => a.v - b.v);
+    // Étage les points trop proches pour qu'aucun ne soit caché
+    const lanes = [0, -1, 1, -2, 2], last = {};
+    for (const dt of dots) {
+      dt.lane = lanes.find(l => last[l] == null || dt.v - last[l] > 2.4) ?? 0;
+      last[dt.lane] = dt.v;
+    }
+    return { k, t, ix, dots };
+  }).filter(r => r.dots.length);
+  if (!rows.length) return '<div class="empty">Pas assez de votes par thème avec ces filtres.</div>';
+  return `<div class="dotplot">
+    <div class="dp-axis"><span></span><div class="dp-scale"><span>vote surtout contre</span><span>50 %</span><span>vote surtout pour</span></div></div>
+    ${rows.map(({ k, t, ix, dots }) => `<button type="button" class="dp-row${k === current ? ' on' : ''}" data-t="${k}">
+      <span class="dp-label"><i style="background:${THEME_COLOR[k] || '#94a3b8'}"></i>${esc(t.label)}<small>${nf(ix.length)}</small></span>
+      <span class="dp-track">${dots.map(({ e, r, v, lane }) => `<span class="dp-dot" style="left:${v.toFixed(1)}%;top:calc(50% + ${lane * 13}px);background:${esc(e.color)}" data-tip="${esc(e.long)} · ${esc(t.label)} : ${Math.round(v)} % pour (${r.p} pour, ${r.c} contre, ${r.a} abst.)"></span>`).join('')}</span>
+    </button>`).join('')}
+  </div>`;
+}
 
 export async function render(el) {
   setTitle('Comparer les votes');
@@ -40,11 +157,11 @@ export async function render(el) {
   const st = {
     theme: p.theme || '',
     q: p.q || '',
-    kind: p.k || 'tous',
+    kind: KINDS.some(([k]) => k === p.k) ? p.k : 'finaux',
     groups: p.g === 'aucun' ? [] : p.g ? p.g.split(',').filter(id => c.groupes.has(id)) : c.an.map(g => g.id),
     deps: p.d ? p.d.split(',').filter(id => deps._index.has(id)) : [],
     divise: p.divise === '1',
-    tab: ['sujets', 'alliances', 'votes'].includes(p.tab) ? p.tab : 'sujets',
+    tab: ['alliances', 'sujets', 'votes'].includes(p.tab) ? p.tab : 'alliances',
     ref: p.ref || '',
   };
   const chrono = scr.chrono;
@@ -56,13 +173,13 @@ export async function render(el) {
 
   el.innerHTML = `<div class="page">
     <div class="page-head"><h1>Comparer les votes</h1>
-      <p class="lead">Choisissez un sujet, puis les groupes ou les députés à comparer.</p></div>
+      <p class="lead">Qui vote avec qui, et comment chaque groupe se positionne selon les sujets.</p></div>
 
     <div class="toolbar">
       <label class="field"><span>Sujet</span>
         <select id="c-theme"><option value="">Tous les sujets</option>${themes.map(([k, t]) => `<option value="${k}"${k === st.theme ? ' selected' : ''}>${esc(t.label)}</option>`).join('')}</select></label>
       <label class="field grow"><span>Mot-clé</span><input type="search" id="c-q" placeholder="retraites, police, logement…" value="${esc(st.q)}"></label>
-      <label class="field"><span>Votes</span>
+      <label class="field"><span>Votes ${info('Par défaut, seuls les votes sur l’ensemble d’un texte sont comparés : ce sont eux qui montrent si un groupe soutient une loi. Les amendements, très nombreux, sont souvent techniques.')}</span>
         <select id="c-kind">${KINDS.map(([k, l]) => `<option value="${k}"${k === st.kind ? ' selected' : ''}>${l}</option>`).join('')}</select></label>
       <details class="dd field" id="c-gdd"><summary><span>Groupes</span><b id="c-gsum"></b></summary>
         <div class="dd-panel">
@@ -81,7 +198,7 @@ export async function render(el) {
   async function entities() {
     const out = st.groups.map(id => {
       const g = c.groupes.get(id);
-      return { key: id, label: g.sigle, long: g.nom, color: g.couleur, pos: c.gdata.positions[id] || '' };
+      return { key: id, label: g.sigle, long: g.nom, color: g.couleur, pos: c.gdata.positions[id] || '', seats: g.effectif, ordre: g.ordre };
     });
     for (const id of st.deps) {
       if (!depVotes.has(id)) {
@@ -89,7 +206,7 @@ export async function render(el) {
       }
       const d = deps._index.get(id);
       const g = c.groupes.get(d.groupe);
-      out.push({ key: id, label: `${d.prenom[0]}. ${d.nom}`, long: `${d.prenom} ${d.nom} (${g?.sigle || ''})`, color: g?.couleur || '#888', pos: depVotes.get(id) });
+      out.push({ key: id, label: `${d.prenom[0]}. ${d.nom}`, long: `${d.prenom} ${d.nom} (${g?.sigle || ''})`, color: g?.couleur || '#888', pos: depVotes.get(id), ordre: g?.ordre, dep: true });
     }
     return out;
   }
@@ -107,9 +224,9 @@ export async function render(el) {
   async function draw() {
     const allGroups = st.groups.length === c.an.length;
     setHashParams({
-      theme: st.theme, q: st.q, k: st.kind === 'tous' ? '' : st.kind,
+      theme: st.theme, q: st.q, k: st.kind === 'finaux' ? '' : st.kind,
       g: allGroups ? '' : st.groups.length ? st.groups.join(',') : 'aucun',
-      d: st.deps.join(','), divise: st.divise ? '1' : '', tab: st.tab === 'sujets' ? '' : st.tab, ref: st.ref,
+      d: st.deps.join(','), divise: st.divise ? '1' : '', tab: st.tab === 'alliances' ? '' : st.tab, ref: st.ref,
     });
     el.querySelector('#c-gsum').textContent = allGroups ? 'Tous' : st.groups.length ? `${st.groups.length} sélectionné${st.groups.length > 1 ? 's' : ''}` : 'Aucun';
     el.querySelector('#c-deps').innerHTML = st.deps.map(id => {
@@ -123,10 +240,25 @@ export async function render(el) {
     const words = norm(st.q).split(/\s+/).filter(w => w.length > 1);
     const idx = scope(st.theme, words);
     const subj = words.length ? `« ${esc(st.q)} »` : st.theme ? esc(dos.themes[st.theme].label.toLowerCase()) : 'tous les sujets';
-    if (!ents.some(e => e.key === st.ref)) st.ref = ents[0].key;
+    if (!ents.some(e => e.key === st.ref)) st.ref = (ents.find(e => e.dep) || [...ents].sort((a, b) => (b.seats || 0) - (a.seats || 0))[0]).key;
     const ref = ents.find(e => e.key === st.ref);
+    const kindLabel = { finaux: 'votes sur l’ensemble d’un texte', tous: 'votes', amendements: 'votes d’amendements et d’articles' }[st.kind];
 
-    // Positions sur le sujet : barres divergentes
+    // Classement des alliés du groupe (ou député) de référence
+    const others = ents.filter(e => e.key !== ref.key).map(e => ({ e, ag: agreement(ref.pos, e.pos, idx) })).filter(x => x.ag).sort((a, b) => b.ag.v - a.ag.v);
+    const refChart = others.length ? others.map(({ e, ag }) => `<button type="button" class="rank-row" data-ref="${esc(e.key)}" data-tip="${esc(ref.long)} et ${esc(e.long)} : même position dans ${pct(ag.v)} des ${nf(ag.n)} votes comparés">
+        ${chipOf(e)}<div class="rank-track"><span style="width:${ag.v}%;background:${e.color}"></span><i style="left:50%"></i></div><b>${Math.round(ag.v)} %</b></button>`).join('')
+      : '<p class="muted small">Sélectionnez au moins deux groupes ou députés.</p>';
+    const pairs = [];
+    for (let i = 0; i < ents.length; i++) for (let j = i + 1; j < ents.length; j++) {
+      const ag = agreement(ents[i].pos, ents[j].pos, idx);
+      if (ag) pairs.push({ a: ents[i], b: ents[j], ...ag });
+    }
+    pairs.sort((x, y) => y.v - x.v);
+    const nTop = Math.min(5, Math.ceil(pairs.length / 2));
+    const pairList = list => list.map(x => `<li>${chipOf(x.a)}<span class="muted">et</span>${chipOf(x.b)}<b>${Math.round(x.v)} %</b></li>`).join('');
+
+    // Positions : barres divergentes sur le sujet choisi
     const rows = ents.map(e => ({ e, r: tally(e.pos, idx) })).filter(x => x.r.n)
       .sort((a, b) => (b.r.p - b.r.c) / b.r.n - (a.r.p - a.r.c) / a.r.n);
     const diverging = rows.length ? `<div class="div-chart">
@@ -139,65 +271,42 @@ export async function render(el) {
           <span class="div-val"><b>${Math.round(pp)} %</b> pour${aa >= 5 ? ` <span class="muted">· ${Math.round(aa)} % abst.</span>` : ''}</span>
         </div>`;
       }).join('')}</div>` : '<div class="empty">Aucun vote sur ce sujet avec ces filtres.</div>';
-
-    // Vue par thème
-    const cols = themes.map(([k, t]) => [k, t, scope(k, [])]).filter(([, , ix]) => ix.length >= 3);
-    const heat = `<div class="hm-wrap"><table class="hm"><thead><tr><th></th>${cols.map(([k, t, ix]) => `<th><button type="button" class="hm-col${k === st.theme ? ' on' : ''}" data-t="${k}" data-tip="${esc(t.label)} · ${plural(ix.length, 'vote')}"><span>${esc(t.label)}</span></button></th>`).join('')}</tr></thead>
-      <tbody>${ents.map(e => `<tr><th scope="row">${chipOf(e)}</th>${cols.map(([k, t, ix]) => {
-        const r = tally(e.pos, ix);
-        if (r.n < 2) return '<td><span class="hm-cell empty"></span></td>';
-        const net = (r.p - r.c) / r.n;
-        return `<td><span class="hm-cell${k === st.theme ? ' on' : ''}" style="background:${divColor(net)}" data-tip="${esc(e.long)} · ${esc(t.label)} : ${r.p} pour, ${r.c} contre, ${r.a} abst.">${Math.round((100 * r.p) / r.n)}</span></td>`;
-      }).join('')}</tr>`).join('')}</tbody></table></div>`;
-
-    // Accords
-    const others = ents.filter(e => e.key !== ref.key).map(e => ({ e, ag: agreement(ref.pos, e.pos, idx) })).filter(x => x.ag).sort((a, b) => b.ag.v - a.ag.v);
-    const refChart = others.length ? others.map(({ e, ag }) => `<div class="rank-row" data-tip="${esc(ref.long)} et ${esc(e.long)} : même position dans ${pct(ag.v)} des ${nf(ag.n)} votes comparés">
-        ${chipOf(e)}<div class="rank-track"><span style="width:${ag.v}%;background:${e.color}"></span></div><b>${Math.round(ag.v)} %</b></div>`).join('')
-      : '<p class="muted small">Sélectionnez au moins deux groupes ou députés.</p>';
-    const pairs = [];
-    for (let i = 0; i < ents.length; i++) for (let j = i + 1; j < ents.length; j++) {
-      const ag = agreement(ents[i].pos, ents[j].pos, idx);
-      if (ag) pairs.push({ a: ents[i], b: ents[j], ...ag });
-    }
-    pairs.sort((x, y) => y.v - x.v);
-    const nTop = Math.min(5, Math.ceil(pairs.length / 2));
-    const pairList = list => list.map(x => `<li>${chipOf(x.a)}<span class="muted">et</span>${chipOf(x.b)}<b>${Math.round(x.v)} %</b></li>`).join('');
-    const matrix = ents.length >= 2 && ents.length <= 16 ? `<div class="hm-wrap"><table class="hm"><thead><tr><th></th>${ents.map(e => `<th><span class="hm-colh">${esc(e.label)}</span></th>`).join('')}</tr></thead><tbody>${ents.map(a => `<tr><th scope="row">${chipOf(a)}</th>${ents.map(b => {
-      if (a.key === b.key) return '<td><span class="hm-cell empty"></span></td>';
-      const ag = agreement(a.pos, b.pos, idx);
-      if (!ag) return '<td><span class="hm-cell empty"></span></td>';
-      const t = Math.max(0, Math.min(1, (ag.v - 20) / 80));
-      return `<td><span class="hm-cell" style="background:color-mix(in srgb, var(--v-blue) ${Math.round(5 + t * 70)}%, var(--surface-2));color:${t > 0.6 ? '#fff' : 'var(--ink)'}" data-tip="${esc(a.long)} et ${esc(b.long)} : ${pct(ag.v)} (${nf(ag.n)} votes)">${Math.round(ag.v)}</span></td>`;
-    }).join('')}</tr>`).join('')}</tbody></table></div>` : '';
+    const cols = themes.map(([k, t]) => [k, t, scope(k, words)]).filter(([, , ix]) => ix.length >= 3);
 
     // Vote par vote
     let vidx = [...idx].reverse();
     if (st.divise) vidx = vidx.filter(i => new Set(ents.map(e => e.pos[i]).filter(x => x === 'p' || x === 'c' || x === 'a')).size > 1);
 
     out.innerHTML = `
-      ${tabsHtml('c', [['sujets', 'Positions'], ['alliances', 'Qui vote avec qui'], ['votes', `Vote par vote · ${nf(vidx.length)}`]], st.tab)}
+      ${tabsHtml('c', [['alliances', 'Qui vote avec qui'], ['sujets', 'Positions par sujet'], ['votes', `Vote par vote · ${nf(vidx.length)}`]], st.tab)}
+      <div data-panel-of="c" data-panel="alliances">
+        <div class="cmp-grid">
+          <section class="panel">
+            <header><h2>La carte des proximités</h2><span class="muted small">${nf(idx.length)} ${kindLabel} · ${subj}</span></header>
+            ${ents.length >= 3 ? proximityMap(ents, idx, ref.key) : '<p class="muted small">Ajoutez au moins trois groupes ou députés pour dessiner la carte.</p>'}
+            <p class="note">Plus deux bulles sont proches, plus ces groupes votent souvent de la même façon. Les traits relient ceux qui votent pareil au moins 7 fois sur 10 ; la taille d’une bulle suit le nombre de députés. Cliquez sur une bulle pour voir ses alliés.</p>
+          </section>
+          <section class="panel">
+            <header><h2>Avec qui vote <select id="c-ref" class="inline-select">${ents.map(e => `<option value="${esc(e.key)}"${e.key === ref.key ? ' selected' : ''}>${esc(e.label)}</option>`).join('')}</select></h2></header>
+            <p class="small muted" style="margin:-4px 0 10px">Part des votes où ${esc(ref.long)} et l’autre groupe ont la même position.</p>
+            <div class="rank">${refChart}</div>
+          </section>
+        </div>
+        ${pairs.length > 1 ? `<div class="grid g2">
+          <section class="panel"><header><h2>Les plus proches</h2></header><ul class="pairs">${pairList(pairs.slice(0, nTop))}</ul></section>
+          <section class="panel"><header><h2>Les plus éloignés</h2></header><ul class="pairs">${pairList(pairs.slice(nTop).slice(-5).reverse())}</ul></section>
+        </div>` : ''}
+      </div>
       <div data-panel-of="c" data-panel="sujets">
         <section class="panel">
           <header><h2>Sur ${subj}</h2><span class="muted small">${plural(idx.length, 'vote')} · du plus favorable au plus opposé</span></header>
           ${diverging}
         </section>
         <section class="panel">
-          <header><h2>Par thème</h2><span class="muted small">% de votes « pour » · cliquez sur un thème ${info('Vert : vote surtout pour. Rouge : vote surtout contre. Parmi les votes exprimés.')}</span></header>
-          ${heat}
+          <header><h2>Thème par thème</h2><span class="muted small">chaque point : la part de votes « pour » d’un groupe · cliquez sur un thème pour filtrer</span></header>
+          <div class="dp-legend">${ents.map(chipOf).join('')}</div>
+          ${dotPlot(ents, cols, st.theme)}
         </section>
-      </div>
-      <div data-panel-of="c" data-panel="alliances">
-        <section class="panel">
-          <header><h2>Qui vote comme <select id="c-ref" class="inline-select">${ents.map(e => `<option value="${esc(e.key)}"${e.key === ref.key ? ' selected' : ''}>${esc(e.label)}</option>`).join('')}</select></h2>
-            <span class="muted small">${subj} · part des votes où la position est identique</span></header>
-          <div class="rank">${refChart}</div>
-        </section>
-        ${pairs.length > 1 ? `<div class="grid g2">
-          <section class="panel"><header><h2>Les plus proches</h2></header><ul class="pairs">${pairList(pairs.slice(0, nTop))}</ul></section>
-          <section class="panel"><header><h2>Les plus éloignés</h2></header><ul class="pairs">${pairList(pairs.slice(nTop).slice(-5).reverse())}</ul></section>
-        </div>` : ''}
-        ${matrix ? `<details class="panel fold"><summary><h2>Toutes les paires</h2><span class="muted small">matrice des accords</span></summary>${matrix}</details>` : ''}
       </div>
       <div data-panel-of="c" data-panel="votes">
         <div class="votes-bar"><span class="legend"><span><i style="background:var(--pour)"></i>Pour</span><span><i style="background:var(--contre)"></i>Contre</span><span><i style="background:var(--abst)"></i>Abstention</span></span>
@@ -225,7 +334,15 @@ export async function render(el) {
     drawGrid();
     out.querySelector('#c-div').addEventListener('change', e => { st.divise = e.target.checked; draw(); });
     out.querySelector('#c-ref')?.addEventListener('change', e => { st.ref = e.target.value; draw(); });
-    out.querySelectorAll('.hm-col').forEach(b => b.addEventListener('click', () => {
+    const pickRef = e => {
+      const t = e.target.closest('[data-ref]');
+      if (!t || (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ')) return;
+      e.preventDefault();
+      st.ref = t.dataset.ref;
+      draw();
+    };
+    out.querySelectorAll('.pmap, .rank').forEach(x => { x.addEventListener('click', pickRef); x.addEventListener('keydown', pickRef); });
+    out.querySelectorAll('.dp-row').forEach(b => b.addEventListener('click', () => {
       st.theme = st.theme === b.dataset.t ? '' : b.dataset.t;
       el.querySelector('#c-theme').value = st.theme;
       draw();
@@ -248,7 +365,7 @@ export async function render(el) {
   document.addEventListener('click', closeDd);
   el.querySelector('#c-dep').addEventListener('change', e => {
     const id = depLabel.get(e.target.value);
-    if (id && !st.deps.includes(id) && st.deps.length < 8) { st.deps.push(id); draw(); }
+    if (id && !st.deps.includes(id) && st.deps.length < 8) { st.deps.push(id); st.ref = id; draw(); }
     e.target.value = '';
   });
   el.querySelector('#c-deps').addEventListener('click', e => {

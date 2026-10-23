@@ -1,5 +1,5 @@
 import {
-  load, ctx, dossiersIndex, esc, nf, fdate, fdateDay, relDate, statusChip, chamberChip, term, actorLink, voteBar, voteLabels, resChip, setTitle, CHAMBRE, RESULT_TXT, RESULT_ICON, KIND, seg, wireSeg, ucfirst, plural, ttl, info, themeChip, tabsHtml, wireTabs, hashParams, shareBtn,
+  load, ctx, dossiersIndex, deputes, esc, nf, fdate, fdateDay, relDate, statusChip, chamberChip, term, actorLink, voteBar, voteLabels, resChip, setTitle, CHAMBRE, RESULT_TXT, RESULT_ICON, KIND, seg, wireSeg, ucfirst, plural, ttl, info, themeChip, tabsHtml, wireTabs, hashParams, shareBtn,
 } from '../lib.js';
 
 const READING = s => ['AN', 'SN'].includes(s.chambre) && !/^(AN20|AN21|AN-APPLI)/.test(s.code);
@@ -210,8 +210,103 @@ function texteBlock(d) {
   </section>`;
 }
 
+// ─────────────────────────────────────────── Qui porte le texte, qui le soutient
+const LECTURE = [[/première lecture/i, '1re lecture'], [/deuxième lecture/i, '2e lecture'], [/nouvelle lecture/i, 'Nouvelle lecture'],
+  [/lecture définitive/i, 'Lecture définitive'], [/commission mixte paritaire|texte de la CMP|conclusions de la CMP/i, 'Texte de la CMP']];
+function voteLabel(s) {
+  const l = LECTURE.find(([rx]) => rx.test(s[7]))?.[1];
+  return `${s[2] === 'motion' ? 'Motion de rejet' : l || 'Vote final'} · ${fdate(s[1], true)}`;
+}
+/** Votes décisifs : sur l'ensemble du texte ; à défaut, la motion de rejet. */
+function decisiveVotes(d) {
+  const scr = [...(d.scrutins || [])].sort((a, b) => a[0] - b[0]);
+  const ens = scr.filter(s => s[2] === 'ensemble');
+  return ens.length ? ens : scr.filter(s => s[2] === 'motion').slice(-1);
+}
+
+function porteurBlock(d, c, deps) {
+  if (d.gouv) {
+    const a = d.auteurs?.[0];
+    return `<div class="porteur gouv"><span class="porteur-tag">Gouvernement</span>
+      <div class="porteur-name">Projet du Gouvernement</div>
+      ${a ? `<div class="small muted">présenté par ${esc(a.nom)}${a.fonction ? `, ${esc(a.fonction)}` : ''}</div>` : ''}</div>`;
+  }
+  const a = d.auteurs?.[0];
+  if (!a) return '<div class="porteur"><div class="small muted">Auteur non précisé dans les données.</div></div>';
+  const chamber = a.chambre === 'SN' ? 'SN' : 'AN';
+  const g = [...c.groupes.values()].find(x => x.chambre === chamber && x.sigle === a.groupe);
+  // Cosignataires par groupe (députés uniquement : ceux du Sénat ne sont pas dans les données)
+  const counts = new Map();
+  for (const id of d.cosignatairesIds || []) {
+    const dep = deps._index.get(id);
+    const gg = dep && c.groupes.get(dep.groupe);
+    if (gg) counts.set(gg.id, (counts.get(gg.id) || 0) + 1);
+  }
+  const cos = [...counts].map(([id, n]) => ({ g: c.groupes.get(id), n })).sort((x, y) => x.g.ordre - y.g.ordre);
+  const tot = cos.reduce((s, x) => s + x.n, 0);
+  const href = a.chambre === 'AN' ? `depute/${a.slug || a.id}` : a.chambre === 'SN' ? `senateur/${a.slug || a.id}` : null;
+  return `<div class="porteur" style="--gc:${esc(g?.couleur || 'var(--border)')}">
+    ${g ? `<a class="porteur-tag" href="groupe/${esc(g.slug)}" style="background:${esc(g.couleur)}">${esc(g.sigle)}</a>` : ''}
+    <div class="porteur-name">${href ? `<a href="${href}">${esc(a.nom)}</a>` : esc(a.nom)}</div>
+    <div class="small muted">${g ? esc(g.nom) : ''}${a.chambre === 'SN' ? ' · Sénat' : ''}${d.auteurs.length > 1 ? ` · avec ${plural(d.auteurs.length - 1, 'coauteur')}` : ''}</div>
+    ${tot ? `<div class="cosig">
+      <div class="small"><b>${nf(d.cosignataires || tot)} cosignataires</b> ${cos.length > 1 ? `de ${cos.length} groupes` : cos.length ? `du groupe ${esc(cos[0].g.sigle)}` : ''}</div>
+      <div class="cosig-bar">${cos.map(x => `<span style="flex:${x.n};background:${esc(x.g.couleur)}" data-tip="${esc(x.g.sigle)} : ${x.n}"></span>`).join('')}</div>
+      <div class="cosig-legend">${cos.map(x => `<span><i style="background:${esc(x.g.couleur)}"></i>${esc(x.g.sigle)} <b>${x.n}</b></span>`).join('')}</div>
+    </div>` : d.cosignataires ? `<div class="small muted" style="margin-top:8px">+ ${plural(d.cosignataires, 'cosignataire')}</div>` : ''}
+  </div>`;
+}
+
+function soutienHtml(d, c, deps) {
+  const votes = decisiveVotes(d);
+  return `<section class="card soutien">
+    <div class="soutien-grid">
+      <div><h3 class="ttl tone-blue">Le texte vient de</h3>${porteurBlock(d, c, deps)}</div>
+      <div><div class="soutien-head"><h3 class="ttl tone-blue">Comment les groupes ont voté</h3>
+          ${votes.length > 1 ? `<div class="seg small-seg" role="group" data-seg="sv">${votes.map((v, i) => `<button type="button" data-v="${v[0]}" aria-pressed="${i === votes.length - 1}">${esc(voteLabel(v))}</button>`).join('')}</div>` : ''}</div>
+        <div id="soutien-vote">${votes.length ? '<div class="loading small">Chargement du vote…</div>'
+          : `<p class="small muted">${d.origine === 'SN' || d.steps?.some(s => s.chambre === 'AN' && s.resultat) ? 'Pas de vote nominatif à l’Assemblée sur l’ensemble de ce texte : il a été adopté à main levée, sans trace de la position de chaque député.' : 'Le texte n’a pas encore été voté à l’Assemblée.'}</p>`}</div>
+        <p class="tiny muted" style="margin-top:8px">Au Sénat, les votes par groupe ne figurent pas dans les données ouvertes utilisées.</p>
+      </div>
+    </div>
+  </section>`;
+}
+
+async function drawSoutien(el, d, c, num) {
+  const box = el.querySelector('#soutien-vote');
+  if (!box || !num) return;
+  let s;
+  try { s = await load(`scrutins/${num}`); } catch (e) { box.innerHTML = '<p class="small muted">Vote indisponible.</p>'; return; }
+  const motion = s.kind === 'motion';
+  // Position de chaque groupe d'après ses voix réelles : majorité nette (60 % des votes exprimés), sinon « partagé »
+  const posOf = g => {
+    const n = g.p.length + g.c.length + g.a.length;
+    if (!n) return null;
+    const best = [['p', g.p.length], ['c', g.c.length], ['a', g.a.length]].sort((x, y) => y[1] - x[1])[0];
+    return best[1] / n >= 0.6 ? best[0] : 'x';
+  };
+  const gs = s.groupes.map(g => ({ ...g, info: c.groupes.get(g.g) })).filter(g => g.info).map(g => ({ ...g, pos: posOf(g) }))
+    .sort((a, b) => a.info.ordre - b.info.ordre);
+  const col = k => gs.filter(g => g.pos === k || (k === 'a' && g.pos === 'x'));
+  const chip = (g, k) => {
+    const n = g.pos === 'x' ? 'partagé' : k === 'p' ? g.p.length : k === 'c' ? g.c.length : g.a.length;
+    const tip = `${g.info.nom} : ${g.p.length} pour, ${g.c.length} contre, ${g.a.length} abstention${g.a.length > 1 ? 's' : ''}`;
+    return `<a class="gpos" href="groupe/${esc(g.info.slug)}" style="--gc:${esc(g.info.couleur)}" data-tip="${esc(tip)}"><i></i><b>${esc(g.info.sigle)}</b><span>${n}</span></a>`;
+  };
+  const head = { p: motion ? 'Pour le rejet' : 'Pour', c: motion ? 'Contre le rejet' : 'Contre', a: 'Abstention ou partagé' };
+  // Barre de l'hémicycle : chaque groupe à sa taille, coloré par sa position
+  const seats = gs.reduce((t, g) => t + g.n, 0) || 1;
+  box.innerHTML = `
+    <div class="soutien-res ${s.adopte ? 'ok' : 'ko'}"><b>${motion ? (s.adopte ? 'Motion adoptée : texte rejeté' : 'Motion rejetée : le débat continue') : s.adopte ? 'Adopté' : 'Rejeté'}</b>
+      <span>${nf(s.pour)} pour · ${nf(s.contre)} contre${s.abstention ? ` · ${nf(s.abstention)} abstention${s.abstention > 1 ? 's' : ''}` : ''}</span></div>
+    ${motion ? '<p class="tiny muted" style="margin:4px 0 0">Voter pour la motion de rejet, c’est vouloir rejeter le texte sans l’examiner.</p>' : ''}
+    <div class="gbar" aria-hidden="true">${gs.map(g => `<span style="flex:${g.n};--gc:${esc(g.info.couleur)}" class="gb-${g.pos || 'n'}" data-tip="${esc(g.info.sigle)} · ${g.n} députés · ${{ p: 'pour', c: 'contre', a: 'abstention', x: 'partagé' }[g.pos] || 'absent'}"></span>`).join('')}</div>
+    <div class="pos-cols">${['p', 'c', 'a'].map(k => `<div class="pos-col pc-${k}"><div class="pc-h">${head[k]}</div>${col(k).map(g => chip(g, k)).join('') || '<span class="tiny muted">Aucun groupe</span>'}</div>`).join('')}</div>
+    <a class="small" href="vote/${s.num}">Le détail du vote, député par député →</a>`;
+}
+
 export async function render(el, uid) {
-  const [d, c, dos] = await Promise.all([load(`dossiers/${uid}`), ctx(), dossiersIndex()]);
+  const [d, c, dos, deps] = await Promise.all([load(`dossiers/${uid}`), ctx(), dossiersIndex(), deputes()]);
   setTitle(d.titre);
   const th = dos.themes[d.theme];
   const isLoi = d.cat === 'loi';
@@ -234,6 +329,7 @@ export async function render(el, uid) {
       <div class="head-actions">${shareBtn()}${d.urlAN ? `<a class="btn small" href="${esc(d.urlAN)}" target="_blank" rel="noopener">Dossier officiel ↗</a>` : ''}</div>
     </div>
     ${banner(d)}
+    ${isLoi ? soutienHtml(d, c, deps) : ''}
     ${texteBlock(d)}
 
     ${tabsHtml('l', [['parcours', 'Parcours'], ['etapes', 'Étape par étape'], ...(scr.length ? [['votes', `Votes (${nf(scr.length)})`]] : []), ['fiche', 'Fiche']], ['parcours', 'etapes', 'votes', 'fiche'].includes(hashParams().tab) ? hashParams().tab : 'parcours')}
@@ -293,6 +389,13 @@ export async function render(el, uid) {
     </div>
   </div>`;
 
+  if (isLoi) {
+    const dv = decisiveVotes(d);
+    if (dv.length) {
+      drawSoutien(el, d, c, dv[dv.length - 1][0]);
+      if (dv.length > 1) wireSeg(el, 'sv', v => drawSoutien(el, d, c, +v));
+    }
+  }
   let showTab = () => {};
   wireTabs(el, 'l');
   showTab = k => el.querySelector(`[data-tabs="l"] [data-tab="${k}"]`)?.click();
