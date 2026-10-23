@@ -277,19 +277,6 @@ export async function render(el) {
     const nTop = Math.min(5, Math.ceil(pairs.length / 2));
     const pairList = list => list.map(x => `<li>${chipOf(x.a)}<span class="muted">et</span>${chipOf(x.b)}<b>${Math.round(x.v)} %</b></li>`).join('');
 
-    // Positions : barres divergentes sur le sujet choisi
-    const rows = ents.map(e => ({ e, r: tally(e.pos, idx) })).filter(x => x.r.n)
-      .sort((a, b) => (b.r.p - b.r.c) / b.r.n - (a.r.p - a.r.c) / a.r.n);
-    const diverging = rows.length ? `<div class="div-chart">
-      <div class="div-row div-head"><span></span><div class="div-track"><span>Contre</span><span>Pour</span></div><span></span></div>
-      ${rows.map(({ e, r }) => {
-        const pp = (100 * r.p) / r.n, cc = (100 * r.c) / r.n, aa = (100 * r.a) / r.n;
-        return `<div class="div-row" data-tip="${esc(e.long)} : ${r.p} pour, ${r.c} contre, ${r.a} abstentions sur ${r.n} votes">
-          ${chipOf(e)}
-          <div class="div-track"><div class="half left"><span style="width:${cc}%"></span></div><div class="half right"><span style="width:${pp}%"></span></div></div>
-          <span class="div-val"><b>${Math.round(pp)} %</b> pour${aa >= 5 ? ` <span class="muted">· ${Math.round(aa)} % abst.</span>` : ''}</span>
-        </div>`;
-      }).join('')}</div>` : '<div class="empty">Aucun vote sur ce sujet avec ces filtres.</div>';
     const cols = themes.map(([k, t]) => [k, t, scope(k, words)]).filter(([, , ix]) => ix.length >= 3);
 
     // Vote par vote
@@ -323,10 +310,6 @@ export async function render(el) {
         </div>` : ''}
       </div>
       <div data-panel-of="c" data-panel="sujets">
-        <section class="panel">
-          <header><h2>Sur ${subj}</h2><span class="muted small">${plural(idx.length, 'vote')} · du plus favorable au plus opposé</span></header>
-          ${diverging}
-        </section>
         <section class="panel">
           <header><h2>Thème par thème</h2><span class="muted small">chaque point : la part de votes « pour » d’un groupe · cliquez sur un thème pour filtrer</span></header>
           <div class="dp-legend">${ents.map(chipOf).join('')}</div>
