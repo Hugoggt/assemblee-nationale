@@ -20,7 +20,7 @@ export async function render(el) {
     </section>
 
     <section class="panel"><header><h2>D'où viennent les données</h2></header>
-      <p>Toutes les données proviennent de l'<a href="https://data.assemblee-nationale.fr" target="_blank" rel="noopener">open data de l'Assemblée nationale</a>, publié sous <a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence/" target="_blank" rel="noopener">Licence Ouverte (Etalab 2.0)</a> :</p>
+      <p>Les données sur le Parlement français proviennent de l'<a href="https://data.assemblee-nationale.fr" target="_blank" rel="noopener">open data de l'Assemblée nationale</a>, publié sous <a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence/" target="_blank" rel="noopener">Licence Ouverte (Etalab 2.0)</a> :</p>
       <ul>
         <li><a href="https://data.assemblee-nationale.fr/travaux-parlementaires/dossiers-legislatifs" target="_blank" rel="noopener">dossiers législatifs</a> : toutes les étapes de chaque texte, y compris au Sénat ;</li>
         <li><a href="https://data.assemblee-nationale.fr/travaux-parlementaires/votes" target="_blank" rel="noopener">scrutins publics</a> : le vote de chaque député ;</li>
@@ -47,14 +47,20 @@ export async function render(el) {
     <section class="panel" id="mentions"><header><h2>Mentions légales</h2></header>
       <p><b>Éditeur :</b> ${SITE.responsable ? `${esc(SITE.responsable)}, ` : ''}particulier, à titre non professionnel. Contact : <a href="mailto:${mail}">${mail}</a>.</p>
       <p><b>Hébergeur :</b> GitHub Inc. (GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
-      <p><b>Propriété :</b> les données publiques réutilisées restent soumises à la Licence Ouverte. Le code du site est <a href="${esc(SITE.codeSource)}" target="_blank" rel="noopener">publié en ligne</a>.</p>
-      <p><b>Indépendance :</b> ce site n'est affilié ni à l'Assemblée nationale, ni au Sénat, ni au Gouvernement, ni à aucun parti.</p>
+      <p><b>Données :</b> les données de l'Assemblée nationale, de data.economie.gouv.fr et de l'Insee sont réutilisées sous <a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence/" target="_blank" rel="noopener">Licence Ouverte (Etalab 2.0)</a>.
+        Les votes du Parlement européen proviennent de HowTheyVote.eu, sous <a href="https://opendatacommons.org/licenses/odbl/1-0/" target="_blank" rel="noopener">Open Database License (ODbL)</a> : <i>Data source: HowTheyVote.eu (Open Database License)</i>.
+        Les données dérivées publiées par ce site à partir de ces votes (positions des partis, taux de présence et de loyauté, fichiers <code>data/europe/*.json</code>) sont mises à disposition sous la même licence ODbL.
+        Les autres données du Parlement européen sont réutilisées conformément à ses <a href="https://data.europarl.europa.eu/fr/legal-notice" target="_blank" rel="noopener">conditions de réutilisation</a>, avec mention de la source.</p>
+      <p><b>Photographies :</b> les portraits des députés sont © Assemblée nationale ; ceux des eurodéputés sont © Union européenne – Parlement européen. Ils ne sont pas copiés par ce site : ils sont affichés depuis les sites de ces institutions, à des fins d'information. Tout ayant droit peut demander leur retrait à l'adresse de contact.</p>
+      <p><b>Contenus du site :</b> les textes rédigés pour le site (présentations, guide, explications) et sa mise en forme sont de l'auteur. Le code du site est <a href="${esc(SITE.codeSource)}" target="_blank" rel="noopener">publié en ligne</a>.</p>
+      <p><b>Indépendance :</b> ce site n'est affilié ni à l'Assemblée nationale, ni au Sénat, ni au Parlement européen, ni au Gouvernement, ni à aucun parti. Il n'utilise aucun logo ni emblème officiel.</p>
+      <p><b>Corrections et droit de réponse :</b> toute personne citée peut signaler une erreur ou demander une rectification à <a href="mailto:${mail}">${mail}</a> ; les demandes sont traitées dans les meilleurs délais.</p>
     </section>
 
     <section class="panel" id="donnees"><header><h2>Données personnelles</h2></header>
       <p>Le site ne dépose aucun cookie, ne contient aucun outil de mesure d'audience ni publicité, et ne collecte aucune donnée personnelle. Seule votre préférence de thème clair ou sombre est enregistrée dans votre navigateur. Les polices de caractères sont servies par le site lui-même.</p>
-      <p>Comme tout hébergeur, GitHub peut conserver des journaux techniques de connexion (adresse IP). Les photos des députés sont chargées depuis le site de l'Assemblée nationale.</p>
-      <p>Les informations affichées sur les élus sont celles que les assemblées publient dans le cadre de leur mandat.</p>
+      <p>Comme tout hébergeur, GitHub peut conserver des journaux techniques de connexion (adresse IP). Les photos des députés et des eurodéputés sont chargées depuis les sites de l'Assemblée nationale et du Parlement européen, qui reçoivent donc votre adresse IP lors de leur affichage.</p>
+      <p>Les informations affichées sur les élus sont uniquement celles que les assemblées publient dans le cadre de leur mandat (fonctions, groupes, votes). Elles sont traitées à des fins d'information du public sur l'activité parlementaire. Un élu peut exercer ses droits d'accès et de rectification à <a href="mailto:${mail}">${mail}</a>, ou saisir la <a href="https://www.cnil.fr" target="_blank" rel="noopener">CNIL</a>.</p>
     </section>
   </div>`;
 }

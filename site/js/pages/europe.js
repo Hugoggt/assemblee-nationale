@@ -79,7 +79,7 @@ function subnav(active) {
 function head(title, lead, active, crumbs = '') {
   return `${crumbs ? `<div class="crumbs">${crumbs}</div>` : ''}<div class="page-head"><h1>${title}</h1>${lead ? `<p class="lead">${lead}</p>` : ''}${subnav(active)}</div>`;
 }
-const SOURCE_NOTE = `<p class="note src-note">Votes : <a href="https://howtheyvote.eu" target="_blank" rel="noopener">HowTheyVote.eu</a> (licence <a href="https://opendatacommons.org/licenses/odbl/1-0/" target="_blank" rel="noopener">ODbL</a>) · titres, parcours et fonctions : <a href="https://data.europarl.europa.eu" target="_blank" rel="noopener">open data du Parlement européen</a>.</p>`;
+const SOURCE_NOTE = `<p class="note src-note">Votes : <a href="https://howtheyvote.eu" target="_blank" rel="noopener">HowTheyVote.eu</a> (licence <a href="https://opendatacommons.org/licenses/odbl/1-0/" target="_blank" rel="noopener">ODbL</a>) · titres, parcours et fonctions : <a href="https://data.europarl.europa.eu" target="_blank" rel="noopener">open data du Parlement européen</a> · photos © Union européenne – Parlement européen.</p>`;
 
 /** Ligne d'un vote : résultat du Parlement + vote des Français. */
 function voteRow(v, E, extra = '') {
