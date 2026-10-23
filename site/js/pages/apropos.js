@@ -14,6 +14,8 @@ export async function render(el) {
     <section class="panel"><header><h2>Pourquoi ce site</h2></header>
       <p>Tout ce qui se vote au Parlement est public. Mais l'information est dispersée et difficile à lire : des milliers de scrutins, des textes qui font la navette entre les deux chambres, des procédures comme la commission mixte paritaire ou le 49.3 que peu de gens connaissent.</p>
       <p>${esc(SITE.nom)} rassemble ces données officielles et les présente simplement : où en est chaque loi, qui a voté quoi, qui vote avec qui. Le site est gratuit, sans publicité et sans affiliation politique.</p>
+      <p><b>Ce n'est pas un site officiel.</b> Hémicycle n'a aucun lien avec l'Assemblée nationale, le Sénat, le Parlement européen, le Gouvernement ou un parti politique. Pour une information officielle, référez-vous aux sites de ces institutions.</p>
+      <p>Le site a été conçu avec l'aide de Claude, l'assistant d'intelligence artificielle d'Anthropic, qui a contribué au code et au traitement des données. Les choix éditoriaux et la publication relèvent de l'auteur du site.</p>
       ${SITE.soutienUrl ? `<p><a class="btn primary" href="${esc(SITE.soutienUrl)}" target="_blank" rel="noopener">${esc(SITE.soutienLabel)}</a></p>` : ''}
     </section>
 

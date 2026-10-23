@@ -249,3 +249,11 @@ a.hbar:hover span:first-child { color: var(--sec); }
 .eu-tl-i::before { content: ""; position: absolute; left: 99px; top: 10px; bottom: -4px; width: 2px; background: var(--border); }
 .eu-tl-i:last-child::before { display: none; }
 .eu-tl-i b { font-size: .92rem; }
+
+/* ─── Bandeau « site indépendant », en haut de chaque page ─── */
+.indep-bar { background: #0a0d33; color: rgba(255,255,255,.82); font-size: .8rem; line-height: 1.4; }
+.indep-inner { max-width: 1240px; margin: 0 auto; padding: 7px 16px; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 2px 8px; text-align: center; }
+.indep-bar b { color: #fff; font-weight: 650; }
+.indep-bar a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+.indep-bar a:hover { color: #b8c4ff; }
+@media (max-width: 640px) { .indep-bar span { display: none; } }
